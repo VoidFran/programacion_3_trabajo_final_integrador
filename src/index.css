@@ -1,0 +1,137 @@
+body {
+  font-family: fuente;
+  font-size: 16px;
+  color: #dbdee1;
+  background-color: #383a40;
+  margin: 0;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 16px;
+  color: #f1c40f;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  list-style:none;
+  color: #949ba4;
+}
+
+ul {
+  margin: 0;
+}
+
+li {
+  float: left;
+  list-style: none;
+  margin-left: 40px;
+}
+
+li a:hover {
+  color: #dbdee1;
+}
+
+td {
+  position: relative;
+  background-color: #2b2d31;
+  border: 2px solid #515359;
+  border-radius: 2px;
+}
+
+button {
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #3098db;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #f1c40f;
+  cursor: pointer;
+}
+
+input {
+  position: relative;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #949ba4;
+  background-color: #515359;
+}
+
+::placeholder {
+  color: #949ba4;
+}
+
+.grid_contenedor {
+  min-height: 100vh;
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-rows: 10vh 80vh 10vh;
+  grid-template-areas:
+    "nav"
+    "section"
+    "footer";
+}
+
+.grid_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenedor {
+  position: relative;
+  flex-basis: 100px;
+  flex-grow: 1;
+}
+
+.nav {
+  grid-area: nav;
+  background-color: #2b2d31;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section {
+  grid-area: section;
+  background-color: #383a40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer {
+  grid-area: footer;
+  background-color: #232428;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabla_haeder {
+  width: 460px;
+  height: 320px;
+  overflow-y: auto;
+}
+
+.registro_entrada {
+  margin-top: 2px;
+}
+
+.registro_boton {
+  position: relative;
+  top: 4px;
+  margin-bottom: 6px;
+}
+
+@font-face {
+  font-family: fuente;
+  src: url("fuentes/ComicNeue-Regular.ttf");
+}
