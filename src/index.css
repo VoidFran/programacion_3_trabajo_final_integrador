@@ -15,7 +15,7 @@ h1 {
 
 a {
   text-decoration: none;
-  list-style:none;
+  list-style: none;
   color: #949ba4;
 }
 
@@ -65,6 +65,22 @@ input {
 
 ::placeholder {
   color: #949ba4;
+}
+
+select {
+  position: relative;
+  width: 200px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  font-family: fuente_2;
+  font-size: 16px;
+  color: #515359;
+  background-color: #dbdee1;
+}
+
+select:hover {
+  cursor: pointer;
 }
 
 .grid_contenedor {
@@ -129,6 +145,12 @@ input {
   position: relative;
   top: 4px;
   margin-bottom: 6px;
+}
+
+.noticias {
+  width: 800px;
+  height: 400px;
+  overflow-y: auto;
 }
 
 @font-face {

@@ -1,11 +1,16 @@
+import {Noticias} from "../componentes/noticias.js"
+
+
 export default function Inicio() {
     return (
         <div>
-            <p>FIN DE SEMANA DE</p>
-
-            <h1>OFERTAS</h1>
-
-            <p>Recibirás tu compra en hasta 3 días hábiles en AMBA y 5 para el resto del país</p>
+            <div class="grid-item">
+                <div class="contenedor">
+                    <div class="noticias">
+                        <Noticias/>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
