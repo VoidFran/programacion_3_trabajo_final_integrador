@@ -6,6 +6,12 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  list-style: none;
+  color: #949ba4;
+}
+
 h1 {
   font-weight: normal;
   font-size: 16px;
@@ -13,10 +19,8 @@ h1 {
   margin: 0;
 }
 
-a {
-  text-decoration: none;
-  list-style: none;
-  color: #949ba4;
+p {
+  margin: 0;
 }
 
 ul {
@@ -83,7 +87,25 @@ select:hover {
   cursor: pointer;
 }
 
-.grid_contenedor {
+
+fieldset{
+  border: none;
+}
+
+button {
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #3098db;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #f1c40f;
+  cursor: pointer;
+}
+
+.grid {
   min-height: 100vh;
   display: grid;
   text-align: center;
@@ -101,7 +123,7 @@ select:hover {
   justify-content: center;
 }
 
-.contenedor {
+.grid_contenedor {
   position: relative;
   flex-basis: 100px;
   flex-grow: 1;
@@ -109,7 +131,7 @@ select:hover {
 
 .nav {
   grid-area: nav;
-  background-color: #2b2d31;
+  background-color: #232428;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -131,26 +153,20 @@ select:hover {
   justify-content: center;
 }
 
-.tabla_haeder {
-  width: 460px;
-  height: 320px;
-  overflow-y: auto;
-}
-
-.registro_entrada {
-  margin-top: 2px;
-}
-
-.registro_boton {
-  position: relative;
-  top: 4px;
-  margin-bottom: 6px;
-}
-
-.noticias {
-  width: 800px;
+.inicio_noticias {
   height: 400px;
   overflow-y: auto;
+}
+
+.contacto_celda{
+  display: flex;
+  margin-bottom: 1rem;
+  width: 50%;
+  gap: 10px;
+}
+
+.contacto_boton {
+  margin-bottom: 4rem;
 }
 
 @font-face {

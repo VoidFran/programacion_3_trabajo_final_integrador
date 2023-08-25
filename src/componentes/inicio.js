@@ -6,7 +6,7 @@ export default function Inicio() {
         <div>
             <div class="grid-item">
                 <div class="contenedor">
-                    <div class="noticias">
+                    <div class="inicio_noticias">
                         <Noticias/>
                     </div>
                 </div>

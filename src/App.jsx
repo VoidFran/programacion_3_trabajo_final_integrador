@@ -16,10 +16,10 @@ import "./App.css";
 
 export default function App() {
   return (
-    <div class="grid_contenedor">
+    <div class="grid">
       <div class="nav">
         <div class="grid_item">
-          <div class="contenedor">
+          <div class="grid_contenedor">
             <Menu/>
           </div>
         </div>
