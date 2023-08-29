@@ -1,0 +1,20 @@
+/* titulos de la api */
+.titulos-noticias{   
+    color:white
+}
+
+.descripcion-noticias{
+    color: whitesmoke;
+}
+/* descripcion de las noticias */
+
+.imagenes-noticias{
+    border: 0cap;
+}
+/* imagenes de las noticias */
+
+.contenedor{
+    background-color: #5b7dcf;
+}
+/* fondo de las noticias */
+

@@ -1,4 +1,5 @@
 import he from "he"
+import "../estilos/inicio.css"
 
 export function NoticiasTabla({ items }) {
     return (
@@ -6,9 +7,9 @@ export function NoticiasTabla({ items }) {
             {
                 items.map((value, index) =>
                     <div key={index}>
-                        <img style={{ width: '200px' }} src={value.urlToImage} alt = ""/>
-                        <h2><a href={value.url}>{value.title}</a></h2>
-                        <p style={{ padding: '1rem 0.5rem' }}>
+                        <img className="imagenes-noticias" style={{ width: '300px' }} src={value.urlToImage} alt = ""/>
+                        <h2><a className="titulos-noticias" href={value.url}>{value.title}</a></h2>
+                        <p className="descripcion-noticias" style={{ padding: '1rem 0.5rem' }}>
                             {he.decode(value.description)}
                         </p>
                     </div>

@@ -19,6 +19,10 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  margin: 0;
+}
+
 p {
   margin: 0;
 }
@@ -105,12 +109,12 @@ button:hover {
   cursor: pointer;
 }
 
-.grid {
+.grid_cuardicula {
   min-height: 100vh;
   display: grid;
   text-align: center;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-template-rows: 10vh 80vh 10vh;
+  grid-template-rows: 10vh 100% 10vh;
   grid-template-areas:
     "nav"
     "section"
@@ -125,13 +129,13 @@ button:hover {
 
 .grid_contenedor {
   position: relative;
-  flex-basis: 100px;
+  flex-basis: 50px;
   flex-grow: 1;
 }
 
 .nav {
   grid-area: nav;
-  background-color: #232428;
+  background-color: #00276c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,7 +143,8 @@ button:hover {
 
 .section {
   grid-area: section;
-  background-color: #383a40;
+  background-color: #014ba0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,14 +152,15 @@ button:hover {
 
 .footer {
   grid-area: footer;
-  background-color: #232428;
+  background-color: #00276c;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .inicio_noticias {
-  height: 400px;
+  width: 450px;
   overflow-y: auto;
 }
 

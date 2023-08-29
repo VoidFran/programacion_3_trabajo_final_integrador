@@ -16,7 +16,7 @@ import "./App.css";
 
 export default function App() {
   return (
-    <div class="grid">
+    <div class="grid_cuardicula">
       <div class="nav">
         <div class="grid_item">
           <div class="grid_contenedor">
@@ -38,7 +38,7 @@ export default function App() {
       </div>
 
       <div class="footer">            
-        <div class="caja_flexible">
+        <div>
             <p>Copyright© 2023 Misiotrónica / Todos los derechos reservados</p>
         </div>
       </div>

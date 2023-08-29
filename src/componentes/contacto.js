@@ -1,5 +1,5 @@
 import {useState} from "react";
-
+import "../estilos/contacto.css"
 export default function Contacto() {
     const [formulario, setFormulario] = useState({ nombre: "", apellido: "" });
 
@@ -9,12 +9,12 @@ export default function Contacto() {
                 <fieldset>
                     <div class="contacto_celda">
                         <label>Nombre:</label>
-                        <input type="text" size="40" placeholder="Ingrese nombre" value={formulario.nombre} onChange={(e) => setFormulario({ ...formulario, "nombre": e.target.value })}></input>
+                        <input className="input-nombre" type="text" size="40" placeholder="Ingrese nombre" value={formulario.nombre} onChange={(e) => setFormulario({ ...formulario, "nombre": e.target.value })}></input>
                     </div>
 
                     <div class="contacto_celda">
                         <label>Apellido:</label>
-                        <input type="text" size="40" placeholder="Ingrese apellido" value={formulario.apellido} onChange={(e) => setFormulario({ ...formulario, "apellido": e.target.value })}></input>
+                        <input className="input-nombre" type="text" size="40" placeholder="Ingrese apellido" value={formulario.apellido} onChange={(e) => setFormulario({ ...formulario, "apellido": e.target.value })}></input>
                     </div>
 
                     <button class="contacto_boton">Enviar</button>
