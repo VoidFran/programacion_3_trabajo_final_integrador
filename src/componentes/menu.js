@@ -2,7 +2,7 @@ import {Link} from "react-router-dom"
 
 export default function Menu() {
     return (
-        <div>
+        <div className="menu">
             <ul>
                 <li><Link to="">Inicio</Link></li>
                 <li><Link to="jugadores">Jugadores</Link></li>

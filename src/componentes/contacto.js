@@ -1,23 +1,55 @@
 import {useState} from "react";
-import "../estilos/contacto.css"
+
 export default function Contacto() {
-    const [formulario, setFormulario] = useState({ nombre: "", apellido: "" });
+    const [formulario, setFormulario] = useState({ 
+        titulo: "", 
+        correo: "", 
+        mensaje: ""
+    })
+  
+    const sendEmail = async () => {
+        let dataSend = {
+        titulo: formulario.titulo,
+        correo: formulario.correo,
+        mensaje: formulario.mensaje,
+        }
+  
+        await fetch(`http://localhost:3005/contacto`, {
+            method: "POST",
+            body: JSON.stringify(dataSend),
+            headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            }
+        })
+
+        .then((res) => {
+            if (res.status > 199 && res.status < 300) {
+                alert("Correo enviado");
+            }
+        })
+    }
 
     return (
         <div>
-            <form onSubmit={() => alert("Hola " + formulario.nombre + " " + formulario.apellido)}>
+            <form>
                 <fieldset>
-                    <div class="contacto_celda">
-                        <label>Nombre:</label>
-                        <input className="input-nombre" type="text" size="40" placeholder="Ingrese nombre" value={formulario.nombre} onChange={(e) => setFormulario({ ...formulario, "nombre": e.target.value })}></input>
+                    <div className="contacto_celda">
+                        <label>Titulo:<br></br></label>
+                        <input type="text" size="40" placeholder="Ingrese nombre" value={formulario.titulo} onChange={(evento) => setFormulario({ ...formulario, "titulo": evento.target.value })}></input>
                     </div>
 
-                    <div class="contacto_celda">
-                        <label>Apellido:</label>
-                        <input className="input-nombre" type="text" size="40" placeholder="Ingrese apellido" value={formulario.apellido} onChange={(e) => setFormulario({ ...formulario, "apellido": e.target.value })}></input>
+                    <div className="contacto_celda">
+                        <label>Correo:</label>
+                        <input type="text" size="40" placeholder="Ingrese correo" value={formulario.correo} onChange={(evento) => setFormulario({ ...formulario, "correo": evento.target.value })}></input>
                     </div>
 
-                    <button class="contacto_boton">Enviar</button>
+                    <div className="contacto_celda">
+                        <label>Mensaje:</label>
+                        <input type="text" size="40" placeholder="Ingrese mensaje" value={formulario.mensaje} onChange={(e) => setFormulario({ ...formulario, "mensaje": e.target.value })}></input>
+                    </div>
+
+                    <button className="contacto_boton" onClick={() => sendEmail()}>Enviar</button>
                 </fieldset>
             </form>
 

@@ -13,19 +13,18 @@ import {Routes, Route} from "react-router-dom"
 
 import "./App.css";
 
-
 export default function App() {
   return (
-    <div class="grid_cuardicula">
-      <div class="nav">
-        <div class="grid_item">
-          <div class="grid_contenedor">
+    <div className="grid_cuardicula">
+      <div className="nav">
+        <div className="grid_item">
+          <div className="grid_contenedor">
             <Menu/>
           </div>
         </div>
       </div>
 
-      <div class="section">
+      <div className="section">
         <Routes>
           <Route path="" element={<Inicio/>}/>
           <Route path="jugadores" element={<Jugadores/>}/>
@@ -37,9 +36,9 @@ export default function App() {
         </Routes>
       </div>
 
-      <div class="footer">            
+      <div className="footer">            
         <div>
-            <p>Copyright© 2023 Misiotrónica / Todos los derechos reservados</p>
+            <p>Copyright© 2023 AFA / Todos los derechos reservados</p>
         </div>
       </div>
     </div>

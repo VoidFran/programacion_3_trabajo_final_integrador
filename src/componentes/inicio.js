@@ -1,11 +1,10 @@
-import {Noticias} from "../componentes/noticias.js"
-
+import {Noticias} from "./inicio_noticias.js"
 
 export default function Inicio() {
     return (
         <div>
-            <div class="grid_contenedor">
-                <div class="inicio_noticias">
+            <div className="grid_contenedor">
+                <div className="inicio_noticias">
                     <Noticias/>
                 </div>
             </div>
