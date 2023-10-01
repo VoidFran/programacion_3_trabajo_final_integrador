@@ -1,14 +1,14 @@
 // framework express
-const express = require('express');
+const express = require("express")
 
 // envio de correo electrónicos
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 // para gestionar cors
-const cors = require('cors');
+const cors = require("cors")
 
 // manejo de variables de entorno
-require('dotenv').config();
+require("dotenv").config();
 
 // mi app servidor 
 const app = express();
@@ -19,29 +19,24 @@ app.use(express.json());
 // para poder trabajar con ellos en el manejdaor de la ruta.
 app.use(express.urlencoded({extended:true}))
 
-app.use(cors());
+app.use(cors())
 
-// endpoint de testeo del API
-app.get("/", (req, res)=>{
-    // const saludo = 'bienvenido a prog3 - 2023!';
-    const saludo = {estado:true, mensaje:'bienvenido!'}
-    res.status(200).json(saludo);
-});
-
-
+// Contacto
 app.post("/contacto", (req, res)=>{
-    const {titulo, correo, mensaje} = req.body;
+    const {titulo, correo, mensaje} = req.body
 
     const transporter = nodemailer.createTransport({
-        service:"gmail",
-        auth:{
+        service: "gmail",
+        auth: {
             user:process.env.CORREO,
             pass:process.env.CLAVE
         }
     })
 
-    //TAREA: mejorar el cuerpo del correo
-    const cuerpo = `<h1>${mensaje}</h1>`;
+    const cuerpo = `<body style= "background-color: #155fd9">
+	                    <h1 style="color: #f1c40f; font-size: 16px; margin: 16px">${titulo}</h1>
+	                        <p style="color: #ffffff; font-size: 16px; margin: 16px">${mensaje}</p>
+                    </body>`;
 
     const opciones = {
         from : "api prog3",
@@ -52,17 +47,17 @@ app.post("/contacto", (req, res)=>{
 
     transporter.sendMail(opciones, (error, info) => {
         if(error){
-            console.log('error -> ', error);
-            const respuesta = 'correo no enviado';
-            res.json({respuesta});
+            console.log("error -> ", error)
+            const respuesta = 'correo no enviado'
+            res.json({respuesta})
         }else{
-            console.log(info);
-            const respuesta = 'correo enviado';
-            res.json({respuesta});
+            console.log(info)
+            const respuesta = "correo enviado"
+            res.json({respuesta})
         }
     })
 })
 
 app.listen(process.env.PUERTO, ()=>{
-    console.log("API prog3 iniciada " + process.env.PUERTO);
+    console.log("API prog3 iniciada " + process.env.PUERTO)
 })

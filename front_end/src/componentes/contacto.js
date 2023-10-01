@@ -13,21 +13,22 @@ export default function Contacto() {
         correo: formulario.correo,
         mensaje: formulario.mensaje,
         }
-  
-        await fetch(`http://localhost:3005/contacto`, {
-            method: "POST",
-            body: JSON.stringify(dataSend),
-            headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            }
-        })
 
-        .then((res) => {
-            if (res.status > 199 && res.status < 300) {
-                alert("Correo enviado");
-            }
-        })
+        if (formulario.titulo !== "" && formulario.correo !== "" && formulario.mensaje !== ""){
+            alert("Correo enviado");
+
+            await fetch(`http://localhost:3005/contacto`, {
+                method: "POST",
+                body: JSON.stringify(dataSend),
+                headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                }
+            })
+        }
+        else {
+            alert("Correo no enviado");
+        }
     }
 
     return (
