@@ -90,6 +90,19 @@ input {
   color: #f1c40f;
 }
 
+select {
+  position: relative;
+  width: 191px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  font-family: fuente_2;
+  font-size: 16px;
+  color: #151515;
+  background-color: #d4d4d4;
+  border: 2px solid #5eadcc;
+}
+
 fieldset{
   border: none;
 }

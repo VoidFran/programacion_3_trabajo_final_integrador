@@ -70,19 +70,22 @@ const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database:"scalonetta"
+    database:"scaloneta12"
 
 });
 
 app.post("/create",(req,res)=>{
+    const dni = req.body.dni;
     const nombre = req.body.nombre;
-    const edad = req.body.edad;
-    const camiseta = req.body.camiseta;
-    const pierna = req.body.pierna;
+    const apellido = req.body.apellido;
     const posicion = req.body.posicion;
+    const apodo = req.body.apodo;
+    const foto = req.body.foto;
+    const pieHabil = req.body.pieHabil;
+    const activo = req.body.activo;
 
 
-    db.query('INSERT INTO jugador(nombre,edad,camiseta,pierna,posicion) VALUES(?,?,?,?,?)',[nombre,edad,camiseta,pierna,posicion],
+    db.query('INSERT INTO futbolista(dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo) VALUES(?,?,?,?,?,?,?,?)',[dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo],
     (err,result)=>{
         if(err){
             console.log(err);
@@ -95,7 +98,7 @@ app.post("/create",(req,res)=>{
  });
 //  ----------------------------------------SOLICITA CON METODO GET A BASE DE DATOS UNA LISTA DE LOS JUGADORES--------------------------------------------XDD
  app.get("/jugador",(req,res)=>{
-    db.query('SELECT * FROM jugador',
+    db.query('SELECT * FROM futbolista',
     (err,result)=>{
         if(err){
             console.log(err);
@@ -114,14 +117,17 @@ app.post("/create",(req,res)=>{
 
  app.put("/update",(req,res)=>{
     const id = req.body.id;
+    const dni = req.body.dni;
     const nombre = req.body.nombre;
-    const edad = req.body.edad;
-    const camiseta = req.body.camiseta;
-    const pierna = req.body.pierna;
+    const apellido = req.body.apellido;
     const posicion = req.body.posicion;
+    const apodo = req.body.apodo;
+    const foto = req.body.foto;
+    const pieHabil = req.body.pieHabil;
+    const activo = req.body.activo;
 
 
-    db.query('UPDATE jugador SET nombre=?,edad=?,camiseta=?,pierna=?,posicion=? WHERE id=?',[nombre,edad,camiseta,pierna,posicion,id],
+    db.query('UPDATE futbolista SET dni=?,nombre=?,apellido=?,posicion=?,apodo=?,foto=?,pieHabil=?,activo=? WHERE id=?',[dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo,id],
     (err,result)=>{
         if(err){
             console.log(err);
@@ -142,7 +148,7 @@ app.post("/create",(req,res)=>{
  app.delete("/delete/:id",(req,res)=>{
     const id = req.params.id;
 
-    db.query('DELETE FROM jugador WHERE id=?', id,
+    db.query('DELETE FROM futbolista WHERE idFutbolista=?', id,
     (err,result)=>{
         if(err){
             console.log(err);
