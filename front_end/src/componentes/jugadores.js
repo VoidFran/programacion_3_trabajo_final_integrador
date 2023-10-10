@@ -17,7 +17,7 @@ export default function Jugadores() {
   const [editar, setEditar] = useState(false);
 
   const add = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && posicion !== "" && apodo !== "" && pieHabil !== "") {
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "" ) {
       alert("Jugador agregado");
       Axios.post("http://localhost:3005/create", {
         dni: dni,
@@ -108,36 +108,31 @@ export default function Jugadores() {
     <div class="container">
     <div>
       <div className="datos">
-        <label> Dni :<input value={dni} onChange={(event) => {
-              setDni(event.target.value);
+        <label> Dni :<input value={dni} onChange={(event) => {setDni(event.target.value);
             }}
             type="number"/></label>
-        <label> Nombre :<input value={nombre} onChange={(event) => {
-              setNombre(event.target.value);
+        <label> Nombre :<input value={nombre} onChange={(event) => {setNombre(event.target.value);
             }}
             type="text"/></label>
-        <label> Apellido :<input value={apellido} onChange={(event) => {
-              setApellido(event.target.value);
+        <label> Apellido :<input value={apellido} onChange={(event) => {setApellido(event.target.value);
             }}
             type="text"/></label>
-        <label> Posición :<select value={posicion} onChange={(event) => {setPosicion(event.target.value)}}>
-              <option>Arquero</option>
-              <option>Defensa</option>
-              <option>Centro</option>
-              <option>Delantero</option>
-            </select></label>
-        <label> Apodo :<input value={apodo} onChange={(event) => {
-              setApodo(event.target.value);
+        <label> Posición :<input value={posicion} onChange={(event) => {setPosicion(event.target.value);
+            }}
+            type="number"/></label>
+        <label> Apodo :<input value={apodo} onChange={(event) => {setApodo(event.target.value);
             }}
             type="text"/></label>
         <label> Foto :<input value={foto} onChange={(event) => {
-              setApodo(event.target.value);
+              setFoto(event.target.value);
             }}
             type="text"/></label>
-        <label> Posición :<select value={posicion} onChange={(event) => {setPosicion(event.target.value)}}>
-          <option>Derecho</option>
-          <option>Izquierdo</option>
-            </select></label>
+        <label> Pie Hábil :<input value={pieHabil} onChange={(event) => {setPieHabil(event.target.value);
+            }}
+            type="number"/></label>
+        <label> Activo :<input value={activo} onChange={(event) => {setActivo(event.target.value);
+            }}
+            type="number"/></label>
           {
             editar?
             <div>
