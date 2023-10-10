@@ -7,7 +7,6 @@ export default function Jugadores() {
   const [apellido, setApellido] = useState("");
   const [posicion, setPosicion] = useState("");
   const [apodo, setApodo] = useState("");
-  const [foto, setFoto] = useState("");
   const [pieHabil, setPieHabil] = useState("");
   const [activo, setActivo] = useState("");
 
@@ -17,7 +16,7 @@ export default function Jugadores() {
   const [editar, setEditar] = useState(false);
 
   const add = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "" ) {
+    if (dni !== "" && nombre !== "" && apellido !== "" && posicion !== "" && apodo !== "" && pieHabil !== "" && activo !== "") {
       alert("Jugador agregado");
       Axios.post("http://localhost:3005/create", {
         dni: dni,
@@ -25,7 +24,6 @@ export default function Jugadores() {
         apellido: apellido,
         posicion: posicion,
         apodo: apodo,
-        foto: foto,
         pieHabil: pieHabil,
         activo: activo,
       }).then(() => {
@@ -40,7 +38,7 @@ export default function Jugadores() {
 
   
   const update = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && posicion !== "" && apodo !== "" && foto !== "" && pieHabil !== "" && activo !== "") {
+    if (dni !== "" && nombre !== "" && apellido !== "" && posicion !== "" && apodo !== "" && pieHabil !== "" && activo !== "") {
       alert("Jugador editado");
       Axios.put("http://localhost:3005/update", {
         id:id,
@@ -49,7 +47,6 @@ export default function Jugadores() {
         apellido: apellido,
         posicion: posicion,
         apodo: apodo,
-        foto: foto,
         pieHabil: pieHabil,
         activo: activo,
       }).then(() => {
@@ -117,20 +114,16 @@ export default function Jugadores() {
         <label> Apellido :<input value={apellido} onChange={(event) => {setApellido(event.target.value);
             }}
             type="text"/></label>
-        <label> Posición :<input value={posicion} onChange={(event) => {setPosicion(event.target.value);
+        <label> Posición :<input value={posicion} min = "0" max = "3" onChange={(event) => {setPosicion(event.target.value);
             }}
             type="number"/></label>
         <label> Apodo :<input value={apodo} onChange={(event) => {setApodo(event.target.value);
             }}
             type="text"/></label>
-        <label> Foto :<input value={foto} onChange={(event) => {
-              setFoto(event.target.value);
-            }}
-            type="text"/></label>
-        <label> Pie Hábil :<input value={pieHabil} onChange={(event) => {setPieHabil(event.target.value);
+        <label> Pie Hábil :<input value={pieHabil} min = "0" max = "1" onChange={(event) => {setPieHabil(event.target.value);
             }}
             type="number"/></label>
-        <label> Activo :<input value={activo} onChange={(event) => {setActivo(event.target.value);
+        <label> Activo :<input value={activo} min = "0" max = "1" onChange={(event) => {setActivo(event.target.value);
             }}
             type="number"/></label>
           {
@@ -140,7 +133,6 @@ export default function Jugadores() {
             <button className="btn btn-info m-2 " onClick={limpiar} style={{ marginTop: '20px' }}>Cancelar</button>
             </div>
             : <button className="btn btn-success" onClick={add} style={{ marginTop: '20px' }}>Agregar jugador</button>
-           
           }
         
 
@@ -152,12 +144,12 @@ export default function Jugadores() {
         <thead>
         <tr>
           <th scope="col">Id</th>
+          <th scope="col">Foto</th>
           <th scope="col">Dni</th>
           <th scope="col">Nombre</th>
           <th scope="col">Apellido</th>
           <th scope="col">Posicion</th>
           <th scope="col">Apodo</th>
-          <th scope="col">Foto</th>
           <th scope="col">Pie Habil</th>
           <th scope="col">Activo</th>
         </tr>
@@ -166,12 +158,12 @@ export default function Jugadores() {
         {jugadoresLista.map((val, key) => {
             return <tr key ={val.idFutbolista}>
                     <th scope="row">{val.idFutbolista}</th>
+                    <td><img className= "jugador"  alt = "" src={require(`../imagenes/jugador.png`)}/></td>
                     <td>{val.dni}</td>
                     <td>{val.nombre}</td>
                     <td>{val.apellido}</td>
                     <td>{val.posicion}</td>
                     <td>{val.apodo}</td>
-                    <td>{val.foto}</td>
                     <td>{val.pieHabil}</td>
                     <td>{val.activo}</td>
                     <td>

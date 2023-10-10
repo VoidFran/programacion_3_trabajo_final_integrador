@@ -22,6 +22,6 @@ export default function Institucional() {
 
 function Fotos(props){
     return(        
-     <img className= "imagen-afa" alt = "" src={require(`../imagenes/${props.imagen}.jpg`)}/>
+     <img alt = "" src={require(`../imagenes/${props.imagen}.jpg`)}/>
     );
 }

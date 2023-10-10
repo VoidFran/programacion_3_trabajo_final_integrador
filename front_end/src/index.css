@@ -53,13 +53,6 @@ li a:hover {
   text-decoration: none;
 }
 
-td {
-  position: relative;
-  background-color: #2b2d31;
-  border: 2px solid #515359;
-  border-radius: 2px;
-}
-
 button {
   color: #ffffff;
   background-color: #64b0ff;
@@ -114,7 +107,6 @@ th {
   font-family: fuente;
   font-weight: normal;
   color: #f1c40f;
-  background-color: #155fd9;
   border: 2px solid #64b0ff;
   border-radius: 2px;
 }
@@ -124,9 +116,9 @@ td {
   left: 20px;
   padding: 4px;
   font-family: fuente;
-  background-color: #155fd9;
   border: 2px solid #64b0ff;
   border-radius: 2px;
+  height: 2px;
 }
 
 /* Etiquetas */
@@ -197,6 +189,7 @@ td {
   border-radius: 10px;
 }
 /* Inicio */
+
 
 /* Institucional */
 .institucional_texto_1 li {
