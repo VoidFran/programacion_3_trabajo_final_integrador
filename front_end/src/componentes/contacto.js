@@ -1,21 +1,20 @@
 import {useState} from "react";
 
 export default function Contacto() {
-    const [formulario, setFormulario] = useState({ 
-        titulo: "", 
-        correo: "", 
-        mensaje: ""
-    })
+    const [titulo, colocar_titulo] = useState("");
+    const [correo, colocar_correo] = useState("");
+    const [mensaje, colocar_mensaje] = useState("");
   
     const sendEmail = async () => {
         let dataSend = {
-        titulo: formulario.titulo,
-        correo: formulario.correo,
-        mensaje: formulario.mensaje,
+        titulo: titulo,
+        correo: correo,
+        mensaje: mensaje,
         }
 
-        if (formulario.titulo !== "" && formulario.correo !== "" && formulario.mensaje !== ""){
+        if (titulo !== "" && correo !== "" && mensaje !== ""){
             alert("Correo enviado");
+            limpiar()
 
             await fetch(`http://localhost:3005/contacto`, {
                 method: "POST",
@@ -31,28 +30,27 @@ export default function Contacto() {
         }
     }
 
+    const limpiar = () => {
+        colocar_titulo("")
+        colocar_correo("")
+        colocar_mensaje("")
+      }
+
     return (
         <div>
-            <form>
-                <fieldset>
-                    <div className="contacto_celda">
-                        <label>Titulo:<br></br></label>
-                        <input type="text" size="40" placeholder="Ingrese nombre" value={formulario.titulo} onChange={(evento) => setFormulario({ ...formulario, "titulo": evento.target.value })}></input>
-                    </div>
+            <div className="contacto_celda">
+                <label>Titulo:</label><input type="text" placeholder="Ingrese titulo" value={titulo} onChange={(evento) => {colocar_titulo(evento.target.value)}}></input>
+            </div>
 
-                    <div className="contacto_celda">
-                        <label>Correo:</label>
-                        <input type="text" size="40" placeholder="Ingrese correo" value={formulario.correo} onChange={(evento) => setFormulario({ ...formulario, "correo": evento.target.value })}></input>
-                    </div>
+            <div className="contacto_celda">
+                <label>Correo:</label><input type="text" placeholder="Ingrese correo" value={correo} onChange={(evento) => {colocar_correo(evento.target.value)}}></input>
+            </div>
 
-                    <div className="contacto_celda">
-                        <label>Mensaje:</label>
-                        <input type="text" size="40" placeholder="Ingrese mensaje" value={formulario.mensaje} onChange={(e) => setFormulario({ ...formulario, "mensaje": e.target.value })}></input>
-                    </div>
+            <div className="contacto_celda">
+                <label>Mensaje:</label><input type="text"placeholder="Ingrese mensaje" value={mensaje} onChange={(evento) => {colocar_mensaje(evento.target.value)}}></input>
+            </div>
 
-                    <button className="contacto_boton" onClick={() => sendEmail()}>Enviar</button>
-                </fieldset>
-            </form>
+            <button className="contacto_boton" onClick={() => sendEmail()}>Enviar</button>
 
             <h1>Contactanos</h1>
             <p>Monseñor Tavella 1424. Concordia-ER</p>

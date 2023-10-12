@@ -85,7 +85,7 @@ app.post("/create",(req,res)=>{
     const activo = req.body.activo;
 
 
-    db.query('INSERT INTO futbolista(dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo) VALUES(?,?,?,?,?,?,?,?)',[dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo],
+    db.query('INSERT INTO futbolista(dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo) VALUES(?,?,?,?,?,?,?,?)',[dni, nombre, apellido, posicion, apodo, foto, pieHabil, activo],
     (err,result)=>{
         if(err){
             console.log(err);
@@ -116,7 +116,7 @@ app.post("/create",(req,res)=>{
  //  ----------------------------------------ACTUALIZAR JUGADORES--------------------------------------------XD
 
  app.put("/update",(req,res)=>{
-    const id = req.body.id;
+    const idFutbolista = req.body.idFutbolista;
     const dni = req.body.dni;
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
@@ -127,7 +127,7 @@ app.post("/create",(req,res)=>{
     const activo = req.body.activo;
 
 
-    db.query('UPDATE futbolista SET dni=?,nombre=?,apellido=?,posicion=?,apodo=?,foto=?,pieHabil=?,activo=? WHERE id=?',[dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo,id],
+    db.query('UPDATE futbolista SET dni=?,nombre=?,apellido=?,posicion=?,apodo=?,foto=?,pieHabil=?,activo=? WHERE idFutbolista=?',[dni, nombre, apellido, posicion, apodo, foto, pieHabil, activo, idFutbolista],
     (err,result)=>{
         if(err){
             console.log(err);

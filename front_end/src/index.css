@@ -59,6 +59,7 @@ button {
   font-size: 16px;
   border: none;
   border-radius: 10px;
+  margin-left: 4px;
 }
 
 button:hover {
@@ -73,27 +74,31 @@ input {
   text-shadow: #000000 01px 01px;
   outline: none;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   color: #ffffff;
   background-color: #155fd9;
   border: 2px solid #64b0ff;
+  width: 200px;
+  margin-left: 8px;
 }
 
 ::placeholder {
-  color: #f1c40f;
+  color: #b8b8b8;
 }
 
 select {
   position: relative;
-  width: 191px;
+  font-family: fuente;
+  font-size: 16px;
+  text-shadow: #000000 01px 01px;
   outline: none;
   border: none;
-  border-radius: 5px;
-  font-family: fuente_2;
-  font-size: 16px;
-  color: #151515;
-  background-color: #d4d4d4;
-  border: 2px solid #5eadcc;
+  border-radius: 6px;
+  color: #ffffff;
+  background-color: #155fd9;
+  border: 2px solid #64b0ff;
+  width: 200px;
+  margin-left: 8px;
 }
 
 fieldset{
@@ -102,7 +107,6 @@ fieldset{
 
 th {
   position: relative;
-  left: 20px;
   padding: 4px;
   font-family: fuente;
   font-weight: normal;
@@ -113,12 +117,10 @@ th {
 
 td {
   position: relative;
-  left: 20px;
   padding: 4px;
   font-family: fuente;
   border: 2px solid #64b0ff;
   border-radius: 2px;
-  height: 2px;
 }
 
 /* Etiquetas */
@@ -190,7 +192,6 @@ td {
 }
 /* Inicio */
 
-
 /* Institucional */
 .institucional_texto_1 li {
   background-color: #64b0ff;
@@ -210,13 +211,11 @@ td {
 
 /* Contacto */
 .contacto_celda{
-  display: flex;
-  margin-bottom: 1rem;
-  gap: 10px;
+  margin-bottom: 10px
 }
 
 .contacto_boton {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 /* Contacto */
 
