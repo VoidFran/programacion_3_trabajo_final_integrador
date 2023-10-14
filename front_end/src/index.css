@@ -59,7 +59,6 @@ button {
   font-size: 16px;
   border: none;
   border-radius: 10px;
-  margin-left: 4px;
 }
 
 button:hover {
@@ -214,7 +213,11 @@ td {
   margin-bottom: 10px
 }
 
-.contacto_boton {
+.boton_tabla {
+  margin-bottom: 0rem;
+}
+
+.boton_ingreso {
   margin-bottom: 2rem;
 }
 /* Contacto */

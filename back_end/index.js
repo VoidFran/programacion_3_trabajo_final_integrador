@@ -140,11 +140,6 @@ app.post("/create",(req,res)=>{
  });
 
  //  ----------------------------------------ELIMINAR JUGADORES--------------------------------------------XD
-
-
-
-
-
  app.delete("/delete/:id",(req,res)=>{
     const id = req.params.id;
 
@@ -159,3 +154,44 @@ app.post("/create",(req,res)=>{
     );
 
  });
+
+ // Convocatorias
+ app.get("/convocatoria",(req,res)=>{
+    db.query('SELECT * FROM convocatoria',
+    (err,result)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    })
+})
+
+app.post("/convocatoria_agregar", (req, res) => {
+    const fecha = req.body.fecha
+    const rival = req.body.rival
+    const golesRecibidos = req.body.golesRecibidos
+    const golesConvertidos = req.body.golesConvertidos
+
+    db.query("INSERT INTO convocatoria(fecha, rival, golesRecibidos, golesConvertidos) VALUES(?, ?, ?, ?)", [fecha, rival, golesRecibidos, golesConvertidos],
+    (err,result) => {
+        if(err){
+            console.log(err)
+        }else{
+            res.send(result)
+        }
+    })
+})
+
+app.delete("/convocatoria_eliminar/:id",(req,res) => {
+    const id = req.params.id
+
+    db.query("DELETE FROM convocatoria WHERE idConvocatoria = ?", id,
+    (err,result) => {
+        if(err){
+            console.log(err)
+        }else{
+            res.send(result)
+        }
+    })
+})

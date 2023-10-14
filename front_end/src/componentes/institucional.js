@@ -1,7 +1,7 @@
 export default function Institucional() {
     return (
         <div>
-            <div className="grid_contenedor">
+            <div>
                 <div className="institucional_texto_1">
                     <ul>
                         <li><p>La Asociación del Fútbol Argentino AFA <br></br> es la más antigua de Sudamérica y la octava del mundo.</p></li>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Axios from "axios";
 
 export default function Jugadores() {
+  const [idFutbolista, setIdFutbolista] = useState();
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -11,7 +12,6 @@ export default function Jugadores() {
   const [activo, setActivo] = useState("");
 
   const [jugadoresLista, setJugadores] = useState([]);
-  const [idFutbolista, setIdFutbolista] = useState();
   
   const [editar, setEditar] = useState(false);
 
@@ -150,10 +150,10 @@ export default function Jugadores() {
       {
         editar?
         <div>
-        <button className="contacto_boton" onClick={update}>Editar jugador</button> 
-        <button className="contacto_boton" onClick={limpiar}>Cancelar</button>
+        <button className="boton_ingreso" onClick={update}>Editar jugador</button> 
+        <button className="boton_ingreso" onClick={limpiar}>Cancelar</button>
         </div>
-        : <button className="contacto_boton" onClick={add}>Agregar jugador</button>
+        : <button className="boton_ingreso" onClick={add}>Agregar jugador</button>
       }
         
       <div className="grid_contenedor">
