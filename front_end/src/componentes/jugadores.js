@@ -16,7 +16,7 @@ export default function Jugadores() {
   const [editar, setEditar] = useState(false);
 
   const add = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "") {
+    if (dni !== "" && nombre !== "" && apellido !== "" && posicion !== "" && apodo !== "" && pieHabil !== "" && activo !== "") {
       alert("Jugador agregado");
       Axios.post("http://localhost:3005/create", {
         dni: dni,
@@ -169,7 +169,6 @@ export default function Jugadores() {
               <th scope="col">Apodo</th>
               <th scope="col">Pie Habil</th>
               <th scope="col">Activo</th>
-              <th scope="col">Acciones</th>
             </tr>
           </thead>
           
@@ -186,15 +185,13 @@ export default function Jugadores() {
                         <td>{val.pieHabil}</td>
                         <td>{val.activo}</td>
                         <td>
-                        <div className="btn-group" role="group" aria-label="Basic example">
                           <button type="button"
                           onClick={()=>{
                             editarJugador(val);
                           }}
-                          className="btn btn-info">Editar</button>
+                          className="boton_editar">Editar</button>
                           <button type="button" onClick={() =>{eliminar(val.idFutbolista)}} className="btn btn-danger">Eliminar</button>
                           
-                        </div>
 
                         </td>
                         </tr>

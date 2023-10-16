@@ -15,10 +15,10 @@ export default function Convocatoria() {
         if (fecha !== "" && rival !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
             alert("Convocatoria agregado");
             Axios.post("http://localhost:3005/convocatoria_agregar", {
-            fecha: fecha,
-            rival: rival,
-            golesRecibidos: golesRecibidos,
-            golesConvertidos: golesConvertidos,
+                fecha: fecha,
+                rival: rival,
+                golesRecibidos: golesRecibidos,
+                golesConvertidos: golesConvertidos,
             }).then(() => {
                 convocatorias()
                 limpiar()
@@ -29,12 +29,32 @@ export default function Convocatoria() {
         }
     }
 
-    const editar_convocatoria = (indice) => {
+    const editar_convocatoria = () => {
+        if (fecha !== "" && rival !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
+            Axios.post("http://localhost:3005/convocatoria_editar", {
+                idConvocatoria: idConvocatoria,
+                fecha: fecha,
+                rival: rival,
+                golesRecibidos: golesRecibidos,
+                golesConvertidos: golesConvertidos,
+            }).then(() => {
+                convocatorias()
+                limpiar()
+                alert("Convocatoria agregado")
+            })
+        }
+        else {
+            alert("Convocatoria no editado")
+        }
+    }
+
+    const mostrar_editar_convocatoria = (indice) => {
         estado_editar(true)
         estado_fecha(indice.fecha)
         estado_rival(indice.rival)
         estado_golesRecibidos(indice.golesRecibidos)
         estado_golesConvertidos (indice.golesConvertidos)
+        estado_idConvocatoria (indice.idConvocatoria)
     }
 
     const eliminar_convocatoria = (id) => {
@@ -117,7 +137,7 @@ export default function Convocatoria() {
                             <td>{indice.golesConvertidos}</td>
                             <td>
                                 <div>
-                                    <button className = "contacto_boton" onClick = {() => {editar_convocatoria(indice)}}>Editar</button>
+                                    <button className = "boton_editar" onClick = {() => {mostrar_editar_convocatoria(indice)}}>Editar</button>
                                     <button className = "contacto_boton" onClick = {() => {eliminar_convocatoria(indice.idConvocatoria)}}>Eliminar</button>
                                 </div>
                             </td>

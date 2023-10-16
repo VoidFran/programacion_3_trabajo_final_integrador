@@ -127,6 +127,7 @@ td {
 /* Cuadriculas */
 .grid_cuardicula {
   min-height: 100vh;
+  min-width: 150vh;
   display: grid;
   text-align: center;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -208,7 +209,7 @@ td {
 }
 /* Institucional */
 
-/* Contacto */
+/* Botones */
 .contacto_celda{
   margin-bottom: 10px
 }
@@ -220,7 +221,10 @@ td {
 .boton_ingreso {
   margin-bottom: 2rem;
 }
-/* Contacto */
+.boton_editar {
+  margin-right: 4px;
+}
+/* Botones */
 
 @font-face {
   font-family: fuente;

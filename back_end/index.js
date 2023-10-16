@@ -183,6 +183,24 @@ app.post("/convocatoria_agregar", (req, res) => {
     })
 })
 
+app.post("/convocatoria_editar", (req, res) => {
+    const idConvocatoria = req.body.idConvocatoria
+    const fecha = req.body.fecha
+    const rival = req.body.rival
+    const golesRecibidos = req.body.golesRecibidos
+    const golesConvertidos = req.body.golesConvertidos
+    console.log(idConvocatoria, fecha, rival, golesRecibidos, golesConvertidos)
+    
+    db.query("UPDATE convocatoria SET fecha = ?, rival = ?,golesRecibidos = ?,golesConvertidos = ? WHERE idConvocatoria = ?", [fecha, rival, golesRecibidos, golesConvertidos, idConvocatoria],
+    (err,result) => {
+        if(err){
+            console.log(err)
+        }else{
+            res.send(result)
+        }
+    })
+})
+
 app.delete("/convocatoria_eliminar/:id",(req,res) => {
     const id = req.params.id
 
