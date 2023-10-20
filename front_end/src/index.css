@@ -180,19 +180,28 @@ td {
   align-items: center;
   justify-content: center;
 }
-/* Etiquetas */
+/* Cuadriculas */
 
-.menu li {
-  margin-left: 40px;
-}
+
 
 /* Inicio */
 .inicio_noticia {
   margin-bottom: 20px;
 }
+
 .inicio_noticia img{
   border: 2px solid #64b0ff;
   border-radius: 10px;
+}
+
+.menu li {
+  margin-left: 40px;
+}
+
+
+.jugadores_foto img:hover {
+  background-color: #ea9e22;
+  cursor: pointer;
 }
 /* Inicio */
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Link} from "react-router-dom"
 import Axios from "axios";
 
 export default function Jugadores() {
@@ -8,6 +9,7 @@ export default function Jugadores() {
   const [apellido, setApellido] = useState("");
   const [posicion, setPosicion] = useState("");
   const [apodo, setApodo] = useState("");
+  const [foto, setFoto] = useState("jugador_ninguna.png");
   const [pieHabil, setPieHabil] = useState("");
   const [activo, setActivo] = useState("");
 
@@ -16,7 +18,7 @@ export default function Jugadores() {
   const [editar, setEditar] = useState(false);
 
   const add = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && posicion !== "" && apodo !== "" && pieHabil !== "" && activo !== "") {
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && activo !== "") {
       alert("Jugador agregado");
       Axios.post("http://localhost:3005/create", {
         dni: dni,
@@ -24,11 +26,14 @@ export default function Jugadores() {
         apellido: apellido,
         posicion: posicion,
         apodo: apodo,
+        foto: foto,
         pieHabil: pieHabil,
         activo: activo,
       }).then(() => {
         getJugador();
         limpiar();
+        setFoto("jugador_ninguna.png")
+        localStorage.removeItem("jugador")
       });
     }
     else {
@@ -38,7 +43,7 @@ export default function Jugadores() {
 
   
   const update = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && posicion !== "" && apodo !== "" && pieHabil !== "" && activo !== "") {
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && activo !== "") {
       alert("Jugador editado");
       Axios.put("http://localhost:3005/update", {
         idFutbolista: idFutbolista,
@@ -47,6 +52,7 @@ export default function Jugadores() {
         apellido: apellido,
         posicion: posicion,
         apodo: apodo,
+        foto: foto,
         pieHabil: pieHabil,
         activo: activo,
       }).then(() => {
@@ -102,6 +108,11 @@ export default function Jugadores() {
     .catch(error => {
         alert("Error al cargar jugadores", error)
     })
+ 
+    if (localStorage.getItem("jugador") !== null) {
+      setFoto(localStorage.getItem("jugador"))
+      localStorage.removeItem("jugador")
+    }
   };
 
   getJugador();
@@ -159,6 +170,13 @@ export default function Jugadores() {
       </div>
 
       <div className="contacto_celda">
+        <label>Foto:</label><img alt = "" src={require(`../imagenes/${foto}`)}/>
+          <Link to="/jugadores_foto">
+                <button>Foto</button>
+            </Link>
+      </div>
+
+      <div className="contacto_celda">
         <label>Pie Hábil:</label><select value={pieHabil} onChange={(evento) => {setPieHabil(evento.target.value)}}>
           <option>0</option>
           <option>1</option>
@@ -176,10 +194,10 @@ export default function Jugadores() {
       {
         editar?
         <div>
-        <button className="boton_1" onClick={update}>Editar jugador</button> 
-        <button onClick={limpiar}>Cancelar</button>
+          <button className="boton_1" onClick={update}>Editar jugador</button> 
+          <button onClick={limpiar}>Cancelar</button>
         </div>
-        : <button onClick={add}>Agregar jugador</button>
+          :<button onClick={add}>Agregar jugador</button>
       }
         
       <div className="grid_contenedor">
@@ -202,7 +220,7 @@ export default function Jugadores() {
             {jugadoresLista.map((val, key) => {
                 return <tr key ={val.idFutbolista}>
                         <th scope="row">{val.idFutbolista}</th>
-                        <td><img className= "jugador"  alt = "" src={require(`../imagenes/jugador.png`)}/></td>
+                        <td><img alt = "" src={require(`../imagenes/${val.foto}`)}/></td>
                         <td>{val.dni}</td>
                         <td>{val.nombre}</td>
                         <td>{val.apellido}</td>

@@ -113,7 +113,7 @@ export default function Convocatoria() {
                     <button className="boton_1" onClick={agregar_convocatoria}>Agregar convocatoria</button>
             }
 
-            <Link to="/rivales">
+            <Link to="/convocatorias_rivales">
                 <button>Rivales</button>
             </Link>
 
