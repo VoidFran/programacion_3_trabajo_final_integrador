@@ -104,6 +104,10 @@ fieldset{
   border: none;
 }
 
+table {
+  margin-top: 2rem;
+}
+
 th {
   position: relative;
   padding: 4px;
@@ -211,18 +215,23 @@ td {
 
 /* Botones */
 .contacto_celda{
-  margin-bottom: 10px
+  margin-bottom: 8px
 }
 
-.boton_tabla {
-  margin-bottom: 0rem;
+.boton_1 {
+  margin: 0;
+  margin-right: 4px;
 }
 
-.boton_ingreso {
+.boton_2 {
+  margin: 0;
   margin-bottom: 2rem;
 }
-.boton_editar {
+
+.boton_3 {
+  margin: 0;
   margin-right: 4px;
+  margin-bottom: 4px;
 }
 /* Botones */
 

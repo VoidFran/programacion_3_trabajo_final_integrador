@@ -50,7 +50,7 @@ export default function Contacto() {
                 <label>Mensaje:</label><input type="text"placeholder="Ingrese mensaje" value={mensaje} onChange={(evento) => {colocar_mensaje(evento.target.value)}}></input>
             </div>
 
-            <button className="boton_ingreso" onClick={() => sendEmail()}>Enviar</button>
+            <button className="boton_2" onClick={() => sendEmail()}>Enviar</button>
 
             <h1>Contactanos</h1>
             <p>Monseñor Tavella 1424. Concordia-ER</p>

@@ -1,4 +1,5 @@
 import {useState} from "react"
+import {Link} from "react-router-dom"
 import Axios from "axios"
 
 export default function Convocatoria() {
@@ -8,13 +9,13 @@ export default function Convocatoria() {
     const [golesRecibidos, estado_golesRecibidos] = useState("")
     const [golesConvertidos, estado_golesConvertidos] = useState("")
 
-    const [convocatoria_lista, estado_convocatoria_lista] = useState([])
+    const [convocatorias_lista, estado_convocatorias_lista] = useState([])
     const [editar, estado_editar] = useState(false)
 
     const agregar_convocatoria = () => {
         if (fecha !== "" && rival !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
             alert("Convocatoria agregado");
-            Axios.post("http://localhost:3005/convocatoria_agregar", {
+            Axios.post("http://localhost:3005/convocatorias_agregar", {
                 fecha: fecha,
                 rival: rival,
                 golesRecibidos: golesRecibidos,
@@ -31,7 +32,7 @@ export default function Convocatoria() {
 
     const editar_convocatoria = () => {
         if (fecha !== "" && rival !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
-            Axios.post("http://localhost:3005/convocatoria_editar", {
+            Axios.post("http://localhost:3005/convocatorias_editar", {
                 idConvocatoria: idConvocatoria,
                 fecha: fecha,
                 rival: rival,
@@ -40,7 +41,7 @@ export default function Convocatoria() {
             }).then(() => {
                 convocatorias()
                 limpiar()
-                alert("Convocatoria agregado")
+                alert("Convocatoria editado")
             })
         }
         else {
@@ -59,7 +60,7 @@ export default function Convocatoria() {
 
     const eliminar_convocatoria = (id) => {
         alert("Convocatoria eliminada")
-        Axios.delete(`http://localhost:3005/convocatoria_eliminar/${id}`, {
+        Axios.delete(`http://localhost:3005/convocatorias_eliminar/${id}`, {
         }).then(() => {
             convocatorias()
             limpiar()
@@ -67,7 +68,6 @@ export default function Convocatoria() {
     }
 
     const limpiar = () => {
-        estado_fecha("")
         estado_fecha("")
         estado_rival("")
         estado_golesRecibidos("")
@@ -77,7 +77,7 @@ export default function Convocatoria() {
 
     const convocatorias = () => {
         Axios.get("http://localhost:3005/convocatoria").then((response) => {
-            estado_convocatoria_lista(response.data)
+            estado_convocatorias_lista(response.data)
         })
         .catch(error => {
             alert("Error al cargar convocatorias", error)
@@ -88,33 +88,34 @@ export default function Convocatoria() {
 
     return (
         <div>
-            <div className = "contacto_celda">
-                <label>Fecha:</label><input type = "date" placeholder = "Ingrese fecha" value = {fecha} onChange = {(evento) => {estado_fecha(evento.target.value)}}></input>
+            <div className="contacto_celda">
+                <label>Fecha:</label><input type="date" placeholder="Ingrese fecha" value={fecha} onChange={(evento) => {estado_fecha(evento.target.value)}}></input>
             </div>
 
-            <div className = "contacto_celda">
-                <label>Rival:</label><input type = "number" placeholder = "Ingrese rival" value = {rival} onChange = {(evento) => {estado_rival(evento.target.value)}}></input>
+            <div className="contacto_celda">
+                <label>Rival:</label><input type="number" placeholder="Ingrese rival" value={rival} onChange={(evento) => {estado_rival(evento.target.value)}}></input>
             </div>
 
-            <div className = "contacto_celda">
-                <label>Goles recibidos:</label><input type = "number" placeholder = "Ingrese goles recibidos" value = {golesRecibidos} onChange = {(evento) => {estado_golesRecibidos(evento.target.value)}}></input>
+            <div className="contacto_celda">
+                <label>Goles recibidos:</label><input type="number" placeholder="Ingrese goles recibidos" value={golesRecibidos} onChange={(evento) => {estado_golesRecibidos(evento.target.value)}}></input>
             </div>
 
-            <div className = "contacto_celda">
-                <label>Goles convertidos:</label><input type = "number" placeholder = "Ingrese goles convertidos" value = {golesConvertidos} onChange = {(evento) => {estado_golesConvertidos(evento.target.value)}}></input>
+            <div className="contacto_celda">
+                <label>Goles convertidos:</label><input type="number" placeholder="Ingrese goles convertidos" value={golesConvertidos} onChange={(evento) => {estado_golesConvertidos(evento.target.value)}}></input>
             </div>
 
             {
                 editar?
                 <div>
-                    <button className="boton_ingreso" onClick={editar_convocatoria}>Editar convocatoria</button> 
-                    <button className="boton_ingreso" onClick={limpiar}>Cancelar</button>
-                </div>
-                : <button className="boton_ingreso" onClick={agregar_convocatoria}>Agregar convocatoria</button>
+                    <button className="boton_3" onClick={editar_convocatoria}>Editar convocatoria</button> 
+                    <button className="boton_1" onClick={limpiar}>Cancelar</button>
+                </div>: 
+                    <button className="boton_1" onClick={agregar_convocatoria}>Agregar convocatoria</button>
             }
 
-
-
+            <Link to="/rivales">
+                <button>Rivales</button>
+            </Link>
 
             <table>
                 <thead>
@@ -128,7 +129,7 @@ export default function Convocatoria() {
                 </thead>
 
                 <tbody>
-                    {convocatoria_lista.map((indice) => {
+                    {convocatorias_lista.map((indice) => {
                         return <tr key = {indice.idConvocatoria}>
                             <th>{indice.idConvocatoria}</th>
                             <td>{indice.fecha}</td>
@@ -137,8 +138,8 @@ export default function Convocatoria() {
                             <td>{indice.golesConvertidos}</td>
                             <td>
                                 <div>
-                                    <button className = "boton_editar" onClick = {() => {mostrar_editar_convocatoria(indice)}}>Editar</button>
-                                    <button className = "contacto_boton" onClick = {() => {eliminar_convocatoria(indice.idConvocatoria)}}>Eliminar</button>
+                                    <button className = "boton_1" onClick = {() => {mostrar_editar_convocatoria(indice)}}>Editar</button>
+                                    <button onClick = {() => {eliminar_convocatoria(indice.idConvocatoria)}}>Eliminar</button>
                                 </div>
                             </td>
                         </tr>

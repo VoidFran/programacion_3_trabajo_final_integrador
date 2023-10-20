@@ -106,6 +106,31 @@ export default function Jugadores() {
 
   getJugador();
 
+  function casteo(tipo, valor) {
+    if (tipo === "pie_habil") {
+      if (valor === 0) {
+        return "Derecho"
+      }
+      else {
+        return "Izquierdo"
+      }
+    }
+    else if (tipo === "posicion") {
+      if (valor === 0) {
+        return "Arquero"
+      }
+      else if (valor === 1) {
+        return "Defensor"
+      }
+      else if (valor === 2) {
+        return "Medio"
+      }
+      else if (valor === 3) {
+        return "Delantero"
+      }
+    }
+ }
+
   return (
     <div>
       <div className="contacto_celda">
@@ -141,7 +166,8 @@ export default function Jugadores() {
       </div>
 
       <div className="contacto_celda">
-        <label>Activo:</label><select value={activo} onChange={(evento) => {setActivo(evento.target.value)}}>
+        <label>Activo:</label>
+        <select value={activo} onChange={(evento) => {setActivo(evento.target.value)}}>
           <option>0</option>
           <option>1</option>
         </select>
@@ -150,10 +176,10 @@ export default function Jugadores() {
       {
         editar?
         <div>
-        <button className="boton_ingreso" onClick={update}>Editar jugador</button> 
-        <button className="boton_ingreso" onClick={limpiar}>Cancelar</button>
+        <button className="boton_1" onClick={update}>Editar jugador</button> 
+        <button onClick={limpiar}>Cancelar</button>
         </div>
-        : <button className="boton_ingreso" onClick={add}>Agregar jugador</button>
+        : <button onClick={add}>Agregar jugador</button>
       }
         
       <div className="grid_contenedor">
@@ -180,17 +206,17 @@ export default function Jugadores() {
                         <td>{val.dni}</td>
                         <td>{val.nombre}</td>
                         <td>{val.apellido}</td>
-                        <td>{val.posicion}</td>
+                        <td>{casteo("posicion", val.posicion)}</td>
                         <td>{val.apodo}</td>
-                        <td>{val.pieHabil}</td>
+                        <td>{casteo("pie_habil", val.pieHabil)}</td>
                         <td>{val.activo}</td>
                         <td>
-                          <button type="button"
+                          <button type="button" className="boton_1"
                           onClick={()=>{
                             editarJugador(val);
                           }}
-                          className="boton_editar">Editar</button>
-                          <button type="button" onClick={() =>{eliminar(val.idFutbolista)}} className="btn btn-danger">Eliminar</button>
+                          >Editar</button>
+                          <button onClick={() =>{eliminar(val.idFutbolista)}} className="btn btn-danger">Eliminar</button>
                           
 
                         </td>
