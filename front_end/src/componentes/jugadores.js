@@ -2,6 +2,8 @@ import { useState } from "react";
 import {Link} from "react-router-dom"
 import Axios from "axios";
 
+
+
 export default function Jugadores() {
   const [idFutbolista, setIdFutbolista] = useState();
   const [dni, setDni] = useState("");
@@ -17,8 +19,32 @@ export default function Jugadores() {
   
   const [editar, setEditar] = useState(false);
 
+  const [modal_abierto, modal_cerrado] = useState(false)
+
+  const Modal_foto = ({abierto, cerrado}) => {
+    if (!abierto) return null
+    
+    return (
+    <div>
+        <div className="contenedor">
+            <div className="jugadores_foto">
+              <img onClick={()=>{setFoto("jugador_ninguna.png")}} alt="" src={require(`../imagenes/jugador_ninguna.png`)}/>
+              <img onClick={()=>{setFoto("jugador_1.png")}} alt="" src={require(`../imagenes/jugador_1.png`)}/>
+              <img onClick={()=>{setFoto("jugador_2.png")}} alt="" src={require(`../imagenes/jugador_2.png`)}/>
+              <img onClick={()=>{setFoto("jugador_3.png")}} alt="" src={require(`../imagenes/jugador_3.png`)}/>
+              <img onClick={()=>{setFoto("jugador_4.png")}} alt="" src={require(`../imagenes/jugador_4.png`)}/>
+              <img onClick={()=>{setFoto("jugador_5.png")}} alt="" src={require(`../imagenes/jugador_5.png`)}/>
+              <img onClick={()=>{setFoto("jugador_6.png")}} alt="" src={require(`../imagenes/jugador_6.png`)}/>
+              <img onClick={()=>{setFoto("jugador_7.png")}} alt="" src={require(`../imagenes/jugador_7.png`)}/>
+              <img onClick={()=>{setFoto("jugador_8.png")}} alt="" src={require(`../imagenes/jugador_8.png`)}/>
+            </div>
+            <button onClick={cerrado}>cerrar</button>
+        </div>
+    </div>)
+  }
+
   const add = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && activo !== "") {
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png") {
       alert("Jugador agregado");
       Axios.post("http://localhost:3005/create", {
         dni: dni,
@@ -43,8 +69,8 @@ export default function Jugadores() {
 
   
   const update = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && activo !== "") {
-      alert("Jugador editado");
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png" && activo !== "") {
+      alert("Jugador editado")
       Axios.put("http://localhost:3005/update", {
         idFutbolista: idFutbolista,
         dni: dni,
@@ -58,6 +84,7 @@ export default function Jugadores() {
       }).then(() => {
         getJugador();
         limpiar();
+        setJugadores([]);
       });
     }
     else {
@@ -74,8 +101,6 @@ export default function Jugadores() {
     });
   };
 
-
-
   const editarJugador = (val)=>{
     setEditar(true);
     setDni(val.dni)
@@ -83,10 +108,10 @@ export default function Jugadores() {
     setApellido(val.apellido)
     setPosicion(val.posicion)
     setApodo(val.apodo)
+    setFoto(val.foto)
     setPieHabil(val.pieHabil)
     setActivo(val.activo)
     setIdFutbolista(val.idFutbolista)
-  
   }
 
   const limpiar = () => {
@@ -103,16 +128,13 @@ export default function Jugadores() {
 
   const getJugador = () => {
     Axios.get("http://localhost:3005/jugador").then((response) => {
-      setJugadores(response.data);
+      if (jugadoresLista.length !== response.data.length) {
+        setJugadores(response.data);
+      }
     })
     .catch(error => {
         alert("Error al cargar jugadores", error)
     })
- 
-    if (localStorage.getItem("jugador") !== null) {
-      setFoto(localStorage.getItem("jugador"))
-      localStorage.removeItem("jugador")
-    }
   };
 
   getJugador();
@@ -171,9 +193,9 @@ export default function Jugadores() {
 
       <div className="contacto_celda">
         <label>Foto:</label><img alt = "" src={require(`../imagenes/${foto}`)}/>
-          <Link to="/jugadores_foto">
-                <button>Foto</button>
-            </Link>
+        
+        <button onClick={() => modal_cerrado(true)}>abrir</button>
+        <Modal_foto abierto={modal_abierto} cerrado={() => modal_cerrado(false)}></Modal_foto>
       </div>
 
       <div className="contacto_celda">
@@ -184,16 +206,12 @@ export default function Jugadores() {
       </div>
 
       <div className="contacto_celda">
-        <label>Activo:</label>
-        <select value={activo} onChange={(evento) => {setActivo(evento.target.value)}}>
-          <option>0</option>
-          <option>1</option>
-        </select>
+        <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => setActivo(event.target.checked)}></input>
       </div>
 
       {
         editar?
-        <div>
+        <div >
           <button className="boton_1" onClick={update}>Editar jugador</button> 
           <button onClick={limpiar}>Cancelar</button>
         </div>
@@ -227,7 +245,7 @@ export default function Jugadores() {
                         <td>{casteo("posicion", val.posicion)}</td>
                         <td>{val.apodo}</td>
                         <td>{casteo("pie_habil", val.pieHabil)}</td>
-                        <td>{val.activo}</td>
+                        <td><input type="checkbox" checked={val.activo}></input></td>
                         <td>
                           <button type="button" className="boton_1"
                           onClick={()=>{

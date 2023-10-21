@@ -11,6 +11,7 @@ import EquipoTitular from "./componentes/equipo_titular.js"
 import Institucional from "./componentes/institucional.js"
 import Contacto from "./componentes/contacto.js"
 import NoEncontrado from "./componentes/no_encontrado.js"
+import Test from "./componentes/test.js"
 
 import "./App.css";
 
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="institucional" element={<Institucional/>}/>
           <Route path="contacto" element={<Contacto/>}/>
           <Route path="*" element={<NoEncontrado/>}/>
+          <Route path="test" element={<Test/>}/>
         </Routes>
       </div>
 

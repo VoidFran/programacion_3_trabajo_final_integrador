@@ -9,7 +9,7 @@ export default function Convocatoria() {
     }
 
     return (
-        <div>                
+        <div>
             <div className="jugadores_foto">
                 <Link to="/jugadores">
                     <img onClick={()=>{guardar("jugador_1.png")}} alt="" src={require(`../imagenes/jugador_1.png`)}/>
