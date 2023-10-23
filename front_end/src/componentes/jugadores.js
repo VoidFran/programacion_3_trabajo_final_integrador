@@ -1,5 +1,4 @@
 import { useState } from "react";
-import {Link} from "react-router-dom"
 import Axios from "axios";
 
 
@@ -21,7 +20,7 @@ export default function Jugadores() {
 
   const [modal_abierto, modal_cerrado] = useState(false)
 
-  const Modal_foto = ({abierto, cerrado}) => {
+  const ModalFoto = ({abierto, cerrado}) => {
     if (!abierto) return null
     
     return (
@@ -46,6 +45,9 @@ export default function Jugadores() {
   const add = () => {
     if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png") {
       alert("Jugador agregado");
+      casteo("entrada", "posicion", posicion)
+      casteo("entrada", "pie_habil", pieHabil)
+      modal_cerrado(false)
       Axios.post("http://localhost:3005/create", {
         dni: dni,
         nombre: nombre,
@@ -71,6 +73,7 @@ export default function Jugadores() {
   const update = () => {
     if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png" && activo !== "") {
       alert("Jugador editado")
+      modal_cerrado(false)
       Axios.put("http://localhost:3005/update", {
         idFutbolista: idFutbolista,
         dni: dni,
@@ -139,30 +142,56 @@ export default function Jugadores() {
 
   getJugador();
 
-  function casteo(tipo, valor) {
-    if (tipo === "pie_habil") {
-      if (valor === 0) {
-        return "Derecho"
+  function casteo(tipo, texto, valor) {
+    if (tipo === "tabla") {
+      if (texto === "pie_habil") {
+        if (valor === 0) {
+          return "Derecho"
+        }
+        else {
+          return "Izquierdo"
+        }
       }
-      else {
-        return "Izquierdo"
+      else if (texto === "posicion") {
+        if (valor === 0) {
+          return "Arquero"
+        }
+        else if (valor === 1) {
+          return "Defensor"
+        }
+        else if (valor === 2) {
+          return "Medio"
+        }
+        else if (valor === 3) {
+          return "Delantero"
+        }
       }
     }
-    else if (tipo === "posicion") {
-      if (valor === 0) {
-        return "Arquero"
+    else if (tipo === "entrada") {
+      if (texto === "pie_habil") {
+        if (valor === "derecho") {
+          return 0
+        }
+        else {
+          return 1
+        }
       }
-      else if (valor === 1) {
-        return "Defensor"
-      }
-      else if (valor === 2) {
-        return "Medio"
-      }
-      else if (valor === 3) {
-        return "Delantero"
+      else if (texto === "posicion") {
+        if (valor === "arquero") {
+          return 0
+        }
+        else if (valor === "defensor") {
+          return 1
+        }
+        else if (valor === "medio") {
+          return 2
+        }
+        else if (valor === "delantero") {
+          return 3
+        }
       }
     }
- }
+  }
 
   return (
     <div>
@@ -179,11 +208,11 @@ export default function Jugadores() {
       </div>
 
       <div className="contacto_celda">
-        <label>Posición:</label><select value={posicion} onChange={(evento) => {setPosicion(evento.target.value)}}>
-          <option>0</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
+        <label>Posición:</label><select onChange={(evento) => {setPosicion(evento.target.value)}}>
+          <option value="arquero">Arquero</option>
+          <option value="defensor">Defensor</option>
+          <option value="medio">Medio</option>
+          <option value="delantero">Delantero</option>
         </select>
       </div>
 
@@ -195,13 +224,13 @@ export default function Jugadores() {
         <label>Foto:</label><img alt = "" src={require(`../imagenes/${foto}`)}/>
         
         <button onClick={() => modal_cerrado(true)}>abrir</button>
-        <Modal_foto abierto={modal_abierto} cerrado={() => modal_cerrado(false)}></Modal_foto>
+        <ModalFoto abierto={modal_abierto} cerrado={() => modal_cerrado(false)}></ModalFoto>
       </div>
 
       <div className="contacto_celda">
-        <label>Pie Hábil:</label><select value={pieHabil} onChange={(evento) => {setPieHabil(evento.target.value)}}>
-          <option>0</option>
-          <option>1</option>
+        <label>Pie Hábil:</label><select onChange={(evento) => {setPieHabil(evento.target.value)}}>
+          <option value="derecho">Derecho</option>
+          <option value="izquierdo">Izquierda</option>
         </select>
       </div>
 
@@ -242,9 +271,9 @@ export default function Jugadores() {
                         <td>{val.dni}</td>
                         <td>{val.nombre}</td>
                         <td>{val.apellido}</td>
-                        <td>{casteo("posicion", val.posicion)}</td>
+                        <td>{casteo("tabla", "posicion", val.posicion)}</td>
                         <td>{val.apodo}</td>
-                        <td>{casteo("pie_habil", val.pieHabil)}</td>
+                        <td>{casteo("tabla", "pie_habil", val.pieHabil)}</td>
                         <td><input type="checkbox" checked={val.activo}></input></td>
                         <td>
                           <button type="button" className="boton_1"
