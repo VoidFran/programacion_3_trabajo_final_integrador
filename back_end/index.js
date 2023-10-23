@@ -84,7 +84,6 @@ app.post("/create",(req,res)=>{
     const pieHabil = req.body.pieHabil;
     const activo = req.body.activo;
 
-
     db.query('INSERT INTO futbolista(dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo) VALUES(?,?,?,?,?,?,?,?)',[dni, nombre, apellido, posicion, apodo, foto, pieHabil, activo],
     (err,result)=>{
         if(err){
@@ -109,9 +108,6 @@ app.post("/create",(req,res)=>{
     );
 
  });
-
-
-
 
  //  ----------------------------------------ACTUALIZAR JUGADORES--------------------------------------------XD
 
@@ -218,7 +214,20 @@ app.delete("/convocatorias_eliminar/:id", (req, res) => {
 })
 
 app.get("/rivales", (req, res) => {
-    db.query('SELECT * FROM rival',
+    db.query('SELECT * FROM rival WHERE activo = 1',
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+    })
+})
+
+app.get("/rivales_nombre:id", (req, res) => {
+    const id = req.params.id;
+    db.query('SELECT * FROM rival WHERE idRival=?', id,
     (err, result) => {
         if (err) {
             console.log(err)

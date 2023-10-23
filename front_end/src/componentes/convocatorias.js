@@ -10,10 +10,11 @@ export default function Convocatoria() {
     const [golesConvertidos, estado_golesConvertidos] = useState("")
 
     const [convocatorias_lista, estado_convocatorias_lista] = useState([])
+    const [rivales_lista, estado_rivales_lista] = useState([])
     const [editar, estado_editar] = useState(false)
 
     const agregar_convocatoria = () => {
-        if (fecha !== "" && rival !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
+        if (fecha !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
             alert("Convocatoria agregado");
             Axios.post("http://localhost:3005/convocatorias_agregar", {
                 fecha: fecha,
@@ -31,7 +32,7 @@ export default function Convocatoria() {
     }
 
     const editar_convocatoria = () => {
-        if (fecha !== "" && rival !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
+        if (fecha !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
             Axios.post("http://localhost:3005/convocatorias_editar", {
                 idConvocatoria: idConvocatoria,
                 fecha: fecha,
@@ -75,6 +76,19 @@ export default function Convocatoria() {
         estado_editar(false)
     }
 
+    function formato_fecha(fecha_hora) {
+        const fecha = new Date(fecha_hora)
+        return fecha.toISOString().split("T")[0]
+    }
+
+    function casteo(valor) {
+        for (let indice of rivales_lista) {
+            if (valor === indice.idRival) {
+                return indice.nombre
+            }
+        }
+    }
+
     const convocatorias = () => {
         Axios.get("http://localhost:3005/convocatoria").then((response) => {
             estado_convocatorias_lista(response.data)
@@ -84,24 +98,38 @@ export default function Convocatoria() {
         })
     }
 
+    const rivales = () => {
+        Axios.get("http://localhost:3005/rivales").then((response) => {
+            estado_rivales_lista(response.data)
+        })
+    }
+
     convocatorias()
+    rivales()
 
     return (
         <div>
             <div className="contacto_celda">
-                <label>Fecha:</label><input type="date" placeholder="Ingrese fecha" value={fecha} onChange={(evento) => {estado_fecha(evento.target.value)}}></input>
+                <label>Fecha:</label><input type="date" placeholder="Ingrese fecha" value={fecha} onChange={(evento)=>{estado_fecha(evento.target.value)}}></input>
             </div>
 
             <div className="contacto_celda">
-                <label>Rival:</label><input type="number" placeholder="Ingrese rival" value={rival} onChange={(evento) => {estado_rival(evento.target.value)}}></input>
+                <label>Rival:</label>
+                <select onChange={(evento)=>{estado_rival(evento.target.value)}}>
+                    {rivales_lista.map((indice)=>{
+                        return <option value={indice.idRival} key={indice.idRival}>
+                            <option>{indice.nombre}</option>
+                        </option>
+                    })}
+                </select>
             </div>
 
             <div className="contacto_celda">
-                <label>Goles recibidos:</label><input type="number" placeholder="Ingrese goles recibidos" value={golesRecibidos} onChange={(evento) => {estado_golesRecibidos(evento.target.value)}}></input>
+                <label>Goles recibidos:</label><input type="number" placeholder="Ingrese goles recibidos" value={golesRecibidos} onChange={(evento)=>{estado_golesRecibidos(evento.target.value)}}></input>
             </div>
 
             <div className="contacto_celda">
-                <label>Goles convertidos:</label><input type="number" placeholder="Ingrese goles convertidos" value={golesConvertidos} onChange={(evento) => {estado_golesConvertidos(evento.target.value)}}></input>
+                <label>Goles convertidos:</label><input type="number" placeholder="Ingrese goles convertidos" value={golesConvertidos} onChange={(evento)=>{estado_golesConvertidos(evento.target.value)}}></input>
             </div>
 
             {
@@ -129,17 +157,17 @@ export default function Convocatoria() {
                 </thead>
 
                 <tbody>
-                    {convocatorias_lista.map((indice) => {
-                        return <tr key = {indice.idConvocatoria}>
+                    {convocatorias_lista.map((indice)=>{
+                        return <tr key={indice.idConvocatoria}>
                             <th>{indice.idConvocatoria}</th>
-                            <td>{indice.fecha}</td>
-                            <td>{indice.rival}</td>
+                            <td>{formato_fecha(indice.fecha)}</td>
+                            <td>{casteo(indice.rival)}</td>
                             <td>{indice.golesRecibidos}</td>
                             <td>{indice.golesConvertidos}</td>
                             <td>
                                 <div>
-                                    <button className = "boton_1" onClick = {() => {mostrar_editar_convocatoria(indice)}}>Editar</button>
-                                    <button onClick = {() => {eliminar_convocatoria(indice.idConvocatoria)}}>Eliminar</button>
+                                    <button className="boton_1" onClick={()=>{mostrar_editar_convocatoria(indice)}}>Editar</button>
+                                    <button onClick={()=>{eliminar_convocatoria(indice.idConvocatoria)}}>Eliminar</button>
                                 </div>
                             </td>
                         </tr>

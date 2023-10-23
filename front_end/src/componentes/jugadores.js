@@ -71,7 +71,7 @@ export default function Jugadores() {
 
   
   const update = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png" && activo !== "") {
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png") {
       alert("Jugador editado")
       modal_cerrado(false)
       Axios.put("http://localhost:3005/update", {
@@ -234,13 +234,14 @@ export default function Jugadores() {
         </select>
       </div>
 
-      <div className="contacto_celda">
-        <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => setActivo(event.target.checked)}></input>
-      </div>
-
       {
         editar?
-        <div >
+
+        <div>
+        <div className="contacto_celda">
+          <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => setActivo(event.target.checked)}></input>
+        </div>
+
           <button className="boton_1" onClick={update}>Editar jugador</button> 
           <button onClick={limpiar}>Cancelar</button>
         </div>
