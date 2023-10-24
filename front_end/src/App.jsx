@@ -6,6 +6,7 @@ import Inicio from "./componentes/inicio.js"
 import Jugadores from "./componentes/jugadores.js"
 import Convocatorias from "./componentes/convocatorias.js"
 import ConvocatoriasRivales from "./componentes/convocatorias_rivales.js"
+import ConvocatoriasConvocados from "./componentes/convocatorias_convocados.js"
 import EquipoTitular from "./componentes/equipo_titular.js"
 import Institucional from "./componentes/institucional.js"
 import Contacto from "./componentes/contacto.js"
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="jugadores" element={<Jugadores/>}/>
           <Route path="convocatorias" element={<Convocatorias/>}/>
           <Route path="convocatorias_rivales" element={<ConvocatoriasRivales/>}/>
+          <Route path="convocatorias_convocados" element={<ConvocatoriasConvocados/>}/>
           <Route path="equipo_titular" element={<EquipoTitular/>}/>
           <Route path="institucional" element={<Institucional/>}/>
           <Route path="contacto" element={<Contacto/>}/>

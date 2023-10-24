@@ -85,6 +85,10 @@ input {
   color: #b8b8b8;
 }
 
+.checkbox {
+  width: 32px;
+}
+
 select {
   position: relative;
   font-family: fuente;

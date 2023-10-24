@@ -97,7 +97,7 @@ app.post("/create",(req,res)=>{
  });
 //  ----------------------------------------SOLICITA CON METODO GET A BASE DE DATOS UNA LISTA DE LOS JUGADORES--------------------------------------------XDD
  app.get("/jugador",(req,res)=>{
-    db.query('SELECT * FROM futbolista',
+    db.query('SELECT * FROM futbolista WHERE activo = 1',
     (err,result)=>{
         if(err){
             console.log(err);
@@ -225,19 +225,6 @@ app.get("/rivales", (req, res) => {
     })
 })
 
-app.get("/rivales_nombre:id", (req, res) => {
-    const id = req.params.id;
-    db.query('SELECT * FROM rival WHERE idRival=?', id,
-    (err, result) => {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            res.send(result)
-        }
-    })
-})
-
 app.post("/rivales_agregar", (req, res) => {
     const nombre = req.body.nombre
     const activo = req.body.activo
@@ -278,6 +265,18 @@ app.delete("/rivales_eliminar/:id", (req, res) => {
             console.log(err)
         }
         else{
+            res.send(result)
+        }
+    })
+})
+
+app.get("/convocados", (req, res) => {
+    db.query('SELECT * FROM futbolistaconvocatoria WHERE activo = 1',
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
             res.send(result)
         }
     })

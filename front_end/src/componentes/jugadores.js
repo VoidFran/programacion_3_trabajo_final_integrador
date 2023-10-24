@@ -12,7 +12,7 @@ export default function Jugadores() {
   const [apodo, setApodo] = useState("");
   const [foto, setFoto] = useState("jugador_ninguna.png");
   const [pieHabil, setPieHabil] = useState("");
-  const [activo, setActivo] = useState("");
+  const [activo, setActivo] = useState("1");
 
   const [jugadoresLista, setJugadores] = useState([]);
   
@@ -43,10 +43,8 @@ export default function Jugadores() {
   }
 
   const add = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png") {
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png" && posicion !== "" && pieHabil !== "") {
       alert("Jugador agregado");
-      casteo("entrada", "posicion", posicion)
-      casteo("entrada", "pie_habil", pieHabil)
       modal_cerrado(false)
       Axios.post("http://localhost:3005/create", {
         dni: dni,
@@ -142,53 +140,27 @@ export default function Jugadores() {
 
   getJugador();
 
-  function casteo(tipo, texto, valor) {
-    if (tipo === "tabla") {
-      if (texto === "pie_habil") {
-        if (valor === 0) {
-          return "Derecho"
-        }
-        else {
-          return "Izquierdo"
-        }
+  function casteo(texto, valor) {
+    if (texto === "pie_habil") {
+      if (valor === 0) {
+        return "Derecho"
       }
-      else if (texto === "posicion") {
-        if (valor === 0) {
-          return "Arquero"
-        }
-        else if (valor === 1) {
-          return "Defensor"
-        }
-        else if (valor === 2) {
-          return "Medio"
-        }
-        else if (valor === 3) {
-          return "Delantero"
-        }
+      else {
+        return "Izquierdo"
       }
     }
-    else if (tipo === "entrada") {
-      if (texto === "pie_habil") {
-        if (valor === "derecho") {
-          return 0
-        }
-        else {
-          return 1
-        }
+    else if (texto === "posicion") {
+      if (valor === 0) {
+        return "Arquero"
       }
-      else if (texto === "posicion") {
-        if (valor === "arquero") {
-          return 0
-        }
-        else if (valor === "defensor") {
-          return 1
-        }
-        else if (valor === "medio") {
-          return 2
-        }
-        else if (valor === "delantero") {
-          return 3
-        }
+      else if (valor === 1) {
+        return "Defensor"
+      }
+      else if (valor === 2) {
+        return "Medio"
+      }
+      else if (valor === 3) {
+        return "Delantero"
       }
     }
   }
@@ -209,10 +181,11 @@ export default function Jugadores() {
 
       <div className="contacto_celda">
         <label>Posición:</label><select onChange={(evento) => {setPosicion(evento.target.value)}}>
-          <option value="arquero">Arquero</option>
-          <option value="defensor">Defensor</option>
-          <option value="medio">Medio</option>
-          <option value="delantero">Delantero</option>
+          <option>ninguno</option>
+          <option value="0">{casteo("posicion", 0)}</option>
+          <option value="1">{casteo("posicion", 1)}</option>
+          <option value="2">{casteo("posicion", 2)}</option>
+          <option value="3">{casteo("posicion", 3)}</option>
         </select>
       </div>
 
@@ -229,8 +202,9 @@ export default function Jugadores() {
 
       <div className="contacto_celda">
         <label>Pie Hábil:</label><select onChange={(evento) => {setPieHabil(evento.target.value)}}>
-          <option value="derecho">Derecho</option>
-          <option value="izquierdo">Izquierda</option>
+          <option>ninguno</option>
+          <option value="0">{casteo("pie_habil", 0)}</option>
+          <option value="1">{casteo("pie_habil", 1)}</option>
         </select>
       </div>
 
@@ -238,9 +212,9 @@ export default function Jugadores() {
         editar?
 
         <div>
-        <div className="contacto_celda">
-          <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => setActivo(event.target.checked)}></input>
-        </div>
+          <div className="contacto_celda">
+            <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => setActivo(event.target.checked)}></input>
+          </div>
 
           <button className="boton_1" onClick={update}>Editar jugador</button> 
           <button onClick={limpiar}>Cancelar</button>
@@ -272,10 +246,10 @@ export default function Jugadores() {
                         <td>{val.dni}</td>
                         <td>{val.nombre}</td>
                         <td>{val.apellido}</td>
-                        <td>{casteo("tabla", "posicion", val.posicion)}</td>
+                        <td>{casteo("posicion", val.posicion)}</td>
                         <td>{val.apodo}</td>
-                        <td>{casteo("tabla", "pie_habil", val.pieHabil)}</td>
-                        <td><input type="checkbox" checked={val.activo}></input></td>
+                        <td>{casteo("pie_habil", val.pieHabil)}</td>
+                        <td><input type="checkbox" checked={val.activo} className="checkbox"></input></td>
                         <td>
                           <button type="button" className="boton_1"
                           onClick={()=>{

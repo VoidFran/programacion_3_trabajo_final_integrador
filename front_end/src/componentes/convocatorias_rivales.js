@@ -82,22 +82,19 @@ export default function Convocatoria() {
                 <label>Nombre:</label><input type="text" placeholder="Ingrese nombre" value={nombre} onChange={(evento) => {estado_nombre(evento.target.value)}}></input>
             </div>
 
-            <div className="contacto_celda">
-                <label>Activo:</label>
-                <select value={activo} onChange={(evento) => {estado_activo(evento.target.value)}}>
-                    <option>0</option>
-                    <option>1</option>
-                </select>
-            </div>
-
             {
                 editar?
                 <div>
+                    <div className="contacto_celda">
+                        <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => setActivo(event.target.checked)}></input>
+                     </div>
+
                     <button className="boton_3" onClick={editar_rival}>Editar rival</button> 
                     <button className="boton_1" onClick={limpiar}>Cancelar</button>
                 </div>: 
                     <button className="boton_1" onClick={agregar_rival}>Agregar rival</button>
             }
+
             <Link to="/convocatorias">
                 <button>Convocatorias</button>
             </Link>
