@@ -1,5 +1,6 @@
 import {useState} from "react"
 import {Link} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import Axios from "axios"
 
 export default function Convocatoria() {
@@ -14,9 +15,11 @@ export default function Convocatoria() {
 
     const [editar, estado_editar] = useState(false)
 
+    const navigate = useNavigate()
+
     const agregar_convocatoria = () => {
         if (fecha !== "" && rival !== "") {
-            alert("Convocatoria agregado");
+            alert("Convocatoria agregado")
             Axios.post("http://localhost:3005/convocatorias_agregar", {
                 fecha: fecha,
                 rival: rival,
@@ -43,11 +46,11 @@ export default function Convocatoria() {
             }).then(() => {
                 convocatorias()
                 limpiar()
-                alert("Convocatoria editado")
+                alert("Convocatoria editada")
             })
         }
         else {
-            alert("Convocatoria no editado")
+            alert("Convocatoria no editada")
         }
     }
 
@@ -88,6 +91,10 @@ export default function Convocatoria() {
                 return indice.nombre
             }
         }
+    }
+
+    const convocar = (id) => {
+        navigate(`/convocatorias_convocados/${id}`)
     }
 
     const convocatorias = () => {
@@ -168,9 +175,7 @@ export default function Convocatoria() {
                             <td>{indice.golesConvertidos}</td>
                             <td>
                                 <div>
-                                    <Link to="/convocatorias_convocados">
-                                        <button className="boton_1">Convocados</button>
-                                    </Link>
+                                    <button onClick={()=>{convocar(indice.idConvocatoria)}} className="boton_1">Convocados</button>
                                     <button className="boton_1" onClick={()=>{mostrar_editar_convocatoria(indice)}}>Editar</button>
                                     <button onClick={()=>{eliminar_convocatoria(indice.idConvocatoria)}}>Eliminar</button>
                                 </div>

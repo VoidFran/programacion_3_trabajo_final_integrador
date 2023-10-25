@@ -1,10 +1,15 @@
 import {useState} from "react"
 import {Link} from "react-router-dom"
+import {useParams} from 'react-router-dom';
 import Axios from "axios"
 
 export default function Convocatoria() {
-    const [convocados_lista, estado_convocados_lista] = useState([])
+    let parametro = useParams()
+
     const [jugadores_lista, estado_jugadores_lista] = useState([])
+    const [convocados_lista, estado_convocados_lista] = useState([])
+
+    const [futbolistas]  = useState([])
 
     const convocar = (idFutbolista) => {
         if (convocados_lista.includes(idFutbolista)) {
@@ -12,8 +17,22 @@ export default function Convocatoria() {
             estado_convocados_lista(convocados_lista.filter((rowId) => rowId !== idFutbolista));
         } else {
             // Si no está seleccionada, agrego a la lista de convocados
-            estado_convocados_lista([convocados_lista, idFutbolista]);
+            estado_convocados_lista([...convocados_lista, idFutbolista]);
         }        
+    }
+
+    const enviar_informacion = () => {
+        if (convocados_lista !== "") {
+            Axios.post(`http://localhost:3005/convocados_agregar/${parametro.id}`, {
+                convocados_lista: convocados_lista,
+            }).then(() => {
+                alert("Convocado agregado");
+            })
+        }
+        else {
+            alert("Rival no agregado")
+        }
+        
     }
 
     function casteo(texto, valor) {
@@ -58,6 +77,8 @@ export default function Convocatoria() {
                 <button className="boton_1">Convocatorias</button>
             </Link>
 
+            <button onClick={enviar_informacion} className="boton_1">Convocar</button>
+
             <table>
                 <thead>
                     <tr>
@@ -72,7 +93,7 @@ export default function Convocatoria() {
                 </thead>
 
                 <tbody>
-                    {jugadores_lista.map((indice) => {
+                    {(jugadores_lista.map((indice) => {
                         return <tr key = {indice.idFutbolista}>
                             <th>{indice.idFutbolista}</th>
                             <td><img alt = "" src={require(`../imagenes/${indice.foto}`)}/></td>
@@ -82,7 +103,7 @@ export default function Convocatoria() {
                             <td>{casteo("pie_habil", indice.pieHabil)}</td>
                             <td><input type="checkbox" checked={convocados_lista.includes(indice.idFutbolista)} onChange={() => convocar(indice.idFutbolista)} className="checkbox"></input></td>
                         </tr>
-                    })}
+                    }))}
                 </tbody>
             </table>
         </div>

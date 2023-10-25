@@ -281,3 +281,18 @@ app.get("/convocados", (req, res) => {
         }
     })
 })
+
+app.post("/convocados_agregar/:id", (req, res) => {
+    const convocados_lista = req.body.convocados_lista
+    const id = req.params.id
+
+    db.query("INSERT INTO futbolistaconvocatoria(futbolista, convocatoria) VALUES(?, ?)", [convocados_lista, id],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    })
+})

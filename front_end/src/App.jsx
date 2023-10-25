@@ -31,7 +31,7 @@ export default function App() {
           <Route path="jugadores" element={<Jugadores/>}/>
           <Route path="convocatorias" element={<Convocatorias/>}/>
           <Route path="convocatorias_rivales" element={<ConvocatoriasRivales/>}/>
-          <Route path="convocatorias_convocados" element={<ConvocatoriasConvocados/>}/>
+          <Route path="convocatorias_convocados/:id" element={<ConvocatoriasConvocados/>}/>
           <Route path="equipo_titular" element={<EquipoTitular/>}/>
           <Route path="institucional" element={<Institucional/>}/>
           <Route path="contacto" element={<Contacto/>}/>

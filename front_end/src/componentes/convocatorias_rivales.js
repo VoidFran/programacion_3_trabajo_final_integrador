@@ -12,7 +12,7 @@ export default function Convocatoria() {
 
     const agregar_rival = () => {
         if (nombre !== "" && activo !== "") {
-            alert("Rival agregado");
+            alert("Rival agregado")
             Axios.post("http://localhost:3005/rivales_agregar", {
                 nombre: nombre,
                 activo: activo,
@@ -86,7 +86,7 @@ export default function Convocatoria() {
                 editar?
                 <div>
                     <div className="contacto_celda">
-                        <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => setActivo(event.target.checked)}></input>
+                        <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => estado_activo(event.target.checked)}></input>
                      </div>
 
                     <button className="boton_3" onClick={editar_rival}>Editar rival</button> 
