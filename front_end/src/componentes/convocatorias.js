@@ -37,7 +37,7 @@ export default function Convocatoria() {
 
     const editar_convocatoria = () => {
         if (fecha !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
-            axios.put("http://localhost:3005/convocatorias_editar", {
+            axios.put("http://localhost:3005/api/convocatorias/editar", {
                 idConvocatoria: idConvocatoria,
                 fecha: fecha,
                 rival: rival,
