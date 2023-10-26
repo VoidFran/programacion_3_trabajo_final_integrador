@@ -54,7 +54,7 @@ export default function Jugadores() {
         apodo: apodo,
         foto: foto,
         pieHabil: pieHabil,
-        activo: activo,
+        activo: 1,
       }).then(() => {
         getJugador();
         limpiar();
@@ -93,18 +93,9 @@ export default function Jugadores() {
     }
   };
 
-  const eliminar = () => {
+  const eliminar = (idFutbolista) => {
     alert("Jugador eliminado");
-    Axios.put("http://localhost:3005/api/futbolistas/eliminar", {
-      idFutbolista: idFutbolista,
-      dni: dni,
-      nombre: nombre,
-      apellido: apellido,
-      posicion: posicion,
-      apodo: apodo,
-      foto: foto,
-      pieHabil: pieHabil,
-      activo: activo,
+    Axios.delete(`http://localhost:3005/api/futbolistas/eliminar/${idFutbolista}`, {
     }).then(() => {
       getJugador();
       limpiar();
@@ -266,7 +257,7 @@ export default function Jugadores() {
                             editarJugador(val);
                           }}
                           >Editar</button>
-                          <button onClick={eliminar} className="btn btn-danger">Eliminar</button>
+                          <button onClick={()=>{eliminar(val.idFutbolista)}} className="btn btn-danger">Eliminar</button>
                           
 
                         </td>

@@ -21,7 +21,6 @@ agregar = async(req, res) => {
     const foto = req.body.foto;
     const pieHabil = req.body.pieHabil;
     const activo = req.body.activo;
-    console.log(990)
 
     conexion.query('INSERT INTO futbolista(dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo) VALUES(?,?,?,?,?,?,?,?)',[dni, nombre, apellido, posicion, apodo, foto, pieHabil, activo],
     (err,result)=>{
@@ -55,9 +54,8 @@ editar = async(req, res) => {
  }
 
  eliminar = async(req, res) => {
-    const idFutbolista = req.body.idFutbolista;
-    console.log(22)
-    console.log(idFutbolista)
+    const idFutbolista = req.params.idFutbolista;
+
     conexion.query('DELETE FROM futbolista WHERE idFutbolista=?', idFutbolista,
     (err,result)=>{
         if(err){

@@ -1,7 +1,7 @@
 import {useState} from "react"
 import {Link} from "react-router-dom"
 import {useNavigate} from "react-router-dom"
-import Axios from "axios"
+import axios from "axios"
 
 export default function Convocatoria() {
     const [idConvocatoria, estado_idConvocatoria] = useState()
@@ -20,7 +20,7 @@ export default function Convocatoria() {
     const agregar_convocatoria = () => {
         if (fecha !== "" && rival !== "") {
             alert("Convocatoria agregado")
-            Axios.post("http://localhost:3005/convocatorias_agregar", {
+            axios.post("http://localhost:3005/convocatorias_agregar", {
                 fecha: fecha,
                 rival: rival,
                 golesRecibidos: golesRecibidos,
@@ -37,7 +37,7 @@ export default function Convocatoria() {
 
     const editar_convocatoria = () => {
         if (fecha !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
-            Axios.post("http://localhost:3005/convocatorias_editar", {
+            axios.put("http://localhost:3005/convocatorias_editar", {
                 idConvocatoria: idConvocatoria,
                 fecha: fecha,
                 rival: rival,
@@ -63,12 +63,13 @@ export default function Convocatoria() {
         estado_idConvocatoria (indice.idConvocatoria)
     }
 
-    const eliminar_convocatoria = (id) => {
+    const eliminar_convocatoria = (idConvocatoria) => {
         alert("Convocatoria eliminada")
-        Axios.delete(`http://localhost:3005/convocatorias_eliminar/${id}`, {
+        axios.delete(`http://localhost:3005/api/convocatorias/eliminar/${idConvocatoria}`, {
         }).then(() => {
             convocatorias()
             limpiar()
+            estado_convocatorias_lista([]);
         })
     }
 
@@ -98,7 +99,7 @@ export default function Convocatoria() {
     }
 
     const convocatorias = () => {
-        Axios.get("http://localhost:3005/convocatoria").then((response) => {
+        axios.get("http://localhost:3005/api/convocatorias/buscar").then((response) => {
             estado_convocatorias_lista(response.data)
         })
         .catch(error => {
@@ -106,17 +107,17 @@ export default function Convocatoria() {
         })
     }
 
-    const rivales = () => {
-        Axios.get("http://localhost:3005/rivales").then((response) => {
-            estado_rivales_lista(response.data)
-        })
-    }
+    //const rivales = () => {
+      //  axios.get("http://localhost:3005/rivales").then((response) => {
+       //     estado_rivales_lista(response.data)
+      //  })
+    //}
 
     convocatorias()
-    rivales()
+    //rivales()
 
     return (
-        <div>{rival}
+        <div>
             <div className="contacto_celda">
                 <label>Fecha:</label><input type="date" placeholder="Ingrese fecha" value={fecha} onChange={(evento)=>{estado_fecha(evento.target.value)}}></input>
             </div>
