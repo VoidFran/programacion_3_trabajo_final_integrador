@@ -54,7 +54,7 @@ export default function Jugadores() {
         apodo: apodo,
         foto: foto,
         pieHabil: pieHabil,
-        activo: 1,
+        activo: activo,
       }).then(() => {
         getJugador();
         limpiar();

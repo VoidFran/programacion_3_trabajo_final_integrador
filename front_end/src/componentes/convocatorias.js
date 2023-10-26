@@ -20,11 +20,11 @@ export default function Convocatoria() {
     const agregar_convocatoria = () => {
         if (fecha !== "" && rival !== "") {
             alert("Convocatoria agregado")
-            axios.post("http://localhost:3005/convocatorias_agregar", {
+            axios.post("http://localhost:3005/api/convocatorias/agregar", {
                 fecha: fecha,
                 rival: rival,
-                golesRecibidos: golesRecibidos,
-                golesConvertidos: golesConvertidos,
+                golesRecibidos: 0,
+                golesConvertidos: 0,
             }).then(() => {
                 convocatorias()
                 limpiar()
@@ -69,7 +69,7 @@ export default function Convocatoria() {
         }).then(() => {
             convocatorias()
             limpiar()
-            estado_convocatorias_lista([]);
+            estado_convocatorias_lista([])
         })
     }
 
@@ -107,14 +107,17 @@ export default function Convocatoria() {
         })
     }
 
-    //const rivales = () => {
-      //  axios.get("http://localhost:3005/rivales").then((response) => {
-       //     estado_rivales_lista(response.data)
-      //  })
-    //}
+    const rivales = () => {
+        axios.get("http://localhost:3005/api/rivales/buscar").then((response) => {
+            estado_rivales_lista(response.data)
+        })
+        .catch(error => {
+            alert("Error al cargar rivales", error)
+        })
+    }
 
     convocatorias()
-    //rivales()
+    rivales()
 
     return (
         <div>

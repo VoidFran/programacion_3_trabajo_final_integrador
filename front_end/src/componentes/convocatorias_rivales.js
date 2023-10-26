@@ -1,11 +1,11 @@
 import {useState} from "react"
 import {Link} from "react-router-dom"
-import Axios from "axios"
+import axios from "axios"
 
 export default function Convocatoria() {
     const [idRival, estado_idRival] = useState()
     const [nombre, estado_nombre] = useState("")
-    const [activo, estado_activo] = useState("")
+    const [activo, estado_activo] = useState("1")
 
     const [rivales_lista, estado_rivales_lista] = useState([])
     const [editar, estado_editar] = useState(false)
@@ -13,7 +13,7 @@ export default function Convocatoria() {
     const agregar_rival = () => {
         if (nombre !== "" && activo !== "") {
             alert("Rival agregado")
-            Axios.post("http://localhost:3005/rivales_agregar", {
+            axios.post("http://localhost:3005/api/rivales/agregar", {
                 nombre: nombre,
                 activo: activo,
             }).then(() => {
@@ -28,7 +28,7 @@ export default function Convocatoria() {
 
     const editar_rival = () => {
         if (nombre !== "" && activo !== "") {
-            Axios.post("http://localhost:3005/rivales_editar", {
+            axios.put("http://localhost:3005/api/rivales/editar", {
                 idRival: idRival,
                 nombre: nombre,
                 activo: activo,
@@ -50,9 +50,9 @@ export default function Convocatoria() {
         estado_idRival(indice.idRival)
     }
 
-    const eliminar_rival = (id) => {
+    const eliminar_rival = (idRival) => {
         alert("Rival eliminado")
-        Axios.delete(`http://localhost:3005/rivales_eliminar/${id}`, {
+        axios.delete(`http://localhost:3005/api/rivales/eliminar/${idRival}`, {
         }).then(() => {
             rivales()
             limpiar()
@@ -66,7 +66,7 @@ export default function Convocatoria() {
     }
 
     const rivales = () => {
-        Axios.get("http://localhost:3005/rivales").then((response) => {
+        axios.get("http://localhost:3005/api/rivales/buscar").then((response) => {
             estado_rivales_lista(response.data)
         })
         .catch(error => {
@@ -116,8 +116,8 @@ export default function Convocatoria() {
                             <td>{indice.activo}</td>
                             <td>
                                 <div>
-                                    <button className="boton_1" onClick={() => {mostrar_editar_rival(indice)}}>Editar</button>
-                                    <button onClick={() => {eliminar_rival(indice.idRival)}}>Eliminar</button>
+                                    <button className="boton_1" onClick={()=>{mostrar_editar_rival(indice)}}>Editar</button>
+                                    <button onClick={()=>{eliminar_rival(indice.idRival)}}>Eliminar</button>
                                 </div>
                             </td>
                         </tr>

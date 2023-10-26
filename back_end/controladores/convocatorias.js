@@ -5,7 +5,8 @@ buscar = async(req, res) => {
     (err,result)=>{
         if (err) {
             console.log(err)
-        } else {
+        } 
+        else {
             res.send(result)
         }
     })
