@@ -46,7 +46,7 @@ export default function Jugadores() {
     if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png" && posicion !== "" && pieHabil !== "") {
       alert("Jugador agregado");
       modal_cerrado(false)
-      Axios.post("http://localhost:3005/create", {
+      Axios.post("http://localhost:3005/api/futbolistas/agregar", {
         dni: dni,
         nombre: nombre,
         apellido: apellido,
@@ -93,12 +93,22 @@ export default function Jugadores() {
     }
   };
 
-  const eliminar = (id) => {
+  const eliminar = () => {
     alert("Jugador eliminado");
-    Axios.delete(`http://localhost:3005/delete/${id}`, {
+    Axios.put("http://localhost:3005/api/futbolistas/eliminar", {
+      idFutbolista: idFutbolista,
+      dni: dni,
+      nombre: nombre,
+      apellido: apellido,
+      posicion: posicion,
+      apodo: apodo,
+      foto: foto,
+      pieHabil: pieHabil,
+      activo: activo,
     }).then(() => {
       getJugador();
       limpiar();
+      setJugadores([]);
     });
   };
 
@@ -256,7 +266,7 @@ export default function Jugadores() {
                             editarJugador(val);
                           }}
                           >Editar</button>
-                          <button onClick={() =>{eliminar(val.idFutbolista)}} className="btn btn-danger">Eliminar</button>
+                          <button onClick={eliminar} className="btn btn-danger">Eliminar</button>
                           
 
                         </td>
