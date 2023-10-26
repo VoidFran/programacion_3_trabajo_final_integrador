@@ -72,7 +72,7 @@ export default function Jugadores() {
     if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png") {
       alert("Jugador editado")
       modal_cerrado(false)
-      Axios.put("http://localhost:3005/update", {
+      Axios.put("http://localhost:3005/api/futbolistas/editar", {
         idFutbolista: idFutbolista,
         dni: dni,
         nombre: nombre,
@@ -127,19 +127,6 @@ export default function Jugadores() {
     setEditar(false);
   }
 
-  const getJugador = () => {
-    Axios.get("http://localhost:3005/jugador").then((response) => {
-      if (jugadoresLista.length !== response.data.length) {
-        setJugadores(response.data);
-      }
-    })
-    .catch(error => {
-        alert("Error al cargar jugadores", error)
-    })
-  };
-
-  getJugador();
-
   function casteo(texto, valor) {
     if (texto === "pie_habil") {
       if (valor === 0) {
@@ -165,6 +152,19 @@ export default function Jugadores() {
     }
   }
 
+  const getJugador = () => {
+    Axios.get("http://localhost:3005/api/futbolistas/buscar").then((response) => {
+      if (jugadoresLista.length !== response.data.length) {
+        setJugadores(response.data);
+      }
+    })
+    .catch(error => {
+        alert("Error al cargar jugadores", error)
+    })
+  };
+
+  getJugador();
+
   return (
     <div>
       <div className="contacto_celda">
@@ -180,7 +180,7 @@ export default function Jugadores() {
       </div>
 
       <div className="contacto_celda">
-        <label>Posición:</label><select onChange={(evento) => {setPosicion(evento.target.value)}}>
+        <label>Posición:</label><select value={posicion} onChange={(evento) => {setPosicion(evento.target.value)}}>
           <option>ninguno</option>
           <option value="0">{casteo("posicion", 0)}</option>
           <option value="1">{casteo("posicion", 1)}</option>
@@ -201,7 +201,7 @@ export default function Jugadores() {
       </div>
 
       <div className="contacto_celda">
-        <label>Pie Hábil:</label><select onChange={(evento) => {setPieHabil(evento.target.value)}}>
+        <label>Pie Hábil:</label><select value={pieHabil} onChange={(evento) => {setPieHabil(evento.target.value)}}>
           <option>ninguno</option>
           <option value="0">{casteo("pie_habil", 0)}</option>
           <option value="1">{casteo("pie_habil", 1)}</option>

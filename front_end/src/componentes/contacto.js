@@ -16,7 +16,7 @@ export default function Contacto() {
             alert("Correo enviado");
             limpiar()
 
-            await fetch(`http://localhost:3005/contacto`, {
+            await fetch(`http://localhost:3005/api/contacto`, {
                 method: "POST",
                 body: JSON.stringify(dataSend),
                 headers: {
