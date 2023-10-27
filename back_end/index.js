@@ -22,12 +22,14 @@ app.use(cors());
 const futbolistas = require('./rutas/futbolistas');
 const convocatorias = require('./rutas/convocatorias');
 const rivales = require('./rutas/rivales');
+const convocados = require('./rutas/convocados');
 const contacto = require('./rutas/contacto');
 
 // middleware
 app.use('/api', futbolistas);
 app.use('/api', convocatorias);
 app.use('/api', rivales);
+app.use('/api', convocados);
 app.use('/api', contacto);
 
 // endpoint de testeo del API

@@ -1,15 +1,13 @@
 import {useState} from "react"
 import {Link} from "react-router-dom"
-import {useParams} from 'react-router-dom';
-import Axios from "axios"
+import { useParams } from 'react-router-dom';
+import axios from "axios"
 
-export default function Convocatoria() {
-    let parametro = useParams()
+export default function Convocados() {
+    const { idConvocatoria } = useParams();
 
     const [jugadores_lista, estado_jugadores_lista] = useState([])
     const [convocados_lista, estado_convocados_lista] = useState([])
-
-    const [futbolistas]  = useState([])
 
     const convocar = (idFutbolista) => {
         if (convocados_lista.includes(idFutbolista)) {
@@ -23,10 +21,12 @@ export default function Convocatoria() {
 
     const enviar_informacion = () => {
         if (convocados_lista !== "") {
-            Axios.post(`http://localhost:3005/convocados_agregar/${parametro.id}`, {
+            alert("Convocado agregado");
+            axios.post(`http://localhost:3005/api/convocados/agregar`, {
+                idConvocatoria: idConvocatoria,
                 convocados_lista: convocados_lista,
             }).then(() => {
-                alert("Convocado agregado");
+
             })
         }
         else {
@@ -61,7 +61,7 @@ export default function Convocatoria() {
     }
     
     const jugadores = () => {
-        Axios.get("http://localhost:3005/jugador").then((response) => {
+        axios.get("http://localhost:3005/api/futbolistas/buscar").then((response) => {
             estado_jugadores_lista(response.data)
         })
         .catch(error => {

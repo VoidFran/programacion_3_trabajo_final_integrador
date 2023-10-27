@@ -94,8 +94,8 @@ export default function Convocatoria() {
         }
     }
 
-    const convocar = (id) => {
-        navigate(`/convocatorias_convocados/${id}`)
+    const convocar = (idConvocatoria) => {
+        navigate(`/convocatorias_convocados/${idConvocatoria}`)
     }
 
     const convocatorias = () => {
