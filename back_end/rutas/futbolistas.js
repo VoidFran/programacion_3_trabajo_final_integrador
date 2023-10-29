@@ -8,6 +8,6 @@ router
     .get("/futbolistas/buscar", buscar)
     .post("/futbolistas/agregar", agregar)
     .put("/futbolistas/editar", editar)
-    .delete("/futbolistas/eliminar/:idFutbolista", eliminar)
+    .put("/futbolistas/eliminar/:idFutbolista", eliminar)
 
 module.exports = router;

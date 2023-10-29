@@ -12,7 +12,6 @@ export default function Jugadores() {
   const [apodo, setApodo] = useState("");
   const [foto, setFoto] = useState("jugador_ninguna.png");
   const [pieHabil, setPieHabil] = useState("");
-  const [activo, setActivo] = useState("1");
 
   const [jugadoresLista, setJugadores] = useState([]);
   
@@ -54,7 +53,7 @@ export default function Jugadores() {
         apodo: apodo,
         foto: foto,
         pieHabil: pieHabil,
-        activo: activo,
+        activo: "1",
       }).then(() => {
         getJugador();
         limpiar();
@@ -81,11 +80,11 @@ export default function Jugadores() {
         apodo: apodo,
         foto: foto,
         pieHabil: pieHabil,
-        activo: activo,
+        activo: "1",
       }).then(() => {
+        setJugadores([]);
         getJugador();
         limpiar();
-        setJugadores([]);
       });
     }
     else {
@@ -95,11 +94,12 @@ export default function Jugadores() {
 
   const eliminar = (idFutbolista) => {
     alert("Jugador eliminado");
-    Axios.delete(`http://localhost:3005/api/futbolistas/eliminar/${idFutbolista}`, {
+    Axios.put(`http://localhost:3005/api/futbolistas/eliminar/${idFutbolista}`, {
+      activo: "0",
     }).then(() => {
+      setJugadores([]);
       getJugador();
       limpiar();
-      setJugadores([]);
     });
   };
 
@@ -112,7 +112,6 @@ export default function Jugadores() {
     setApodo(val.apodo)
     setFoto(val.foto)
     setPieHabil(val.pieHabil)
-    setActivo(val.activo)
     setIdFutbolista(val.idFutbolista)
   }
 
@@ -123,34 +122,8 @@ export default function Jugadores() {
     setPosicion("")
     setApodo("")
     setPieHabil("")
-    setActivo("")
     setIdFutbolista("")
     setEditar(false);
-  }
-
-  function casteo(texto, valor) {
-    if (texto === "pie_habil") {
-      if (valor === 0) {
-        return "Derecho"
-      }
-      else {
-        return "Izquierdo"
-      }
-    }
-    else if (texto === "posicion") {
-      if (valor === 0) {
-        return "Arquero"
-      }
-      else if (valor === 1) {
-        return "Defensor"
-      }
-      else if (valor === 2) {
-        return "Medio"
-      }
-      else if (valor === 3) {
-        return "Delantero"
-      }
-    }
   }
 
   const getJugador = () => {
@@ -183,10 +156,10 @@ export default function Jugadores() {
       <div className="contacto_celda">
         <label>Posición:</label><select value={posicion} onChange={(evento) => {setPosicion(evento.target.value)}}>
           <option>ninguno</option>
-          <option value="0">{casteo("posicion", 0)}</option>
-          <option value="1">{casteo("posicion", 1)}</option>
-          <option value="2">{casteo("posicion", 2)}</option>
-          <option value="3">{casteo("posicion", 3)}</option>
+          <option value="0">Arquero</option>
+          <option value="1">Defensor</option>
+          <option value="2">Medio</option>
+          <option value="3">Delantero</option>
         </select>
       </div>
 
@@ -204,8 +177,8 @@ export default function Jugadores() {
       <div className="contacto_celda">
         <label>Pie Hábil:</label><select value={pieHabil} onChange={(evento) => {setPieHabil(evento.target.value)}}>
           <option>ninguno</option>
-          <option value="0">{casteo("pie_habil", 0)}</option>
-          <option value="1">{casteo("pie_habil", 1)}</option>
+          <option value="0">Derecho</option>
+          <option value="1">Izquierdo</option>
         </select>
       </div>
 
@@ -213,10 +186,6 @@ export default function Jugadores() {
         editar?
 
         <div>
-          <div className="contacto_celda">
-            <label>Activo:</label><input type="checkbox" checked={activo} onChange={(event) => setActivo(event.target.checked)}></input>
-          </div>
-
           <button className="boton_1" onClick={update}>Editar jugador</button> 
           <button onClick={limpiar}>Cancelar</button>
         </div>
@@ -235,22 +204,21 @@ export default function Jugadores() {
               <th scope="col">Posicion</th>
               <th scope="col">Apodo</th>
               <th scope="col">Pie Habil</th>
-              <th scope="col">Activo</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           
           <tbody>
             {jugadoresLista.map((val, key) => {
                 return <tr key ={val.idFutbolista}>
-                        <th scope="row">{val.idFutbolista}</th>
+                        <th>{val.idFutbolista}</th>
                         <td><img alt = "" src={require(`../imagenes/${val.foto}`)}/></td>
                         <td>{val.dni}</td>
                         <td>{val.nombre}</td>
                         <td>{val.apellido}</td>
-                        <td>{casteo("posicion", val.posicion)}</td>
+                        <td>{val.posicion}</td>
                         <td>{val.apodo}</td>
-                        <td>{casteo("pie_habil", val.pieHabil)}</td>
-                        <td><input type="checkbox" checked={val.activo} className="checkbox"></input></td>
+                        <td>{val.pieHabil}</td>
                         <td>
                           <button type="button" className="boton_1"
                           onClick={()=>{

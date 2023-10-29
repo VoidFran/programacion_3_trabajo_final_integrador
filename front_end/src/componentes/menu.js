@@ -5,7 +5,7 @@ export default function Menu() {
         <div className="menu">
             <ul>
                 <li><Link to="">Inicio</Link></li>
-                <li><Link to="jugadores">Jugadores</Link></li>
+                <li><Link to="futbolistas">Futbolistas</Link></li>
                 <li><Link to="convocatorias">Convocatorias</Link></li>
                 <li><Link to="equipo_titular">Equipo Titular</Link></li>
                 <li><Link to="institucional">Institucional</Link></li>

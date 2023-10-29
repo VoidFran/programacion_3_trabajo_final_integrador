@@ -22,6 +22,7 @@ app.use(cors());
 const futbolistas = require('./rutas/futbolistas');
 const convocatorias = require('./rutas/convocatorias');
 const rivales = require('./rutas/rivales');
+const convocar = require('./rutas/convocar');
 const convocados = require('./rutas/convocados');
 const contacto = require('./rutas/contacto');
 
@@ -29,6 +30,7 @@ const contacto = require('./rutas/contacto');
 app.use('/api', futbolistas);
 app.use('/api', convocatorias);
 app.use('/api', rivales);
+app.use('/api', convocar);
 app.use('/api', convocados);
 app.use('/api', contacto);
 

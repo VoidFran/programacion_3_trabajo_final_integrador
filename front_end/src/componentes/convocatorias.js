@@ -95,7 +95,11 @@ export default function Convocatoria() {
     }
 
     const convocar = (idConvocatoria) => {
-        navigate(`/convocatorias_convocados/${idConvocatoria}`)
+        navigate(`/convocatorias_convocar/${idConvocatoria}`)
+    }
+
+    const convocados = (idConvocatoria, idRival) => {
+        navigate(`/convocatorias_convocados/${idConvocatoria}/${idRival}`)
     }
 
     const convocatorias = () => {
@@ -179,7 +183,8 @@ export default function Convocatoria() {
                             <td>{indice.golesConvertidos}</td>
                             <td>
                                 <div>
-                                    <button onClick={()=>{convocar(indice.idConvocatoria)}} className="boton_1">Convocados</button>
+                                    <button onClick={()=>{convocar(indice.idConvocatoria)}} className="boton_1">Convocar</button>
+                                    <button onClick={()=>{convocados(indice.idConvocatoria, indice.rival)}} className="boton_1">Convocados</button>
                                     <button className="boton_1" onClick={()=>{mostrar_editar_convocatoria(indice)}}>Editar</button>
                                     <button onClick={()=>{eliminar_convocatoria(indice.idConvocatoria)}}>Eliminar</button>
                                 </div>
