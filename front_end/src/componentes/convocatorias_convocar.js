@@ -75,7 +75,7 @@ export default function Convocados() {
                             <td>{indice.apellido}</td>
                             <td>{indice.posicion}</td>
                             <td>{indice.pieHabil}</td>
-                            <td><input type="checkbox" checked={convocados_lista.includes(indice.idFutbolista)} onChange={() => convocar(indice.idFutbolista)} className="checkbox"></input></td>
+                            <td><input type="checkbox" className="checkbox" checked={convocados_lista.includes(indice.idFutbolista)} onChange={() => convocar(indice.idFutbolista)}></input></td>
                         </tr>
                     }))}
                 </tbody>

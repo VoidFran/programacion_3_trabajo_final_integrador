@@ -33,10 +33,18 @@ const buscar =  async(req, res) => {
             res.send(result)
         }
     })
+}
 
+editar = async(req, res) => {
+    const titulares_lista = req.body.titulares_lista
 
+    titulares_lista.forEach(async element => {
+        const consulta = "UPDATE futbolistaconvocatoria SET esTitular = ? WHERE idFutbolistaConvocatoria = ?"
+        const dato = [1, element]
+        conexion.query(consulta, dato)
+    })
 }
 
 module.exports = {
-    buscar
+    buscar, editar
 }

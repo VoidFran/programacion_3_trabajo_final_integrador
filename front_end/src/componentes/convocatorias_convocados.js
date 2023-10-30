@@ -7,7 +7,32 @@ export default function Convocados() {
     const {idConvocatoria} = useParams();
 
     const [convocados_lista, estado_convocados_lista] = useState([])
-    
+    const [titulares_lista, estado_titulares_lista] = useState([])
+
+    const titulares = (idFutbolista) => {
+        if (titulares_lista.includes(idFutbolista)) {
+            // Si ya está seleccionado, quito de la lista de convocados
+            estado_titulares_lista(titulares_lista.filter((rowId) => rowId !== idFutbolista));
+        } else {
+            // Si no está seleccionada, agrego a la lista de convocados
+            estado_titulares_lista([...titulares_lista, idFutbolista]);
+        }        
+    }
+
+    const enviar_informacion = () => {
+        if (titulares_lista.length === 11) {
+            alert("Convocados agregados");
+            axios.put("http://localhost:3005/api/convocados/editar", {
+                titulares_lista: titulares_lista,
+            }).then(() => {
+
+            })
+        }
+        else {
+            alert("Titulares no agregados, se necesitan 11")
+        }
+    }
+
     const convocados = () => {
         axios.get(`http://localhost:3005/api/convocados/buscar/${idConvocatoria}`).then((response) => {
             estado_convocados_lista(response.data)
@@ -20,7 +45,9 @@ export default function Convocados() {
     convocados()
 
     return (
-        <div>
+        <div>{titulares_lista}
+            <button onClick={enviar_informacion} className="boton_1">Confirmar</button>
+
             <Link to="/convocatorias">
                 <button className="boton_1">Volver</button>
             </Link>
@@ -51,7 +78,7 @@ export default function Convocados() {
                             <td>{indice.pieHabil}</td>
                             <td>{indice.dorsal}</td>
                             <td><input type="radio" className="checkbox"></input></td>
-                            <td><input type="checkbox" className="checkbox"></input></td>
+                            <td><input type="checkbox" className="checkbox" checked={titulares_lista.includes(indice.idFutbolista)} onChange={() => titulares(indice.idFutbolista)}></input></td>
                         </tr>
                     }))}
                 </tbody>
