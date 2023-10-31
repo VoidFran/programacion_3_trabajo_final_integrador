@@ -226,6 +226,11 @@ td {
 }
 /* Institucional */
 
+.equipo_titular select {
+  width: 350px;
+  margin-left: 0px;
+}
+
 /* Botones */
 .contacto_celda{
   margin-bottom: 8px

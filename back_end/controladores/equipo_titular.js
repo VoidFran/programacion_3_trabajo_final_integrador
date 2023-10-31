@@ -35,7 +35,6 @@ const buscar =  async(req, res) => {
     })
 }
 
-
 module.exports = {
     buscar
 }

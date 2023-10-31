@@ -24,7 +24,7 @@ export default function Convocados() {
 
     const enviar_informacion = () => {
         if (titulares_lista.length === 11) {
-            alert("Convocados agregados");
+            alert("Titulares agregados");
             axios.put("http://localhost:3005/api/convocados/editar", {
                 titulares_lista: titulares_lista,
             }).then(() => {
@@ -81,7 +81,6 @@ export default function Convocados() {
                             <td>{indice.posicion}</td>
                             <td>{indice.pieHabil}</td>
                             <td>{indice.dorsal}</td>
-                            <td>{indice.idFutbolistaConvocatoria}</td>
                             <td><input type="radio" className="checkbox"></input></td>
                             <td><input type="checkbox" className="checkbox" checked={titulares_lista.includes(indice.idFutbolistaConvocatoria)} onChange={() => titulares(indice.idFutbolistaConvocatoria)}></input></td>
                         </tr>
