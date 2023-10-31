@@ -25,7 +25,7 @@ const buscar =  async(req, res) => {
     END) as titular
     FROM futbolista AS f
     INNER JOIN futbolistaConvocatoria AS fc on fc.futbolista = f.idFutbolista
-    WHERE f.activo = 1 AND fc.convocatoria = ?`, idConvocatoria,
+    WHERE f.activo = 1 AND fc.esTitular = 1 AND fc.convocatoria = ?`, idConvocatoria,
     (err,result)=>{
         if(err){
             console.log(err)

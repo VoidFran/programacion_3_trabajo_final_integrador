@@ -1,6 +1,7 @@
 import {useState} from "react"
 import {Link} from "react-router-dom"
 import {useParams} from 'react-router-dom'
+import {useNavigate} from "react-router-dom"
 import axios from "axios"
 
 export default function Convocados() {
@@ -8,6 +9,8 @@ export default function Convocados() {
 
     const [jugadores_lista, estado_jugadores_lista] = useState([])
     const [convocados_lista, estado_convocados_lista] = useState([])
+
+    const navigate = useNavigate()
 
     const convocar = (idFutbolista) => {
         if (convocados_lista.includes(idFutbolista)) {
@@ -25,13 +28,22 @@ export default function Convocados() {
             axios.post(`http://localhost:3005/api/convocar/agregar`, {
                 idConvocatoria: idConvocatoria,
                 convocados_lista: convocados_lista,
+                fecha: fecha_buscar(),
             }).then(() => {
 
             })
+            navigate("/convocatorias")
         }
         else {
-            alert("Convocados no agregados, se necesitan 26")
+            alert("Convocados no agregados, se necesitan 26, actual = " + convocados_lista.length)
         }
+    }
+
+    function fecha_buscar() {
+        var today = new Date(),
+        date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        
+        return date
     }
 
     const jugadores = () => {

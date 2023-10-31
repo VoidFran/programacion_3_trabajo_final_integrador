@@ -43,11 +43,13 @@ export default function EquipoTitular() {
     
     const convocados = () => {
         if (idConvocatoria !== "") {
+            console.log(equipo_titular_lista)
             axios.get(`http://localhost:3005/api/equipo_titular/buscar/${idConvocatoria}`).then((response) => {
                 estado_equipo_titular_lista(response.data)
             })
             .catch(error => {
                 alert("Error al cargar convocados", error)
+                estado_equipo_titular_lista([])
             })
         }
     }
@@ -57,7 +59,7 @@ export default function EquipoTitular() {
     convocados()
 
     return (
-        <div>{idConvocatoria}
+        <div>
             <h1>equipo_titular</h1>
 
             <select onChange={(evento)=>{estado_idConvocatoria(evento.target.value)}}>
@@ -71,19 +73,26 @@ export default function EquipoTitular() {
                     })}
                 </select>
 
-            {(equipo_titular_lista.map((indice) => {
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Arquero</th>
+                        <th>Defensor</th>
+                        <th>Medio</th>
+                        <th>Delantero</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+                {(equipo_titular_lista.map((indice) => {
                 return <tr key = {indice.idFutbolista}>
-                    <th>{indice.idFutbolista}</th>
-                    <td><img alt = "" src={require(`../imagenes/${indice.foto}`)}/></td>
-                    <td>{indice.nombre}</td>
-                    <td>{indice.apellido}</td>
-                    <td>{indice.posicion}</td>
-                    <td>{indice.pieHabil}</td>
-                    <td>{indice.dorsal}</td>
-                    <td><input type="radio" className="checkbox"></input></td>
-                    <td><input type="checkbox" className="checkbox"></input></td>
+                    <td><img alt = "" src={require(`../imagenes/${indice.foto}`)}/>{indice.idFutbolista} {indice.nombre} {indice.apellido} {indice.dorsal}</td>
                 </tr>
             }))}
+                </tbody>
+            </table>
         </div>
     )
 }

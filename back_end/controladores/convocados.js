@@ -3,7 +3,7 @@ const conexion = require("../base_de_datos/conexion")
 const buscar =  async(req, res) => {
     const {idConvocatoria} = req.params
 
-    conexion.query(`SELECT f.idFutbolista, f.foto, f.nombre, f.apellido,
+    conexion.query(`SELECT f.idFutbolista, fc.idFutbolistaConvocatoria, f.foto, f.nombre, f.apellido,
     (CASE
         WHEN f.posicion = 0 THEN 'Arquero'
         WHEN f.posicion = 1 THEN 'Defensor'
@@ -39,8 +39,9 @@ editar = async(req, res) => {
     const titulares_lista = req.body.titulares_lista
 
     titulares_lista.forEach(async element => {
-        const consulta = "UPDATE futbolistaconvocatoria SET esTitular = ? WHERE idFutbolistaConvocatoria = ?"
-        const dato = [1, element]
+        const consulta = "UPDATE futbolistaconvocatoria SET dorsal = 3, esTitular = ? WHERE idFutbolistaConvocatoria = ?"
+        const dato = ["1", element]
+        console.log(element)
         conexion.query(consulta, dato)
     })
 }
