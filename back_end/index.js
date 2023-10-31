@@ -24,6 +24,7 @@ const convocatorias = require('./rutas/convocatorias');
 const rivales = require('./rutas/rivales');
 const convocar = require('./rutas/convocar');
 const convocados = require('./rutas/convocados');
+const equipo_titular = require('./rutas/equipo_titular');
 const contacto = require('./rutas/contacto');
 
 // middleware
@@ -32,6 +33,7 @@ app.use('/api', convocatorias);
 app.use('/api', rivales);
 app.use('/api', convocar);
 app.use('/api', convocados);
+app.use('/api', equipo_titular);
 app.use('/api', contacto);
 
 // endpoint de testeo del API
