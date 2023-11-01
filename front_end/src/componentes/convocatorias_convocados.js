@@ -10,6 +10,7 @@ export default function Convocados() {
     const [convocados_lista, estado_convocados_lista] = useState([])
     const [titulares_lista, estado_titulares_lista] = useState([])
     const [arquero, estado_arquero] = useState([])
+    const [capitan, estado_capitan] = useState([])
 
     const navigate = useNavigate()
 
@@ -30,19 +31,43 @@ export default function Convocados() {
         }
     }
 
+    const _capitan = (idFutbolistaConvocatoria) => {
+        if (capitan.includes(idFutbolistaConvocatoria)) {
+            // Si ya está seleccionado, quito de la lista de convocados
+            estado_capitan(capitan.filter((rowId) => rowId !== idFutbolistaConvocatoria))
+        }
+        else {
+            // Si no está seleccionada, agrego a la lista de convocados
+            estado_capitan([...capitan, idFutbolistaConvocatoria])
+        }
+    }
+
     const enviar_informacion = () => {
-        if (titulares_lista.length <= 10 && arquero.length <= 1) {
+        if (titulares_lista.length <= 10 && arquero.length === 1 && capitan.length === 1) {
             alert("Titulares agregados");
             axios.put("http://localhost:3005/api/convocados/editar", {
                 idConvocatoria: idConvocatoria,
                 titulares_lista: titulares_lista,
+                capitan: capitan,
             }).then(() => {
 
             })
             navigate("/convocatorias")
         }
-        else if (titulares_lista.length <= 10 && arquero.length > 1) {
+        else if (titulares_lista.length <= 10 && arquero.length > 1 && capitan.length <= 1) {
             alert("Titulares no agregados, se necesita solo 1 arquero")
+        }
+        else if (titulares_lista.length <= 10 && capitan.length > 1 && arquero.length <= 1) {
+            alert("Titulares no agregados, se necesita solo 1 capitan")
+        }
+        else if (titulares_lista.length <= 10 && arquero.length > 1 && capitan.length > 1) {
+            alert("Titulares no agregados, se necesita solo 1 arquero y capitan")
+        }
+        else if (titulares_lista.length <= 10 && arquero.length <= 0) {
+            alert("Titulares no agregados, falta 1 arquero")
+        }
+        else if (titulares_lista.length <= 10 && capitan.length <= 0) {
+            alert("Titulares no agregados, falta 1 capitan")
         }
         else {
             alert("Titulares no agregados, se necesitan 11, actual = " + titulares_lista.length)
@@ -61,7 +86,7 @@ export default function Convocados() {
     convocados()
 
     return (
-        <div>titulares: {titulares_lista} arquero: {arquero} {arquero.length}
+        <div>titulares: {titulares_lista} arquero: {arquero} {arquero.length} capitan: {capitan} {capitan.length}
             <button onClick={enviar_informacion} className="boton_1">Confirmar</button>
 
             <Link to="/convocatorias">
@@ -93,8 +118,8 @@ export default function Convocados() {
                             <td>{indice.posicion}</td>
                             <td>{indice.pieHabil}</td>
                             <td>{indice.dorsal}</td>
-                            <td><input type="radio" className="checkbox"></input></td>
-                            <td><input type="checkbox" value={indice.posicion} className="checkbox" checked={titulares_lista.includes(indice.idFutbolistaConvocatoria)} onChange={() => titulares(indice.idFutbolistaConvocatoria, indice.posicion)}></input></td>
+                            <td><input type="checkbox" className="checkbox" checked={capitan.includes(indice.idFutbolistaConvocatoria)} onChange={() => _capitan(indice.idFutbolistaConvocatoria)}></input></td>
+                            <td><input type="checkbox" className="checkbox" checked={titulares_lista.includes(indice.idFutbolistaConvocatoria)} onChange={() => titulares(indice.idFutbolistaConvocatoria, indice.posicion)}></input></td>
                         </tr>
                     }))}
                 </tbody>

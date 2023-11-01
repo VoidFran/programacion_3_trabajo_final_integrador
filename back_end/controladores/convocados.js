@@ -36,18 +36,21 @@ const buscar = async(req, res) => {
 }
 
 editar = async(req, res) => {
-    const {idConvocatoria, titulares_lista} = req.body
+    const {idConvocatoria, titulares_lista, capitan} = req.body
 
     // pongo los titulres en 0
-    const consulta = "UPDATE futbolistaconvocatoria SET dorsal = 0, esTitular = 0 WHERE convocatoria = ?" 
-    conexion.query(consulta, idConvocatoria)
+    const consulta_1 = "UPDATE futbolistaconvocatoria SET dorsal = 0, esCapitan = 0, esTitular = 0 WHERE convocatoria = ?" 
+    conexion.query(consulta_1, idConvocatoria)
 
     // agrego los titulres
     titulares_lista.forEach(async element => {
-        const consulta = "UPDATE futbolistaconvocatoria SET dorsal = 3, esTitular = ? WHERE idFutbolistaConvocatoria = ?"
-        const dato = ["1", element]
-        conexion.query(consulta, dato)
+        const consulta = "UPDATE futbolistaconvocatoria SET dorsal = 0, esTitular = 1 WHERE idFutbolistaConvocatoria = ?"
+        conexion.query(consulta, element)
     })
+
+    // establesco el capitan
+    const consulta_2 = "UPDATE futbolistaconvocatoria SET dorsal = 22, esCapitan = 1, esTitular = 1 WHERE idFutbolistaConvocatoria = ?" 
+    conexion.query(consulta_2, capitan)
 }
 
 module.exports = {

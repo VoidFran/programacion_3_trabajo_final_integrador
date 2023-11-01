@@ -78,9 +78,14 @@ export default function EquipoTitular() {
             
                 <tbody>
                     {equipo_titular_lista.map((indice) => {
-                        if (indice.posicion === "Arquero") {
+                        if (indice.posicion === "Arquero" && indice.capitan === "No") {
                             return <tr key={indice.idFutbolista}>
                                 <td>{indice.nombre} {indice.apellido} ({indice.dorsal})</td>
+                            </tr>
+                        }
+                        else if (indice.posicion === "Arquero" && indice.capitan === "Si") {
+                            return <tr key={indice.idFutbolista}>
+                                <td>{indice.nombre} {indice.apellido} ({indice.dorsal}) Capitan</td>
                             </tr>
                         }
                     })}
@@ -96,9 +101,14 @@ export default function EquipoTitular() {
             
                 <tbody>
                     {equipo_titular_lista.map((indice) => {
-                        if (indice.posicion === "Defensor") {
+                        if (indice.posicion === "Defensor" && indice.capitan === "No") {
                             return <tr key = {indice.idFutbolista}>
                                 <td>{indice.nombre} {indice.apellido} ({indice.dorsal})</td>
+                            </tr>
+                        }
+                        else if (indice.posicion === "Defensor" && indice.capitan === "Si") {
+                            return <tr key={indice.idFutbolista}>
+                                <td>{indice.nombre} {indice.apellido} ({indice.dorsal}) Capitan</td>
                             </tr>
                         }
                     })}
@@ -114,9 +124,14 @@ export default function EquipoTitular() {
             
                 <tbody>
                     {equipo_titular_lista.map((indice) => {
-                        if (indice.posicion === "Medio") {
+                        if (indice.posicion === "Medio" && indice.capitan === "No") {
                             return <tr key = {indice.idFutbolista}>
                                 <td>{indice.nombre} {indice.apellido} ({indice.dorsal})</td>
+                            </tr>
+                        }
+                        else if (indice.posicion === "Medio" && indice.capitan === "Si") {
+                            return <tr key={indice.idFutbolista}>
+                                <td>{indice.nombre} {indice.apellido} ({indice.dorsal}) Capitan</td>
                             </tr>
                         }
                     })}
@@ -132,9 +147,14 @@ export default function EquipoTitular() {
 
                 <tbody>
                     {equipo_titular_lista.map((indice) => {
-                        if (indice.posicion === "Delantero") {
+                        if (indice.posicion === "Delantero" && indice.capitan === "No") {
                             return <tr key = {indice.idFutbolista}>
                                 <td>{indice.nombre} {indice.apellido} ({indice.dorsal})</td>
+                            </tr>
+                        }
+                        else if (indice.posicion === "Delantero" && indice.capitan === "Si") {
+                            return <tr key={indice.idFutbolista}>
+                                <td>{indice.nombre} {indice.apellido} ({indice.dorsal}) Capitan</td>
                             </tr>
                         }
                     })}
