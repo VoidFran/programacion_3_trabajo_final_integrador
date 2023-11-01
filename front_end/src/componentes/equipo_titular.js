@@ -62,7 +62,6 @@ export default function EquipoTitular() {
                     <option>ninguno</option>
                         {convocatorias_lista.map((indice)=>{
                             return <option value={indice.idConvocatoria}>
-                                <option>Id: {indice.idConvocatoria} / </option>
                                 <option>Fecha: {formato_fecha(indice.fecha)} / </option>
                                 <option>Rival: {casteo(indice.rival)}</option>
                             </option>
@@ -70,8 +69,6 @@ export default function EquipoTitular() {
                 </select>
             </div>
 
-
-        
             <table>
                 <thead>
                     <tr>

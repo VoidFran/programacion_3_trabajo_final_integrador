@@ -116,7 +116,7 @@ export default function Convocatoria() {
             estado_rivales_lista(response.data)
         })
         .catch(error => {
-            alert("Error al cargar rivales", error)
+
         })
     }
 

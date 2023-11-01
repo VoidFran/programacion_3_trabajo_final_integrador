@@ -16,16 +16,20 @@ export default function Convocados() {
         if (titulares_lista.includes(idFutbolistaConvocatoria)) {
             // Si ya está seleccionado, quito de la lista de convocados
             estado_titulares_lista(titulares_lista.filter((rowId) => rowId !== idFutbolistaConvocatoria));
-        } else {
-            // Si no está seleccionada, agrego a la lista de convocados
-            estado_titulares_lista([...titulares_lista, idFutbolistaConvocatoria]);
+        }
+        else {
+            if (titulares_lista.length <= 10) {
+                // Si no está seleccionada, agrego a la lista de convocados
+                estado_titulares_lista([...titulares_lista, idFutbolistaConvocatoria]);
+            }
         }        
     }
 
     const enviar_informacion = () => {
-        if (titulares_lista.length === 11) {
+        if (titulares_lista.length <= 10) {
             alert("Titulares agregados");
             axios.put("http://localhost:3005/api/convocados/editar", {
+                idConvocatoria: idConvocatoria,
                 titulares_lista: titulares_lista,
             }).then(() => {
 
