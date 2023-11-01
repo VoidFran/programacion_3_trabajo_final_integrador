@@ -80,7 +80,7 @@ export default function EquipoTitular() {
                     {equipo_titular_lista.map((indice) => {
                         if (indice.posicion === "Arquero") {
                             return <tr key={indice.idFutbolista}>
-                                <td>{indice.nombre}{indice.apellido} ({indice.dorsal})</td>
+                                <td>{indice.nombre} {indice.apellido} ({indice.dorsal})</td>
                             </tr>
                         }
                     })}

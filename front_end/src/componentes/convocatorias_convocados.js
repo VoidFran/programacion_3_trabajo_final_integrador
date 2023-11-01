@@ -9,24 +9,29 @@ export default function Convocados() {
 
     const [convocados_lista, estado_convocados_lista] = useState([])
     const [titulares_lista, estado_titulares_lista] = useState([])
+    const [arquero, estado_arquero] = useState([])
 
     const navigate = useNavigate()
 
-    const titulares = (idFutbolistaConvocatoria) => {
+    const titulares = (idFutbolistaConvocatoria, posicion) => {
         if (titulares_lista.includes(idFutbolistaConvocatoria)) {
             // Si ya está seleccionado, quito de la lista de convocados
             estado_titulares_lista(titulares_lista.filter((rowId) => rowId !== idFutbolistaConvocatoria));
+            arquero.splice([0], 1)
         }
         else {
+            if (posicion === "Arquero") {
+                estado_arquero([...arquero, posicion])
+            }
             if (titulares_lista.length <= 10) {
                 // Si no está seleccionada, agrego a la lista de convocados
                 estado_titulares_lista([...titulares_lista, idFutbolistaConvocatoria]);
             }
-        }        
+        }
     }
 
     const enviar_informacion = () => {
-        if (titulares_lista.length <= 10) {
+        if (titulares_lista.length <= 10 && arquero.length <= 1) {
             alert("Titulares agregados");
             axios.put("http://localhost:3005/api/convocados/editar", {
                 idConvocatoria: idConvocatoria,
@@ -35,6 +40,9 @@ export default function Convocados() {
 
             })
             navigate("/convocatorias")
+        }
+        else if (titulares_lista.length <= 10 && arquero.length > 1) {
+            alert("Titulares no agregados, se necesita solo 1 arquero")
         }
         else {
             alert("Titulares no agregados, se necesitan 11, actual = " + titulares_lista.length)
@@ -53,7 +61,7 @@ export default function Convocados() {
     convocados()
 
     return (
-        <div>
+        <div>titulares: {titulares_lista} arquero: {arquero} {arquero.length}
             <button onClick={enviar_informacion} className="boton_1">Confirmar</button>
 
             <Link to="/convocatorias">
@@ -86,7 +94,7 @@ export default function Convocados() {
                             <td>{indice.pieHabil}</td>
                             <td>{indice.dorsal}</td>
                             <td><input type="radio" className="checkbox"></input></td>
-                            <td><input type="checkbox" className="checkbox" checked={titulares_lista.includes(indice.idFutbolistaConvocatoria)} onChange={() => titulares(indice.idFutbolistaConvocatoria)}></input></td>
+                            <td><input type="checkbox" value={indice.posicion} className="checkbox" checked={titulares_lista.includes(indice.idFutbolistaConvocatoria)} onChange={() => titulares(indice.idFutbolistaConvocatoria, indice.posicion)}></input></td>
                         </tr>
                     }))}
                 </tbody>
