@@ -191,51 +191,49 @@ export default function Jugadores() {
         </div>
           :<button onClick={add}>Agregar jugador</button>
       }
+
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Dni</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Posicion</th>
+            <th scope="col">Apodo</th>
+            <th scope="col">Pie Habil</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
         
-      <div className="grid_contenedor">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Foto</th>
-              <th scope="col">Dni</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Posicion</th>
-              <th scope="col">Apodo</th>
-              <th scope="col">Pie Habil</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>
-          
-          <tbody>
-            {jugadoresLista.map((val, key) => {
-                return <tr key ={val.idFutbolista}>
-                        <th>{val.idFutbolista}</th>
-                        <td><img alt = "" src={require(`../imagenes/${val.foto}`)}/></td>
-                        <td>{val.dni}</td>
-                        <td>{val.nombre}</td>
-                        <td>{val.apellido}</td>
-                        <td>{val.posicion}</td>
-                        <td>{val.apodo}</td>
-                        <td>{val.pieHabil}</td>
-                        <td>
-                          <button type="button" className="boton_1"
-                          onClick={()=>{
-                            editarJugador(val);
-                          }}
-                          >Editar</button>
-                          <button onClick={()=>{eliminar(val.idFutbolista)}} className="btn btn-danger">Eliminar</button>
-                          
+        <tbody>
+          {jugadoresLista.map((val, key) => {
+              return <tr key ={val.idFutbolista}>
+                      <th>{val.idFutbolista}</th>
+                      <td><img alt = "" src={require(`../imagenes/${val.foto}`)}/></td>
+                      <td>{val.dni}</td>
+                      <td>{val.nombre}</td>
+                      <td>{val.apellido}</td>
+                      <td>{val.posicion}</td>
+                      <td>{val.apodo}</td>
+                      <td>{val.pieHabil}</td>
+                      <td>
+                        <button type="button" className="boton_1"
+                        onClick={()=>{
+                          editarJugador(val);
+                        }}
+                        >Editar</button>
+                        <button onClick={()=>{eliminar(val.idFutbolista)}} className="btn btn-danger">Eliminar</button>
+                        
 
-                        </td>
-                        </tr>
+                      </td>
+                      </tr>
 
-              })}
-          
-          </tbody>
-        </table>
-      </div>
+            })}
+        
+        </tbody>
+      </table>
     </div>
   );
 }

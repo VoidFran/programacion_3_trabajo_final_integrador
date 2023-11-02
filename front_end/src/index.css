@@ -110,8 +110,8 @@ fieldset{
 
 table {
   margin-top: 2rem;
+  
 }
-
 th {
   position: relative;
   padding: 4px;
@@ -230,6 +230,16 @@ td {
   width: 300px;
   margin: 0px;
 }
+.convocados input {
+  width: 20px;
+  margin: 0px;
+}
+
+.tabla{
+  margin-top: 2rem;
+  max-height: 300px; 
+  overflow-y: auto; 
+}
 
 /* Botones */
 .contacto_celda{
@@ -250,6 +260,11 @@ td {
   margin: 0;
   margin-right: 4px;
   margin-bottom: 4px;
+}
+
+.boton_4 {
+  margin: 0;
+  margin-left: 4px;
 }
 /* Botones */
 

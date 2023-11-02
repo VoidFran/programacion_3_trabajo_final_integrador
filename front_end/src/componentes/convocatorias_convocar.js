@@ -26,7 +26,7 @@ export default function Convocados() {
     }
 
     const enviar_informacion = () => {
-        if (convocados_lista.length <= 25) {
+        if (convocados_lista.length === 26) {
             alert("Convocados agregados");
             axios.post(`http://localhost:3005/api/convocar/agregar`, {
                 idConvocatoria: idConvocatoria,
