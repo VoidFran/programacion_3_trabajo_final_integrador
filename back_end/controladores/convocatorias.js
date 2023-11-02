@@ -50,6 +50,10 @@ editar = async(req, res) => {
 eliminar = async(req, res) => {
     const idConvocatoria = req.params.idConvocatoria
 
+    // borro los convocados
+    const consulta = 'DELETE FROM futbolistaConvocatoria WHERE convocatoria = ?'
+    conexion.query(consulta, idConvocatoria)
+
     conexion.query("DELETE FROM convocatoria WHERE idConvocatoria = ?", idConvocatoria,
     (err, result) => {
         if (err) {
