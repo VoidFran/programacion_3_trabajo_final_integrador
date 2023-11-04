@@ -1,9 +1,8 @@
 const {Router} = require("express");
 
-const {buscar, agregar, editar, eliminar} = require("../controladores/futbolistas");
+const {subir} = require("../controladores/archivo")
 
 const router = Router();
-
 
 const multer = require('multer');
 const path = require('path');
@@ -21,10 +20,6 @@ const upload = multer({
     storage: storage
 });
 
-router
-    .get("/futbolistas/buscar", buscar)
-    .post("/futbolistas/agregar", upload.single("imagen"), agregar)
-    .put("/futbolistas/editar", upload.single("imagen"), editar)
-    .put("/futbolistas/eliminar/:idFutbolista", eliminar)
+router.post("/archivo/subir", upload.single("image"), subir);
 
 module.exports = router;

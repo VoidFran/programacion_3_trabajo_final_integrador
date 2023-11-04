@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
 
-
-
 export default function Jugadores() {
   const [idFutbolista, setIdFutbolista] = useState();
   const [dni, setDni] = useState("");
@@ -16,36 +14,26 @@ export default function Jugadores() {
   const [jugadoresLista, setJugadores] = useState([]);
   
   const [editar, setEditar] = useState(false);
-
-  const [modal_abierto, modal_cerrado] = useState(false)
-
-  const ModalFoto = ({abierto, cerrado}) => {
-    if (!abierto) return null
-    
-    return (
-    <div>
-        <div className="contenedor">
-            <div className="jugadores_foto">
-              <img onClick={()=>{setFoto("jugador_ninguna.png")}} alt="" src={require(`../imagenes/jugador_ninguna.png`)}/>
-              <img onClick={()=>{setFoto("jugador_1.png")}} alt="" src={require(`../imagenes/jugador_1.png`)}/>
-              <img onClick={()=>{setFoto("jugador_2.png")}} alt="" src={require(`../imagenes/jugador_2.png`)}/>
-              <img onClick={()=>{setFoto("jugador_3.png")}} alt="" src={require(`../imagenes/jugador_3.png`)}/>
-              <img onClick={()=>{setFoto("jugador_4.png")}} alt="" src={require(`../imagenes/jugador_4.png`)}/>
-              <img onClick={()=>{setFoto("jugador_5.png")}} alt="" src={require(`../imagenes/jugador_5.png`)}/>
-              <img onClick={()=>{setFoto("jugador_6.png")}} alt="" src={require(`../imagenes/jugador_6.png`)}/>
-              <img onClick={()=>{setFoto("jugador_7.png")}} alt="" src={require(`../imagenes/jugador_7.png`)}/>
-              <img onClick={()=>{setFoto("jugador_8.png")}} alt="" src={require(`../imagenes/jugador_8.png`)}/>
-            </div>
-            <button onClick={cerrado}>cerrar</button>
-        </div>
-    </div>)
-  }
+  
+  const [archivo, setArchivo] = useState(null);
 
   const add = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png" && posicion !== "" && pieHabil !== "") {
+    const formdata = new FormData();
+    formdata.append("imagen", archivo)
+    formdata.append("idFutbolista", idFutbolista)
+    formdata.append("dni", dni)
+    formdata.append("nombre", nombre)
+    formdata.append("apellido", apellido)
+    formdata.append("posicion", posicion)
+    formdata.append("apodo", apodo)
+    formdata.append("foto", foto)
+    formdata.append("pieHabil", pieHabil)
+    formdata.append("activo", "1")
+    setFoto(formdata)
+
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && posicion !== "" && pieHabil !== "") {
       alert("Jugador agregado");
-      modal_cerrado(false)
-      Axios.post("http://localhost:3005/api/futbolistas/agregar", {
+      Axios.post("http://localhost:3005/api/futbolistas/agregar", formdata, {
         dni: dni,
         nombre: nombre,
         apellido: apellido,
@@ -68,19 +56,22 @@ export default function Jugadores() {
 
   
   const update = () => {
-    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && foto !== "jugador_ninguna.png") {
+    const formdata = new FormData();
+    formdata.append("imagen", archivo)
+    formdata.append("idFutbolista", idFutbolista)
+    formdata.append("dni", dni)
+    formdata.append("nombre", nombre)
+    formdata.append("apellido", apellido)
+    formdata.append("posicion", posicion)
+    formdata.append("apodo", apodo)
+    formdata.append("foto", foto)
+    formdata.append("pieHabil", pieHabil)
+    formdata.append("activo", "1")
+    setFoto(formdata)
+
+    if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && archivo !== null) {
       alert("Jugador editado")
-      modal_cerrado(false)
-      Axios.put("http://localhost:3005/api/futbolistas/editar", {
-        idFutbolista: idFutbolista,
-        dni: dni,
-        nombre: nombre,
-        apellido: apellido,
-        posicion: posicion,
-        apodo: apodo,
-        foto: foto,
-        pieHabil: pieHabil,
-        activo: "1",
+      Axios.put(`http://localhost:3005/api/futbolistas/editar`, formdata, {
       }).then(() => {
         setJugadores([]);
         getJugador();
@@ -139,6 +130,23 @@ export default function Jugadores() {
 
   getJugador();
 
+  const cambiar_archivo = (e) => {
+    setArchivo(e.target.files[0]);
+  };
+
+  const subir_archivo = () => {
+    const formdata = new FormData();
+    formdata.append("image", archivo)
+    setFoto(formdata)
+
+    Axios.post("http://localhost:3005/api/subir", formdata).then((res) => {
+      alert("Imagen subida", res)
+    })
+    .catch(error => {
+        alert("Error al subir imagen", error)
+    })
+  };
+
   return (
     <div>
       <div className="contacto_celda">
@@ -168,11 +176,10 @@ export default function Jugadores() {
       </div>
 
       <div className="contacto_celda">
-        <label>Foto:</label><img alt = "" src={require(`../imagenes/${foto}`)}/>
+        <label>Foto:</label>
         
-        <button onClick={() => modal_cerrado(true)}>abrir</button>
-        <ModalFoto abierto={modal_abierto} cerrado={() => modal_cerrado(false)}></ModalFoto>
-      </div>
+        <input type="file" className="archivo" onChange={cambiar_archivo}></input>
+      </div>        
 
       <div className="contacto_celda">
         <label>Pie Hábil:</label><select value={pieHabil} onChange={(evento) => {setPieHabil(evento.target.value)}}>
@@ -211,7 +218,7 @@ export default function Jugadores() {
           {jugadoresLista.map((val, key) => {
               return <tr key ={val.idFutbolista}>
                       <th>{val.idFutbolista}</th>
-                      <td><img alt = "" src={require(`../imagenes/${val.foto}`)}/></td>
+                      <td className="futbolista_imagen"><img alt="error" src={`http://localhost:3005/imagenes/` + val.foto}/></td>
                       <td>{val.dni}</td>
                       <td>{val.nombre}</td>
                       <td>{val.apellido}</td>

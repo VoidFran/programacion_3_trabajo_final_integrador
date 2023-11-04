@@ -30,9 +30,11 @@ agregar = async(req, res) => {
     const apellido = req.body.apellido;
     const posicion = req.body.posicion;
     const apodo = req.body.apodo;
-    const foto = req.body.foto;
+    const foto = req.file.filename;
     const pieHabil = req.body.pieHabil;
     const activo = req.body.activo;
+
+    console.log(req.file)
 
     conexion.query('INSERT INTO futbolista(dni,nombre,apellido,posicion,apodo,foto,pieHabil,activo) VALUES(?,?,?,?,?,?,?,?)',[dni, nombre, apellido, posicion, apodo, foto, pieHabil, activo],
     (err,result)=>{
@@ -51,9 +53,11 @@ editar = async(req, res) => {
     const apellido = req.body.apellido;
     const posicion = req.body.posicion;
     const apodo = req.body.apodo;
-    const foto = req.body.foto;
+    const foto = req.file.filename;
     const pieHabil = req.body.pieHabil;
     const activo = req.body.activo;
+
+    console.log(req.file)
 
     conexion.query('UPDATE futbolista SET dni=?,nombre=?,apellido=?,posicion=?,apodo=?,foto=?,pieHabil=?,activo=? WHERE idFutbolista=?',[dni, nombre, apellido, posicion, apodo, foto, pieHabil, activo, idFutbolista],
     (err,result)=>{

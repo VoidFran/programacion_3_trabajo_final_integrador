@@ -77,7 +77,7 @@ input {
   color: #ffffff;
   background-color: #155fd9;
   border: 2px solid #64b0ff;
-  width: 200px;
+  width: 300px;
   margin-left: 8px;
 }
 
@@ -100,7 +100,7 @@ select {
   color: #ffffff;
   background-color: #155fd9;
   border: 2px solid #64b0ff;
-  width: 200px;
+  width: 300px;
   margin-left: 8px;
 }
 
@@ -207,6 +207,11 @@ td {
   background-color: #ea9e22;
   cursor: pointer;
 }
+
+.futbolista_imagen img {
+  width: 64px;
+  height: 64px;
+}
 /* Inicio */
 
 /* Institucional */
@@ -239,6 +244,10 @@ td {
   margin-top: 2rem;
   max-height: 300px; 
   overflow-y: auto; 
+}
+.archivo input {
+  width: 20px;
+  margin: 0px;
 }
 
 /* Botones */

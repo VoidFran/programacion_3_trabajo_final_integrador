@@ -18,8 +18,12 @@ app.use(express.urlencoded({extended:true}))
 
 app.use(cors());
 
+// accede a la carpeta de las imagenes
+app.use(express.static("publico"))
+
 // rutas del api
 const futbolistas = require('./rutas/futbolistas');
+const archivo = require('./rutas/archivo');
 const convocatorias = require('./rutas/convocatorias');
 const rivales = require('./rutas/rivales');
 const convocar = require('./rutas/convocar');
@@ -29,6 +33,7 @@ const contacto = require('./rutas/contacto');
 
 // middleware
 app.use('/api', futbolistas);
+app.use('/api', archivo);
 app.use('/api', convocatorias);
 app.use('/api', rivales);
 app.use('/api', convocar);
@@ -42,6 +47,7 @@ app.get('/', (req, res)=>{
     res.status(200).json(saludo);
 });
 
+// ejecuta el servidor
 app.listen(process.env.PUERTO, ()=>{
     console.log("API prog3 iniciada en el puerto: " + process.env.PUERTO)
 })

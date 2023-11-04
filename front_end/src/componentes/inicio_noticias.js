@@ -6,7 +6,7 @@ export function Noticias() {
     const [noticias, colocar_noticias] = useState([])
     const [valor, colocar_valor] = useState(4)
 
-    const apiKey = "1b30c8a8cfc941faab7715052e3aa5cb"
+    const apiKey = "8ba927222f45468f82df9beeaf884f18"
 
     const url = `https://newsapi.org/v2/everything?q=${tema}&sortBy=publishedAt&pageSize=${valor}&apiKey=${apiKey}&language=es`
 
