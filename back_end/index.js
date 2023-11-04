@@ -1,5 +1,6 @@
 // framework express
 const express = require("express")
+const bodyParser = require('body-parser');
 
 // para gestionar cors
 const cors = require("cors")
@@ -30,6 +31,8 @@ const convocar = require('./rutas/convocar');
 const convocados = require('./rutas/convocados');
 const equipo_titular = require('./rutas/equipo_titular');
 const contacto = require('./rutas/contacto');
+const usuario = require('./rutas/usuario');
+const estadistica = require('./rutas/estadisticas');
 
 // middleware
 app.use('/api', futbolistas);
@@ -40,6 +43,8 @@ app.use('/api', convocar);
 app.use('/api', convocados);
 app.use('/api', equipo_titular);
 app.use('/api', contacto);
+app.use('/api', estadistica);
+app.use(bodyParser.json());
 
 // endpoint de testeo del API
 app.get('/', (req, res)=>{

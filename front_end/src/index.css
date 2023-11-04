@@ -251,6 +251,32 @@ td {
   margin: 0px;
 }
 
+/* Nav */
+.menu ul li a {
+  text-decoration: none; 
+  color:wheat; 
+  font-weight: bold; 
+  border-color: #000000;
+  border-radius: 20px;
+}
+
+.menu ul li a:hover {
+  color: rgb(66, 133, 209); 
+}
+
+/* Estilos para el enlace "Iniciar Sesión" */
+.login-link {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px; 
+  background-color: rgb(66, 133, 209); 
+  color: #fff; 
+  text-decoration: none;
+  border-radius: 0 0 0 20px; 
+  z-index: 999; 
+}
+
 /* Botones */
 .contacto_celda{
   margin-bottom: 8px

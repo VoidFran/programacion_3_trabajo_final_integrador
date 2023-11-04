@@ -11,6 +11,8 @@ import ConvocatoriasConvocados from "./componentes/convocatorias_convocados.js"
 import EquipoTitular from "./componentes/equipo_titular.js"
 import Institucional from "./componentes/institucional.js"
 import Contacto from "./componentes/contacto.js"
+import Estadistica from "./componentes/estadistica.js";
+import Login from "./componentes/login.js";
 import NoEncontrado from "./componentes/no_encontrado.js"
 
 import "./App.css";
@@ -29,6 +31,7 @@ export default function App() {
       <div className="section">
         <Routes>
           <Route path="" element={<Inicio/>}/>
+          <Route path="/login" element={<Login />} />
           <Route path="futbolistas" element={<Futbolistas/>}/>
           <Route path="convocatorias" element={<Convocatorias/>}/>
           <Route path="convocatorias_rivales" element={<ConvocatoriasRivales/>}/>
@@ -37,6 +40,7 @@ export default function App() {
           <Route path="equipo_titular" element={<EquipoTitular/>}/>
           <Route path="institucional" element={<Institucional/>}/>
           <Route path="contacto" element={<Contacto/>}/>
+          <Route path="/estadistica" element={<Estadistica />}/>
           <Route path="*" element={<NoEncontrado/>}/>
         </Routes>
       </div>
