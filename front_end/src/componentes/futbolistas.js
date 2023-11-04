@@ -134,19 +134,6 @@ export default function Jugadores() {
     setArchivo(e.target.files[0]);
   };
 
-  const subir_archivo = () => {
-    const formdata = new FormData();
-    formdata.append("image", archivo)
-    setFoto(formdata)
-
-    Axios.post("http://localhost:3005/api/subir", formdata).then((res) => {
-      alert("Imagen subida", res)
-    })
-    .catch(error => {
-        alert("Error al subir imagen", error)
-    })
-  };
-
   return (
     <div>
       <div className="contacto_celda">

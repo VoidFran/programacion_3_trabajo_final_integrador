@@ -84,8 +84,7 @@ export default function Convocados() {
                 <tbody>
                     {(jugadores_lista.map((indice) => {
                         return <tr key = {indice.idFutbolista}>
-                            <th>{indice.idFutbolista}</th>
-                            <td><img alt = "" src={require(`../imagenes/${indice.foto}`)}/></td>
+                            <th>{indice.idFutbolista}</th><td className="futbolista_imagen"><img alt="error" src={`http://localhost:3005/imagenes/` + indice.foto}/></td>
                             <td>{indice.nombre}</td>
                             <td>{indice.apellido}</td>
                             <td>{indice.posicion}</td>

@@ -41,7 +41,7 @@ export default function EquipoTitular() {
     const titulares = () => {
         if (idConvocatoria !== "") {
             axios.get(`http://localhost:3005/api/equipo_titular/buscar/${idConvocatoria}`).then((response) => {    
-                if (equipo_titular_lista !== response.data) {
+                if (equipo_titular_lista.length !== response.data) {
                     estado_equipo_titular_lista(response.data)
                 }
             })
