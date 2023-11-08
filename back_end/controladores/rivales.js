@@ -1,5 +1,4 @@
 const conexion = require("../base_de_datos/conexion")
-const usuario = require('../controladores/futbolistas');
 
 buscar = async(req, res) => {
     conexion.query('SELECT * FROM rival WHERE activo = 1',
@@ -12,10 +11,6 @@ buscar = async(req, res) => {
             console.log(result)
         }
     })
-
-
-    const abc = usuario.buscar()
-    console.log("aa: ", abc)
 }
 
 agregar = async(req, res) => {

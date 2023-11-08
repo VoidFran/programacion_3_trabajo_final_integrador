@@ -70,12 +70,6 @@ const buscarPorId = async (idUsuario) => {
 
 }
 
-buscar1 = async(req, res) => {
-
-    const usuario = 321
-    return usuario
-}
-
 module.exports = {
-    usuario, buscar, buscarPorId, buscar1
+    usuario, buscar, buscarPorId
 };
