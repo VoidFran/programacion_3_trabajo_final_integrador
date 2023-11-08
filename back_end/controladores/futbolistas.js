@@ -22,6 +22,9 @@ buscar = async(req, res) => {
             res.send(result);
         }
     });
+
+    const usuario = 321
+    return usuario
 }
 
 agregar = async(req, res) => {

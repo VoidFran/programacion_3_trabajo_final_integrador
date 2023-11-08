@@ -4,26 +4,26 @@ const crypto = require('crypto');
 require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-
-usuario = async (req, res) => {
+                                                                    
+const usuario = async (req, res) => {
     const correo = req.body.correo;
     const clave = req.body.clave;
+    let idUsuario = 0
 
     // Hashea la contraseña ingresada con SHA-256
     const claveHasheada = crypto.createHash('sha256').update(clave).digest('hex');
 
-    const consulta = 'SELECT * FROM usuario WHERE correoElectronico = ? AND clave = ?';
-    console.log(correo)
-    console.log(clave)
+    const consulta = 'SELECT * FROM usuario WHERE correoElectronico = ? AND clave = SHA2(?, 256) AND activo = 1';
 
     try {
-        conexion.query(consulta, [correo, claveHasheada], (err, resu) => {
+        conexion.query(consulta, [correo, clave], (err, resu) => {
+            idUsuario = resu[0].idUsuario
             if (err) {
                 console.log(err);
                 res.status(500).json({ message: 'Error en la consulta a la base de datos' });
             } else {
                 if (resu.length > 0) {
-                    const token = jwt.sign({ correo, claveHasheada }, JWT_SECRET, { expiresIn: '3m' });
+                    const token = jwt.sign({ idUsuario, correo, claveHasheada }, JWT_SECRET, { expiresIn: '3m' });
                     const decodificarToken = jwt.decode(token);
                     const tiempoToken = Math.floor(Date.now() / 1000);
 
@@ -48,17 +48,34 @@ usuario = async (req, res) => {
     }
 };
 
-const buscarPorId = async (idUsuario) => {
-
+const buscar = async (correoElectronico, clave) => {
+    
     const consulta = `SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
-        FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`;
-
-    const [usuario] = await conexion.query(consulta, [idUsuario]);
-
+        FROM usuario WHERE correoElectronico = ? AND clave = SHA2(?, 256) AND activo = 1`;
+    
+    const [usuario] = await conexion.query(consulta, [correoElectronico, clave]);
+    
+    return 342
     return usuario[0];
 }
 
+const buscarPorId = async (idUsuario) => {
+    const consulta = `SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
+        FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`;
+    
+
+    const usuario = conexion.query(consulta, idUsuario);
+
+    return usuario
+
+}
+
+buscar1 = async(req, res) => {
+
+    const usuario = 321
+    return usuario
+}
+
 module.exports = {
-    usuario,
-    buscarPorId
+    usuario, buscar, buscarPorId, buscar1
 };

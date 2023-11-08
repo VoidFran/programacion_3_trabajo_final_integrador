@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 
-
-
 export default function Login() {
   const [correo, setCorreo] = useState('');
   const [clave, setClave] = useState('');

@@ -34,16 +34,26 @@ const contacto = require('./rutas/contacto');
 const usuario = require('./rutas/usuario');
 const estadistica = require('./rutas/estadisticas');
 
+// configuracion de passport
+const passport = require("passport")
+require("./config/passport")
+
+const { esEntrenador } = require('./middlewares/esEntrenador');
+const { esPresidente } = require('./middlewares/esPresidente');
+
 // middleware
-app.use('/api', futbolistas);
-app.use('/api', archivo);
-app.use('/api', convocatorias);
+// middleware que contiene las condiciones para dar acceso al recurso
+// recibir un token valido y que sea un perfil "entrenador"
+app.use('/api', contacto);
+app.use('/api', usuario);
 app.use('/api', rivales);
+app.use('/api', [passport.authenticate("jwt", {session: false}), esEntrenador], futbolistas);
+app.use('/api', archivo);
+app.use('/api', [passport.authenticate("jwt", {session: false}), esEntrenador], convocatorias);
 app.use('/api', convocar);
 app.use('/api', convocados);
 app.use('/api', equipo_titular);
-app.use('/api', contacto);
-app.use('/api', estadistica);
+app.use('/api', [passport.authenticate("jwt", {session: false}), esPresidente], estadistica);
 app.use(bodyParser.json());
 
 // endpoint de testeo del API
