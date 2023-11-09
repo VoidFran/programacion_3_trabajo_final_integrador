@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import {useNavigate} from "react-router-dom"
+import { UserContext } from './UserContext';
 
 export default function Login() {
   const [correo, setCorreo] = useState('');
   const [clave, setClave] = useState('');
   const [mensaje, setMensaje] = useState('');
+
+  const navigate = useNavigate()
+  const {setUserData} = useContext(UserContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,9 +37,13 @@ export default function Login() {
   
     axios.post('http://localhost:3005/api/usuario', data, config)
       .then(response => {
+        navigate("/dashboard")
+        console.log(response.data)
+        setUserData({user: response.data.usuario, token: response.data.token})
         if (response.data.token) {
           localStorage.setItem('token', response.data.token);
           setMensaje('Inicio de sesión exitoso');
+          
         } else {
           setMensaje(response.data.message);
         }

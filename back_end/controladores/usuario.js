@@ -8,7 +8,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const usuario = async (req, res) => {
     const correo = req.body.correo;
     const clave = req.body.clave;
+    let usuario = {}
     let idUsuario = 0
+    let tipoUsuario = 0
 
     // Hashea la contraseña ingresada con SHA-256
     const claveHasheada = crypto.createHash('sha256').update(clave).digest('hex');
@@ -17,15 +19,21 @@ const usuario = async (req, res) => {
 
     try {
         conexion.query(consulta, [correo, clave], (err, resu) => {
-            idUsuario = resu[0].idUsuario
+            
             if (err) {
                 console.log(err);
                 res.status(500).json({ message: 'Error en la consulta a la base de datos' });
             } else {
                 if (resu.length > 0) {
-                    const token = jwt.sign({ idUsuario, correo, claveHasheada }, JWT_SECRET, { expiresIn: '3m' });
+                    idUsuario = resu[0].idUsuario
+                    tipoUsuario = resu[0].tipoUsuario
+                    usuario = {idUsuario, tipoUsuario, correo, claveHasheada}
+
+                    const token = jwt.sign(usuario, process.env.JWT_SECRET);
                     const decodificarToken = jwt.decode(token);
                     const tiempoToken = Math.floor(Date.now() / 1000);
+                    console.log(usuario)
+                    return res.json({ usuario, token })
 
                     console.log('Usuario sí existe');
                     res.status(200).json({ message: 'Inicio de sesión exitoso', usuario: token });

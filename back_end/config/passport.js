@@ -40,10 +40,13 @@ passport.use(new JWTStrategy({
         const _consulta = `SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
         FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`;
         const _usuario = conexion.query(_consulta, jwtPayload.idUsuario);
+        
 
         if (_usuario) {
+            console.log("Token correcto")
             return cb(null, _usuario);
         } else {
+            console.log("Token incorrecto")
             return cb(null, false, { message: 'Token incorrecto.' });
         }
     }

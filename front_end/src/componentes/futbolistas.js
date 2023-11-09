@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Axios from "axios";
+import { useContext, useEffect } from 'react';
+import { UserContext } from './UserContext';
 
 export default function Jugadores() {
   const [idFutbolista, setIdFutbolista] = useState();
@@ -16,6 +18,10 @@ export default function Jugadores() {
   const [editar, setEditar] = useState(false);
   
   const [archivo, setArchivo] = useState(null);
+
+
+  const { userData, setUserData } = useContext(UserContext);
+  // datos del usuario logueado
 
   const add = () => {
     const formdata = new FormData();
@@ -118,7 +124,12 @@ export default function Jugadores() {
   }
 
   const getJugador = () => {
-    Axios.get("http://localhost:3005/api/futbolistas/buscar").then((response) => {
+    Axios.get("http://localhost:3005/api/futbolistas/buscar",{
+      headers:{
+          Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+      }
+  })
+  .then((response) => {
       if (jugadoresLista.length !== response.data.length) {
         setJugadores(response.data);
       }
