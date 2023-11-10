@@ -4,7 +4,6 @@ const {buscar, agregar, editar, eliminar} = require("../controladores/futbolista
 
 const router = Router();
 
-
 const multer = require('multer');
 const path = require('path');
 

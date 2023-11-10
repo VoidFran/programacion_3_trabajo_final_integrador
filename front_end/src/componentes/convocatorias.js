@@ -132,7 +132,8 @@ export default function Convocatoria() {
             <div className="contacto_celda">
                 <label>Rival:</label>
                 <select onChange={(evento)=>{estado_rival(evento.target.value)}}>
-                <option>ninguno</option>
+                    <option>ninguno</option>
+
                     {rivales_lista.map((indice)=>{
                         return <option value={indice.idRival}>
                             <option>{indice.nombre}</option>

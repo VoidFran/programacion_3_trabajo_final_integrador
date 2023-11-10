@@ -44,17 +44,17 @@ const { esPresidente } = require('./middlewares/esPresidente');
 // middleware
 // middleware que contiene las condiciones para dar acceso al recurso
 // recibir un token valido y que sea un perfil "entrenador"
+app.use(bodyParser.json());
 app.use('/api', contacto);
 app.use('/api', usuario);
 app.use('/api', rivales);
-app.use('/api', [passport.authenticate("jwt", {session: false}), esEntrenador], futbolistas);
+app.use('/api', futbolistas);
 app.use('/api', archivo);
-app.use('/api', [passport.authenticate("jwt", {session: false}), esEntrenador], convocatorias);
+app.use('/api', convocatorias);
 app.use('/api', convocar);
 app.use('/api', convocados);
 app.use('/api', equipo_titular);
-app.use('/api', [passport.authenticate("jwt", {session: false}), esPresidente], estadistica);
-app.use(bodyParser.json());
+app.use('/api', estadistica);
 
 // endpoint de testeo del API
 app.get('/', (req, res)=>{

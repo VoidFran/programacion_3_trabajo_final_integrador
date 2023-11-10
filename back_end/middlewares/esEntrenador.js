@@ -7,9 +7,6 @@ const esEntrenador = async (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // El token es enviado utilizando "Bearer"
 
-    console.log(authHeader)
-    console.log(token)
-
     if (!token) {
         return res.sendStatus(401); // No autorizado
     }
@@ -28,8 +25,7 @@ const esEntrenador = async (req, res, next) => {
             }
             else {
                 let data
-                data = result[0]
-                console.log("data", data)        
+                data = result[0]       
                 if (data.tipoUsuario != 1) {
                     return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
                 }

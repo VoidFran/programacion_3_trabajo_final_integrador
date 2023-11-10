@@ -230,11 +230,6 @@ td {
   border-radius: 10px;
 }
 /* Institucional */
-
-.equipo_titular select {
-  width: 300px;
-  margin: 0px;
-}
 .convocados input {
   width: 20px;
   margin: 0px;
@@ -280,6 +275,11 @@ td {
 /* Botones */
 .contacto_celda{
   margin-bottom: 8px
+}
+
+.contacto_celda select {
+  width: 300px;
+  margin: 0px;
 }
 
 .boton_1 {

@@ -40,6 +40,9 @@ export default function Jugadores() {
     if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && posicion !== "" && pieHabil !== "") {
       alert("Jugador agregado");
       Axios.post("http://localhost:3005/api/futbolistas/agregar", formdata, {
+        headers:{
+          Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+      },
         dni: dni,
         nombre: nombre,
         apellido: apellido,
@@ -78,6 +81,9 @@ export default function Jugadores() {
     if (dni !== "" && nombre !== "" && apellido !== "" && apodo !== "" && archivo !== null) {
       alert("Jugador editado")
       Axios.put(`http://localhost:3005/api/futbolistas/editar`, formdata, {
+        headers:{
+          Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+      }
       }).then(() => {
         setJugadores([]);
         getJugador();
@@ -92,8 +98,12 @@ export default function Jugadores() {
   const eliminar = (idFutbolista) => {
     alert("Jugador eliminado");
     Axios.put(`http://localhost:3005/api/futbolistas/eliminar/${idFutbolista}`, {
-      activo: "0",
+      headers:{
+      Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+      },
+      activo: "0"
     }).then(() => {
+      alert(8)
       setJugadores([]);
       getJugador();
       limpiar();
@@ -128,13 +138,11 @@ export default function Jugadores() {
       headers:{
           Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
       }
-  })
-  .then((response) => {
+  }).then((response) => {
       if (jugadoresLista.length !== response.data.length) {
         setJugadores(response.data);
       }
-    })
-    .catch(error => {
+    }).catch(error => {
         alert("Error al cargar jugadores", error)
     })
   };

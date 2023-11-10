@@ -38,13 +38,13 @@ export default function App() {
             <Route path="" element={<Inicio/>}/>
             <Route path="login" element={<Login />} />
 
-            <Route path="futbolistas" element={<Futbolistas/>}/>
+            <Route path='futbolistas' element={<ProtectedRoute mustBeEntrenador={true}> {<Futbolistas/>}</ProtectedRoute>}/>
+            <Route path='convocatorias' element={<ProtectedRoute mustBeEntrenador={true}> {<Convocatorias/>}</ProtectedRoute>}/>
+            <Route path='convocatorias_rivales' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasRivales/>}</ProtectedRoute>}/>
+            <Route path='convocatorias_convocar/:idConvocatoria' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasConvocar/>}</ProtectedRoute>}/>
+            <Route path='convocatorias_convocados/:idConvocatoria/:idRival' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasConvocados/>}</ProtectedRoute>}/>
+            <Route path='equipo_titular' element={<ProtectedRoute mustBeEntrenador={true}> {<EquipoTitular/>}</ProtectedRoute>}/>
 
-            <Route path="convocatorias" element={<Convocatorias/>}/>
-            <Route path="convocatorias_rivales" element={<ConvocatoriasRivales/>}/>
-            <Route path="convocatorias_convocar/:idConvocatoria" element={<ConvocatoriasConvocar/>}/>
-            <Route path="convocatorias_convocados/:idConvocatoria/:idRival" element={<ConvocatoriasConvocados/>}/>
-            <Route path="equipo_titular" element={<EquipoTitular/>}/>
             <Route path="institucional" element={<Institucional/>}/>
             <Route path="contacto" element={<Contacto/>}/>
             <Route path="dashboard" element={<Dashboard/>}/>
@@ -52,7 +52,7 @@ export default function App() {
             <Route path='estadistica' 
               element={
                 // ruta protegida para usuarios logueados de tipo entrenador
-                <ProtectedRoute mustBeEntrenador={true}>
+                <ProtectedRoute mustBePresidente={true}>
                   {<Estadistica/>}
                 </ProtectedRoute>
             }/>

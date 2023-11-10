@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const crypto = require('crypto');
 require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET;
-
                                                                     
 const usuario = async (req, res) => {
     const correo = req.body.correo;
@@ -32,7 +31,6 @@ const usuario = async (req, res) => {
                     const token = jwt.sign(usuario, process.env.JWT_SECRET);
                     const decodificarToken = jwt.decode(token);
                     const tiempoToken = Math.floor(Date.now() / 1000);
-                    console.log(usuario)
                     return res.json({ usuario, token })
 
                     console.log('Usuario sí existe');

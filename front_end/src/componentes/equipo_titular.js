@@ -57,16 +57,18 @@ export default function EquipoTitular() {
 
     return (
         <div>
-            <div className="equipo_titular">
+            <div className="contacto_celda">
                 <select onChange={(evento)=>{estado_idConvocatoria(evento.target.value)}}>
                     <option>ninguno</option>
-                        {convocatorias_lista.map((indice)=>{
-                            return <option value={indice.idConvocatoria}>
-                                <option>Fecha: {formato_fecha(indice.fecha)} / </option>
-                                <option>Rival: {casteo(indice.rival)}</option>
-                            </option>
-                        })}
+                
+                    {convocatorias_lista.map((indice)=>{
+                        return <option value={indice.idConvocatoria}>
+                            <option>Fecha: {formato_fecha(indice.fecha)} / </option>
+                            <option>Rival: {casteo(indice.rival)}</option>
+                        </option>
+                    })}
                 </select>
+            
             </div>
 
             <table>

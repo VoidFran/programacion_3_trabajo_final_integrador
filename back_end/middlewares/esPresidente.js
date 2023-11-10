@@ -16,16 +16,21 @@ const esPresidente = async (req, res, next) => {
         if (err) {
             return res .status(403).send({ status: "Fallo", data: { error: "Token inválido." } }); // Token inválido
         }
-
-        const data = await conexion.buscarPorId(usuario.idUsuario);
-
-        // tipoUsuario = 0 presidente | decano
-        // tipoUsuario = 1 entrenador | bedel
-        if (data.tipoUsuario != 0) {
-            return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
-        }
-
-        next();
+        conexion.query(`SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
+        FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`, usuario.idUsuario,
+        (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                let data
+                data = result[0]
+                if (data.tipoUsuario != 0) {
+                    return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
+                }
+                next();
+            }
+        })
     });
 };
 

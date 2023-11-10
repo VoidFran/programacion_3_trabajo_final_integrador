@@ -17,7 +17,6 @@ passport.use(new LocalStrategy({
     (correoElectronico, clave, cb) => {
         try {
             const _usuario = _usuario.buscar(correoElectronico, clave);
-            console.log("asda: ", _usuario)
             if (!_usuario) {
                 return cb(null, false, { message: 'Nombre de usuario y/o contraseña incorrectos.' });
             } else {
