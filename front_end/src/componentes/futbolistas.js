@@ -184,7 +184,7 @@ export default function Jugadores() {
       <div className="contacto_celda">
         <label>Foto:</label>
         
-        <input type="file" className="archivo" onChange={cambiar_archivo}></input>
+        <input type="file" className="archivo" accept=".jpg, jpeg, .png, .mbp, .gif" onChange={cambiar_archivo}></input>
       </div>        
 
       <div className="contacto_celda">

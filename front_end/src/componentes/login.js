@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 import {useNavigate} from "react-router-dom"
 import { UserContext } from './UserContext';
+import { useContext } from 'react';
 
 export default function Login() {
   const [correo, setCorreo] = useState('');
@@ -10,7 +11,9 @@ export default function Login() {
   const [mensaje, setMensaje] = useState('');
 
   const navigate = useNavigate()
-  const {setUserData} = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
+
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();

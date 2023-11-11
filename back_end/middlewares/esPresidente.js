@@ -23,6 +23,7 @@ const esPresidente = async (req, res, next) => {
                 console.log(err)
             }
             else {
+                console.log("archivo presidente")
                 let data
                 data = result[0]
                 if (data.tipoUsuario != 0) {

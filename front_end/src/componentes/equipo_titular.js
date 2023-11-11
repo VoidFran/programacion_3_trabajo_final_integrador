@@ -1,11 +1,15 @@
 import {useState} from "react"
 import axios from "axios"
+import { UserContext } from './UserContext';
+import { useContext } from 'react';
 
 export default function EquipoTitular() {
     const [idConvocatoria, estado_idConvocatoria] = useState("")
     const [convocatorias_lista, estado_convocatorias_lista] = useState([])
     const [rivales_lista, estado_rivales_lista] = useState([])
     const [equipo_titular_lista, estado_equipo_titular_lista] = useState([])
+    
+    const { userData, setUserData } = useContext(UserContext);
 
     function formato_fecha(fecha_hora) {
         const fecha = new Date(fecha_hora)
@@ -21,7 +25,11 @@ export default function EquipoTitular() {
     }
 
     const convocatorias = () => {
-        axios.get("http://localhost:3005/api/convocatorias/buscar").then((response) => {
+        axios.get("http://localhost:3005/api/convocatorias/buscar",{
+            headers:{
+                Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+            }
+        }).then((response) => {
             estado_convocatorias_lista(response.data)
         })
         .catch(error => {
@@ -30,7 +38,11 @@ export default function EquipoTitular() {
     }
 
     const rivales = () => {
-        axios.get("http://localhost:3005/api/rivales/buscar").then((response) => {
+        axios.get("http://localhost:3005/api/rivales/buscar",{
+            headers:{
+                Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+            }
+        }).then((response) => {
             estado_rivales_lista(response.data)
         })
         .catch(error => {
@@ -40,7 +52,11 @@ export default function EquipoTitular() {
     
     const titulares = () => {
         if (idConvocatoria !== "") {
-            axios.get(`http://localhost:3005/api/equipo_titular/buscar/${idConvocatoria}`).then((response) => {    
+            axios.get(`http://localhost:3005/api/equipo_titular/buscar/${idConvocatoria}`,{
+                headers:{
+                    Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+                }
+            }).then((response) => {    
                 if (equipo_titular_lista.length !== response.data) {
                     estado_equipo_titular_lista(response.data)
                 }

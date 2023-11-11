@@ -24,49 +24,49 @@ import { ProtectedRoute } from './componentes/ProtectedRoute.jsx';
 export default function App() {
   return (
     <div className="grid_cuardicula">
-      <div className="nav">
-        <div className="grid_item">
-          <div className="grid_contenedor">
-            <Menu/>
+      <UserProvider>
+        <div className="nav">
+          <div className="grid_item">
+            <div className="grid_contenedor">
+              <Menu/>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="section">
-        <UserProvider>
-          <Routes>
-            <Route path="" element={<Inicio/>}/>
-            <Route path="login" element={<Login />} />
+        <div className="section">
+            <Routes>
+              <Route path="" element={<Inicio/>}/>
+              <Route path="login" element={<Login />} />
 
-            <Route path='futbolistas' element={<ProtectedRoute mustBeEntrenador={true}> {<Futbolistas/>}</ProtectedRoute>}/>
-            <Route path='convocatorias' element={<ProtectedRoute mustBeEntrenador={true}> {<Convocatorias/>}</ProtectedRoute>}/>
-            <Route path='convocatorias_rivales' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasRivales/>}</ProtectedRoute>}/>
-            <Route path='convocatorias_convocar/:idConvocatoria' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasConvocar/>}</ProtectedRoute>}/>
-            <Route path='convocatorias_convocados/:idConvocatoria/:idRival' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasConvocados/>}</ProtectedRoute>}/>
-            <Route path='equipo_titular' element={<ProtectedRoute mustBeEntrenador={true}> {<EquipoTitular/>}</ProtectedRoute>}/>
+              <Route path='futbolistas' element={<ProtectedRoute mustBeEntrenador={true}> {<Futbolistas/>}</ProtectedRoute>}/>
+              <Route path='convocatorias' element={<ProtectedRoute mustBeEntrenador={true}> {<Convocatorias/>}</ProtectedRoute>}/>
+              <Route path='convocatorias_rivales' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasRivales/>}</ProtectedRoute>}/>
+              <Route path='convocatorias_convocar/:idConvocatoria' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasConvocar/>}</ProtectedRoute>}/>
+              <Route path='convocatorias_convocados/:idConvocatoria/:idRival' element={<ProtectedRoute mustBeEntrenador={true}> {<ConvocatoriasConvocados/>}</ProtectedRoute>}/>
+              <Route path='equipo_titular' element={<ProtectedRoute mustBeEntrenador={true}> {<EquipoTitular/>}</ProtectedRoute>}/>
 
-            <Route path="institucional" element={<Institucional/>}/>
-            <Route path="contacto" element={<Contacto/>}/>
-            <Route path="dashboard" element={<Dashboard/>}/>
+              <Route path="institucional" element={<Institucional/>}/>
+              <Route path="contacto" element={<Contacto/>}/>
+              <Route path="dashboard" element={<Dashboard/>}/>
 
-            <Route path='estadistica' 
-              element={
-                // ruta protegida para usuarios logueados de tipo entrenador
-                <ProtectedRoute mustBePresidente={true}>
-                  {<Estadistica/>}
-                </ProtectedRoute>
-            }/>
-            
-            <Route path="*" element={<NoEncontrado/>}/>
-          </Routes>
-        </UserProvider>
-      </div>
-
-      <div className="footer">            
-        <div>
-            <p>Copyright© 2023 AFA / Todos los derechos reservados</p>
+              <Route path='estadistica' 
+                element={
+                  // ruta protegida para usuarios logueados de tipo entrenador
+                  <ProtectedRoute mustBePresidente={true}>
+                    {<Estadistica/>}
+                  </ProtectedRoute>
+              }/>
+              
+              <Route path="*" element={<NoEncontrado/>}/>
+            </Routes>
         </div>
-      </div>
+
+        <div className="footer">            
+          <div>
+              <p>Copyright© 2023 AFA / Todos los derechos reservados</p>
+          </div>
+        </div>
+      </UserProvider>
     </div>
   )
 }
