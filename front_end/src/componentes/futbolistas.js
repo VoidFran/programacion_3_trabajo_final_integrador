@@ -103,7 +103,6 @@ export default function Jugadores() {
       },
       activo: "0"
     }).then(() => {
-      alert(8)
       setJugadores([]);
       getJugador();
       limpiar();

@@ -56,6 +56,8 @@ app.use('/api', convocados);
 app.use('/api', equipo_titular);
 app.use('/api', estadistica);
 
+// Funciona raro el passport, ej: en el de estadistica cuando pongo esPresidente, entra en el archivo de esEntrenador
+
 // endpoint de testeo del API
 app.get('/', (req, res)=>{
     const saludo = {estado:true, mensaje:'bienvenido!'}

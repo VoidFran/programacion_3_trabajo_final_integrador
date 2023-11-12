@@ -31,7 +31,7 @@ export default function Menu() {
 
             <ul>{ userData ? 
                 <li className="login-link">
-                    <Link to="" onClick={handleCerrar}>Cerrar Sesión</Link>
+                    <Link to="login" onClick={handleCerrar}>Cerrar Sesión</Link>
                 </li>
             :
                 <li className="login-link">

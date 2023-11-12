@@ -31,10 +31,10 @@ const usuario = async (req, res) => {
                     const token = jwt.sign(usuario, process.env.JWT_SECRET);
                     const decodificarToken = jwt.decode(token);
                     const tiempoToken = Math.floor(Date.now() / 1000);
+
                     return res.json({ usuario, token })
 
                     console.log('Usuario sí existe');
-                    res.status(200).json({ message: 'Inicio de sesión exitoso', usuario: token });
                     console.log(token);
                     console.log(decodificarToken);
                     if (decodificarToken.exp && decodificarToken.exp < tiempoToken) {
@@ -54,28 +54,6 @@ const usuario = async (req, res) => {
     }
 };
 
-const buscar = async (correoElectronico, clave) => {
-    
-    const consulta = `SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
-        FROM usuario WHERE correoElectronico = ? AND clave = SHA2(?, 256) AND activo = 1`;
-    
-    const [usuario] = await conexion.query(consulta, [correoElectronico, clave]);
-    
-    return 342
-    return usuario[0];
-}
-
-const buscarPorId = async (idUsuario) => {
-    const consulta = `SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
-        FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`;
-    
-
-    const usuario = conexion.query(consulta, idUsuario);
-
-    return usuario
-
-}
-
 module.exports = {
-    usuario, buscar, buscarPorId
+    usuario
 };
