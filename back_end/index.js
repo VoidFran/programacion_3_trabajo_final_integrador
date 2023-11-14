@@ -56,7 +56,7 @@ app.use('/api', convocados);
 app.use('/api', equipo_titular);
 app.use('/api', estadistica);
 
-// Funciona raro el passport, ej: en el de estadistica cuando pongo esPresidente, entra en el archivo de esEntrenador
+// Funciona raro el passport, ej: en el de estadistica cuando pongo esPresidente, funciona, pero cuando agrego el de futbolistas, ya no funciona el de estadisticas, entra en el archivo de esEntrenador
 
 // endpoint de testeo del API
 app.get('/', (req, res)=>{
