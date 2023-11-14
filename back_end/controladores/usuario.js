@@ -28,7 +28,7 @@ const usuario = async (req, res) => {
                     tipoUsuario = resu[0].tipoUsuario
                     usuario = {idUsuario, tipoUsuario, correo, claveHasheada}
 
-                    const token = jwt.sign(usuario, process.env.JWT_SECRET);
+                    const token = jwt.sign(usuario, process.env.JWT_SECRET, { expiresIn: '3m' });
                     const decodificarToken = jwt.decode(token);
                     const tiempoToken = Math.floor(Date.now() / 1000);
 

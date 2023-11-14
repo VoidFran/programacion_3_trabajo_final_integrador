@@ -16,7 +16,6 @@ const esEntrenador = async (req, res, next) => {
             return res .status(403).send({ status: "Fallo", data: { error: "Token inválido." } }); // Token inválido
         }
 
-
         conexion.query(`SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
         FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`, usuario.idUsuario,
         (err, result) => {
@@ -33,11 +32,8 @@ const esEntrenador = async (req, res, next) => {
                 next();
             }
         })
-
         // tipoUsuario = 0 presidente | decano
         // tipoUsuario = 1 entrenador | bedel
-
-
     });
 };
 

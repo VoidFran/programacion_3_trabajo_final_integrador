@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const esPresidente = async (req, res, next) => {
-
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // El token es enviado utilizando "Bearer"
 
@@ -16,6 +15,7 @@ const esPresidente = async (req, res, next) => {
         if (err) {
             return res .status(403).send({ status: "Fallo", data: { error: "Token inválido." } }); // Token inválido
         }
+
         conexion.query(`SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
         FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`, usuario.idUsuario,
         (err, result) => {
