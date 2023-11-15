@@ -26,9 +26,6 @@ app.use(express.static("publico"))
 const passport = require("passport")
 require("./config/passport")
 
-const { esEntrenador } = require('./middlewares/esEntrenador');
-const { esPresidente } = require('./middlewares/esPresidente');
-
 // rutas del api
 const futbolistas = require('./rutas/futbolistas');
 const archivo = require('./rutas/archivo');
@@ -40,6 +37,9 @@ const equipo_titular = require('./rutas/equipo_titular');
 const contacto = require('./rutas/contacto');
 const usuario = require('./rutas/usuario');
 const estadistica = require('./rutas/estadisticas');
+
+const {esEntrenador} = require("./middlewares/esEntrenador");
+const {esPresidente} = require("./middlewares/esPresidente");
 
 // middleware
 // middleware que contiene las condiciones para dar acceso al recurso

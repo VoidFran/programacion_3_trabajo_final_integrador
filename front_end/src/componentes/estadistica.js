@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useContext} from 'react';
 import { UserContext } from './UserContext';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Estadistica() {
   const [jugadorCount, setJugadorCount] = useState(0);
@@ -80,12 +81,17 @@ export default function Estadistica() {
 
   return (
     <div>
-      <h2>¡Bienvenido Chiqui!</h2>
+      <div className='bienvenida-estadistica'>
+        <h2>¡Bienvenido Chiqui!</h2>
+      </div>
       <h1>Estadísticas de Scaloneta App</h1>
-
-      <p>Total de Jugadores Registrados: {jugadorCount}</p>
-      <p>Total de Convocatorias: {convocatoriaCount}</p>
-      <div>
+      <div className='jugadores-registrados'>
+        <p>Total de Jugadores Registrados: {jugadorCount}</p>
+      </div>
+      <div className='convocatoria-contador'>
+        <p>Total de Convocatorias: {convocatoriaCount}</p>
+      </div>
+      <div className='proxima-fecha'>
         {nextConvocationDate ? (
           <p>Fecha del próximo partido: {formatDate(nextConvocationDate)}</p>
         ) : (

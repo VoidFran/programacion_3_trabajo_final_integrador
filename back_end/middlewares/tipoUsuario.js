@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
-const esEntrenador = async (req, res, next) => {
+const tipoUsuario = async (req, res, next, _tipo) => {
+    console.log("_tipo", _tipo)
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // El token es enviado utilizando "Bearer"
 
@@ -16,7 +17,6 @@ const esEntrenador = async (req, res, next) => {
             return res .status(403).send({ status: "Fallo", data: { error: "Token inválido." } }); // Token inválido
         }
 
-        console.log("usuario", usuario.idUsuario)
         conexion.query(`SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
         FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`, usuario.idUsuario,
         (err, result) => {
@@ -24,20 +24,16 @@ const esEntrenador = async (req, res, next) => {
                 console.log(err)
             }
             else {
-                console.log("archivo entrenador")
+                console.log("archivo presidente")
                 let data
-                data = result[0]       
-                if (data.tipoUsuario != 1) {
-                    console.log(data)
-                    console.log("tipo", data.tipoUsuario)
+                data = result[0]
+                if (data.tipoUsuario != 0) {
                     return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
                 }
                 next();
             }
         })
-        // tipoUsuario = 0 presidente | decano
-        // tipoUsuario = 1 entrenador | bedel
     });
 };
 
-module.exports = { esEntrenador };
+module.exports = { tipoUsuario };

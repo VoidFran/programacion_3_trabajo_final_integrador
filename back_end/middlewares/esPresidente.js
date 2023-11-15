@@ -16,6 +16,7 @@ const esPresidente = async (req, res, next) => {
             return res .status(403).send({ status: "Fallo", data: { error: "Token inválido." } }); // Token inválido
         }
 
+        console.log("usuario", usuario.idUsuario)
         conexion.query(`SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
         FROM usuario as u WHERE u.idUsuario = ? AND activo = 1`, usuario.idUsuario,
         (err, result) => {
@@ -29,6 +30,8 @@ const esPresidente = async (req, res, next) => {
                 if (data.tipoUsuario != 0) {
                     return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
                 }
+                console.log(data)
+                console.log("tipo", data.tipoUsuario)
                 next();
             }
         })
