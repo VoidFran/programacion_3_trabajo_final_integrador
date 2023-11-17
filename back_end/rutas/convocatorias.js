@@ -5,9 +5,9 @@ const {buscar, agregar, editar, eliminar} = require("../controladores/convocator
 const router = Router();
 
 router
-    .get("/convocatorias/buscar", buscar)
-    .post("/convocatorias/agregar", agregar)
-    .put("/convocatorias/editar", editar)
-    .delete("/convocatorias/eliminar/:idConvocatoria", eliminar)
+    .get("/buscar", buscar)
+    .post("/agregar", agregar)
+    .put("/editar", editar)
+    .delete("/eliminar/:idConvocatoria", eliminar)
 
 module.exports = router;

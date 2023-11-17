@@ -21,9 +21,9 @@ const upload = multer({
 });
 
 router
-    .get("/futbolistas/buscar", buscar)
-    .post("/futbolistas/agregar", upload.single("imagen"), agregar)
-    .put("/futbolistas/editar", upload.single("imagen"), editar)
-    .put("/futbolistas/eliminar/:idFutbolista", eliminar)
+    .get("/buscar", buscar)
+    .post("/agregar", upload.single("imagen"), agregar)
+    .put("/editar", upload.single("imagen"), editar)
+    .put("/eliminar/:idFutbolista", eliminar)
 
 module.exports = router;

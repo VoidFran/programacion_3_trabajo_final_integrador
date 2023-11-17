@@ -101,7 +101,7 @@ export default function Jugadores() {
       headers:{
       Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
       },
-      activo: "0"
+      
     }).then(() => {
       setJugadores([]);
       getJugador();

@@ -6,6 +6,6 @@ const router = Router();
 
 router
     .get("/futbolistas/buscar", buscar)
-    .post("/convocar/agregar", agregar)
+    .post("/agregar", agregar)
 
 module.exports = router;

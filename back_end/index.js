@@ -1,6 +1,5 @@
 // framework express
 const express = require("express")
-const bodyParser = require('body-parser');
 
 // para gestionar cors
 const cors = require("cors")
@@ -44,17 +43,16 @@ const {esPresidente} = require("./middlewares/esPresidente");
 // middleware
 // middleware que contiene las condiciones para dar acceso al recurso
 // recibir un token valido y que sea un perfil "entrenador"
-app.use(bodyParser.json());
 app.use('/api', contacto);
 app.use('/api', usuario);
-app.use('/api', rivales);
-app.use('/api', futbolistas);
+app.use('/api/rivales', [passport.authenticate('jwt', {session: false}), esEntrenador],  rivales);
+app.use('/api/futbolistas', [passport.authenticate('jwt', {session: false}), esEntrenador], futbolistas);
 app.use('/api', archivo);
-app.use('/api', convocatorias);
-app.use('/api', convocar);
-app.use('/api', convocados);
-app.use('/api', equipo_titular);
-app.use('/api', [passport.authenticate('jwt', {session: false}), esPresidente], estadistica);
+app.use('/api/convocatorias', [passport.authenticate('jwt', {session: false}), esEntrenador],  convocatorias);
+app.use('/api/convocar', [passport.authenticate('jwt', {session: false}), esEntrenador],  convocar);
+app.use('/api/convocados', [passport.authenticate('jwt', {session: false}), esEntrenador],  convocados);
+app.use('/api/equipo_titular', [passport.authenticate('jwt', {session: false}), esEntrenador], equipo_titular);
+app.use('/api/estadistica', [passport.authenticate('jwt', {session: false}), esPresidente], estadistica);
 // Funciona raro el passport, ej: en el de estadistica cuando pongo esPresidente, funciona, pero cuando agrego el de futbolistas, ya no funciona el de estadisticas, entra en el archivo de esEntrenador apesar de que le ponga esPresidente
 
 // endpoint de testeo del API

@@ -183,6 +183,7 @@ label {
 
 .footer {
   grid-area: footer;
+  color: #ffffff;
   background-color: #002a88;
   border-top: 6px double #155fd9;
   display: flex;

@@ -24,7 +24,7 @@ export default function Login() {
     }
   
     const data = {
-      correo: correo,
+      correoElectronico: correo,
       clave: clave
     };
   
@@ -41,8 +41,8 @@ export default function Login() {
     axios.post('http://localhost:3005/api/usuario', data, config)
       .then(response => {
         navigate("/dashboard")
-        console.log(response.data)
-        setUserData({user: response.data.usuario, token: response.data.token})
+        console.log("response data", response.data)
+        setUserData({user: response.data._usuario, token: response.data.token})
         if (response.data.token) {
           localStorage.setItem('token', response.data.token);
           setMensaje('Inicio de sesión exitoso');

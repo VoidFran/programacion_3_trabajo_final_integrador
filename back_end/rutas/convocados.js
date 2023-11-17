@@ -5,8 +5,8 @@ const {buscar, editar, dorsal} = require("../controladores/convocados");
 const router = Router();
 
 router
-    .get("/convocados/buscar/:idConvocatoria", buscar)
-    .put("/convocados/editar", editar)
-    .put("/convocados/dorsal/:idFutbolistaConvocatoria", dorsal)
+    .get("/buscar/:idConvocatoria", buscar)
+    .put("/editar", editar)
+    .put("/dorsal/:idFutbolistaConvocatoria", dorsal)
 
 module.exports = router;
