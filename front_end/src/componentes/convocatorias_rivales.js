@@ -17,16 +17,18 @@ export default function Convocatoria() {
     // datos del usuario logueado
 
     const agregar_rival = () => {
-        if (nombre !== "" && activo !== "") {
+        if (nombre !== "") {
             alert("Rival agregado")
-            axios.post("http://localhost:3005/api/rivales/agregar", {
-                headers:{
-                    Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
-                }
-            }, {
-                nombre: nombre,
-                activo: activo,
-            }).then(() => {
+            console.log(nombre, activo)
+            axios({
+                method: 'post',
+                url: `http://localhost:3005/api/rivales/agregar`,
+                data: {
+                    nombre: nombre,
+                    activo: activo,},
+                config: { headers: { 'Authorization':`Bearer ${userData.token}`, 'Content-Type': 'multipart/form-data'}, }
+                })
+                .then(() => {
                 rivales()
                 limpiar()
             })
@@ -38,15 +40,16 @@ export default function Convocatoria() {
 
     const editar_rival = () => {
         if (nombre !== "" && activo !== "") {
-            axios.put("http://localhost:3005/api/rivales/editar", {
-                headers:{
-                    Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
-                }
-            }, {
-                idRival: idRival,
-                nombre: nombre,
-                activo: activo,
-            }).then(() => {
+            axios({
+                method: 'post',
+                url: "http://localhost:3005/api/rivales/editar",
+                data: {
+                    idRival: idRival,
+                    nombre: nombre,
+                    activo: activo,},
+                config: { headers: { 'Authorization':`Bearer ${userData.token}`}, }
+                })
+                .then(() => {
                 rivales()
                 limpiar()
                 alert("Rival editado")

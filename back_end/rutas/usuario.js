@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const { usuario } = require("../controladores/usuario");
+const { _usuario } = require("../controladores/usuario");
 const router = Router();
 
 router
-  .post("/login", usuario)
+  .post("/login", _usuario)
 
 module.exports = router;

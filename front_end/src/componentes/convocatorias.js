@@ -20,22 +20,23 @@ export default function Convocatoria() {
 
     const navigate = useNavigate()
  
-    const { userData, setUserData } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
     // datos del usuario logueado
 
     const agregar_convocatoria = () => {
         if (fecha !== "" && rival !== "") {
             alert("Convocatoria agregado")
-            axios.post("http://localhost:3005/api/convocatorias/agregar", {
-                headers:{
-                    Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
-                }
-            }, {
-                fecha: fecha,
-                rival: rival,
-                golesRecibidos: 0,
-                golesConvertidos: 0,
-            }).then(() => {
+            axios({
+                method: 'post',
+                url: 'http://localhost:3005/api/convocatorias/agregar',
+                data: {
+                    fecha: fecha,
+                    rival: rival,
+                    golesRecibidos: 0,
+                    golesConvertidos: 0,},
+                config: { headers: { 'Authorization':`Bearer ${userData.token}`}, }
+                })
+                .then(() => {
                 convocatorias()
                 limpiar()
             })
@@ -47,17 +48,18 @@ export default function Convocatoria() {
 
     const editar_convocatoria = () => {
         if (fecha !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
-            axios.put("http://localhost:3005/api/convocatorias/editar", {
-                headers:{
-                    Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
-                }
-            }, {
-                idConvocatoria: idConvocatoria,
-                fecha: fecha,
-                rival: rival,
-                golesRecibidos: golesRecibidos,
-                golesConvertidos: golesConvertidos,
-            }).then(() => {
+            axios({
+                method: 'put',
+                url: 'http://localhost:3005/api/convocatorias/editar',
+                data: {
+                    idConvocatoria: idConvocatoria,
+                    fecha: fecha,
+                    rival: rival,
+                    golesRecibidos: golesRecibidos,
+                    golesConvertidos: golesConvertidos,},
+                config: { headers: { 'Authorization':`Bearer ${userData.token}`}, }
+                })
+                .then(() => {
                 convocatorias()
                 limpiar()
                 alert("Convocatoria editada")
@@ -120,6 +122,7 @@ export default function Convocatoria() {
     }
 
     const convocatorias = () => {
+        //console.log(userData.token)
         axios.get("http://localhost:3005/api/convocatorias/buscar", {
             headers:{
                 Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
@@ -128,7 +131,6 @@ export default function Convocatoria() {
             estado_convocatorias_lista(response.data)
         })
         .catch(error => {
-            alert("Error al cargar convocatorias", error)
         })
     }
 

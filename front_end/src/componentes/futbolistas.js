@@ -88,10 +88,11 @@ export default function Jugadores() {
 
   const eliminar = (idFutbolista) => {
     //alert("Jugador eliminado");
-    axios.get(`http://localhost:3005/api/futbolistas/eliminar/${idFutbolista}`, {
+
+    axios.put(`http://localhost:3005/api/futbolistas/eliminar/${idFutbolista}`, {
       headers:{
       Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
-      },
+      }
     }).then(() => {
       setJugadores([]);
       getJugador();

@@ -5,7 +5,7 @@ require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET;
 const passport = require("passport");
                                                                     
-const usuario = async (req, res) => {
+const _usuario = async (req, res) => {
     const correo = req.body.correo;
     const clave = req.body.clave;
 
@@ -14,9 +14,9 @@ const usuario = async (req, res) => {
 
     const consulta = 'SELECT * FROM usuario WHERE correoElectronico = ? AND clave = SHA2(?, 256) AND activo = 1';
     
-    passport.authenticate('local', { session: false }, (err, _usuario, info) => {
+    passport.authenticate('local', { session: false }, (err, usuario, info) => {
         console.log("usuaruio info", info)
-        if (err || !_usuario) {
+        if (err || !usuario) {
             return res.status(400).json({estado:'FALLO', msj:info});
         }
 
@@ -26,12 +26,12 @@ const usuario = async (req, res) => {
             res.send(err);
         }
         
-        const token = jwt.sign(_usuario, process.env.JWT_SECRET);
-        console.log("usuario + token", _usuario, token)
-        return res.json({ _usuario, token });
+        const token = jwt.sign(usuario, process.env.JWT_SECRET);
+        console.log("usuario + token", usuario, token)
+        return res.json({ usuario, token });
     })(req, res);
 };
 
 module.exports = {
-    usuario
+    _usuario
 };

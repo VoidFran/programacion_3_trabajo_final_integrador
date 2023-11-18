@@ -1,11 +1,12 @@
 const {Router} = require("express");
 
-const {agregar} = require("../controladores/convocar");
+const {buscar, agregar} = require("../controladores/convocar");
 
 const router = Router();
 
 router
-    .get("/futbolistas/buscar", buscar)
+    .get("/buscar", buscar)
+    .head("/buscar", buscar)
     .post("/agregar", agregar)
 
 module.exports = router;

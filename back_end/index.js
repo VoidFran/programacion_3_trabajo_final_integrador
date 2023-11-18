@@ -45,15 +45,15 @@ const {esPresidente} = require("./middlewares/esPresidente");
 // recibir un token valido y que sea un perfil "entrenador"
 app.use('/api/contacto', contacto);
 app.use('/api/usuario', usuario);
-app.use('/api/rivales', rivales);
 app.use('/api/futbolistas', [passport.authenticate('jwt', {session: false}), esEntrenador], futbolistas);
 app.use('/api/archivo', archivo);
 app.use('/api/convocatorias', convocatorias);
 app.use('/api/convocar', convocar);
 app.use('/api/convocados', convocados);
+app.use('/api/rivales', rivales);
 app.use('/api/equipo_titular', [passport.authenticate('jwt', {session: false}), esEntrenador], equipo_titular);
 app.use('/api/estadistica', [passport.authenticate('jwt', {session: false}), esPresidente], estadistica);
-// Funciona raro el passport, ej: en el de estadistica cuando pongo esPresidente, funciona, pero cuando agrego el de futbolistas, ya no funciona el de estadisticas, entra en el archivo de esEntrenador apesar de que le ponga esPresidente
+// En algunas rutas no funciona en el front
 
 // endpoint de testeo del API
 app.get('/', (req, res)=>{

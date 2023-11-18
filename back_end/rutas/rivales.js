@@ -7,7 +7,7 @@ const router = Router();
 router
     .get("/buscar", buscar)
     .post("/agregar", agregar)
-    .put("/editar", editar)
+    .post("/editar", editar)
     .delete("/eliminar/:idRival", eliminar)
 
 module.exports = router;

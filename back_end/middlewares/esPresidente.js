@@ -28,7 +28,6 @@ const esPresidente = async (req, res, next) => {
                 let data
                 data = result[0]
                 if (data.tipoUsuario != 0) {
-                    console.log("tipo", data.tipoUsuario)
                     return res.status(403).send({ status: "Fallo", data: { error: "No tiene los privilegios necesarios." } });
                 }
                 next();

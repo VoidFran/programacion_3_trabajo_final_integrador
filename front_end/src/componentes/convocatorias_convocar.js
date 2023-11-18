@@ -50,7 +50,7 @@ export default function Convocados() {
     }
 
     const jugadores = () => {
-        axios.get("http://localhost:3005/api/futbolistas/buscar").then((response) => {
+        axios.get("http://localhost:3005/api/convocar/buscar").then((response) => {
             estado_jugadores_lista(response.data)
         })
         .catch(error => {

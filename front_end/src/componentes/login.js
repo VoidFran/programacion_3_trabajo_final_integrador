@@ -11,7 +11,7 @@ export default function Login() {
   const [mensaje, setMensaje] = useState('');
 
   const navigate = useNavigate()
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   
 
@@ -42,7 +42,7 @@ export default function Login() {
       .then(response => {
         navigate("/dashboard")
         console.log("response data", response.data)
-        setUserData({user: response.data._usuario, token: response.data.token})
+        setUserData({user: response.data.usuario, token: response.data.token})
         if (response.data.token) {
           localStorage.setItem('token', response.data.token);
           setMensaje('Inicio de sesión exitoso');

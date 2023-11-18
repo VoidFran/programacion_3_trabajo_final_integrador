@@ -24,6 +24,8 @@ router
     .get("/buscar", buscar)
     .post("/agregar", upload.single("imagen"), agregar)
     .put("/editar", upload.single("imagen"), editar)
+    .put("/eliminar/:idFutbolista", eliminar)
     .get("/eliminar/:idFutbolista", eliminar)
+    // en el front no funciona eliminar futbolista con put
 
 module.exports = router;
