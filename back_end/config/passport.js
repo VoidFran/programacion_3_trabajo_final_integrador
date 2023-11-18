@@ -17,7 +17,7 @@ passport.use(new LocalStrategy({
 async (correoElectronico, clave, cb) => {
     try {
         conexion.query(`SELECT idUsuario, nombre, apellido, tipoUsuario, correoElectronico 
-        FROM usuario WHERE correoElectronico = ? AND clave = SHA2(?, 256) AND activo = 1`,[correoElectronico, clave],
+        FROM usuario WHERE correoElectronico = ? AND clave = SHA2(?, 256) AND activo = 1`, [correoElectronico, clave],
         (err, result) => {
             if (err) {
                 console.log(err)

@@ -67,21 +67,21 @@ editar = async(req, res) => {
             res.send(result);
         }
     });
- }
+}
 
- eliminar = async(req, res) => {
+eliminar = async(req, res) => {
     const idFutbolista = req.params.idFutbolista;
-    const activo = req.body.activo;
 
-    conexion.query('UPDATE futbolista SET activo=? WHERE idFutbolista=?',[activo, idFutbolista],
+    conexion.query('UPDATE futbolista SET activo=? WHERE idFutbolista=?',[0, idFutbolista],
     (err,result)=>{
         if(err){
-            console.log(err);
+            console.log("er",err);
         }else{
+            console.log("result",result);
             res.send(result);
         }
     });
- }
+}
 
 module.exports = {
     buscar, agregar, editar, eliminar

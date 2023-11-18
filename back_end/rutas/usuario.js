@@ -3,6 +3,6 @@ const { usuario } = require("../controladores/usuario");
 const router = Router();
 
 router
-  .post("/usuario", usuario)
+  .post("/login", usuario)
 
 module.exports = router;

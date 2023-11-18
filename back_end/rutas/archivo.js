@@ -20,6 +20,6 @@ const upload = multer({
     storage: storage
 });
 
-router.post("/archivo/subir", upload.single("image"), subir);
+router.post("/subir", upload.single("image"), subir);
 
 module.exports = router;

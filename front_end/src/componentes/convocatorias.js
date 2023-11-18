@@ -2,6 +2,9 @@ import {useState} from "react"
 import {Link} from "react-router-dom"
 import {useNavigate} from "react-router-dom"
 import axios from "axios"
+import { useContext } from 'react';
+import { UserContext } from './UserContext';
+
 
 export default function Convocatoria() {
     const [idConvocatoria, estado_idConvocatoria] = useState()
@@ -16,11 +19,18 @@ export default function Convocatoria() {
     const [editar, estado_editar] = useState(false)
 
     const navigate = useNavigate()
+ 
+    const { userData, setUserData } = useContext(UserContext);
+    // datos del usuario logueado
 
     const agregar_convocatoria = () => {
         if (fecha !== "" && rival !== "") {
             alert("Convocatoria agregado")
             axios.post("http://localhost:3005/api/convocatorias/agregar", {
+                headers:{
+                    Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+                }
+            }, {
                 fecha: fecha,
                 rival: rival,
                 golesRecibidos: 0,
@@ -38,6 +48,10 @@ export default function Convocatoria() {
     const editar_convocatoria = () => {
         if (fecha !== "" && golesRecibidos !== "" && golesConvertidos !== "") {
             axios.put("http://localhost:3005/api/convocatorias/editar", {
+                headers:{
+                    Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+                }
+            }, {
                 idConvocatoria: idConvocatoria,
                 fecha: fecha,
                 rival: rival,
@@ -66,6 +80,9 @@ export default function Convocatoria() {
     const eliminar_convocatoria = (idConvocatoria) => {
         alert("Convocatoria eliminada")
         axios.delete(`http://localhost:3005/api/convocatorias/eliminar/${idConvocatoria}`, {
+            headers:{
+                Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+            }
         }).then(() => {
             convocatorias()
             limpiar()
@@ -103,7 +120,11 @@ export default function Convocatoria() {
     }
 
     const convocatorias = () => {
-        axios.get("http://localhost:3005/api/convocatorias/buscar").then((response) => {
+        axios.get("http://localhost:3005/api/convocatorias/buscar", {
+            headers:{
+                Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+            }
+        }).then((response) => {
             estado_convocatorias_lista(response.data)
         })
         .catch(error => {
@@ -112,7 +133,11 @@ export default function Convocatoria() {
     }
 
     const rivales = () => {
-        axios.get("http://localhost:3005/api/rivales/buscar").then((response) => {
+        axios.get("http://localhost:3005/api/rivales/buscar", {
+            headers:{
+                Authorization:`Bearer ${userData.token}` //necesario para la autenticacion del usuario en el api
+            }
+        }).then((response) => {
             estado_rivales_lista(response.data)
         })
         .catch(error => {
