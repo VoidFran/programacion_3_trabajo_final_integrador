@@ -82,7 +82,6 @@ export default function Estadistica() {
   return (
     <div>
       <div className='bienvenida-estadistica'>
-        <h2>¡Bienvenido Chiqui!</h2>
       </div>
       <h1>Estadísticas de Scaloneta App</h1>
       <div className='jugadores-registrados'>

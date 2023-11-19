@@ -23,9 +23,8 @@ export default function Convocatoria() {
     const { userData } = useContext(UserContext);
     // datos del usuario logueado
 
-    const agregar_convocatoria = () => {
+    const agregar_convocatoria = async () => {
         if (fecha !== "" && rival !== "") {
-            alert("Convocatoria agregado")
             axios({
                 method: 'post',
                 url: 'http://localhost:3005/api/convocatorias/agregar',
@@ -39,6 +38,7 @@ export default function Convocatoria() {
                 .then(() => {
                 convocatorias()
                 limpiar()
+                alert("Convocatoria agregado")
             })
         }
         else {
@@ -57,7 +57,7 @@ export default function Convocatoria() {
                     rival: rival,
                     golesRecibidos: golesRecibidos,
                     golesConvertidos: golesConvertidos,},
-                config: { headers: { 'Authorization':`Bearer ${userData.token}`}, }
+                config: { headers: { 'Authorization':`Bearer `+ userData.token}, 'Content-Type': 'application/json'}
                 })
                 .then(() => {
                 convocatorias()

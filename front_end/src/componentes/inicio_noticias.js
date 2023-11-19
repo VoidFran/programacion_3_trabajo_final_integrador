@@ -23,7 +23,7 @@ export function Noticias() {
         <div>
             {noticias ? <NoticiasTabla items={noticias} />: 
                         <div>
-                            Error al cargar noticias
+                            <p>Error al cargar noticias</p>
                         </div>
             }
 

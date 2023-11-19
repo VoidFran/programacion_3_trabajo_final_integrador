@@ -22,11 +22,13 @@ export default function Dashboard() {
         <div className="menu">
             <ul>
                 <ProtectedElement mustBeEntrenador={true}>
+                    <h2>¡Bienvenido {userData.user.nombre}!</h2>
                     <li><Link to="../futbolistas">Futbolistas</Link></li>
                     <li><Link to="../convocatorias">Convocatorias</Link></li>
                     <li><Link to="../equipo_titular">Equipo Titular</Link></li>
                 </ProtectedElement>
                 <ProtectedElement mustBePresidente={true}>
+                    <h2>¡Bienvenido {userData.user.nombre}!</h2>
                     <li><Link to="../estadistica">Estadistica</Link></li>
                 </ProtectedElement>
             </ul>

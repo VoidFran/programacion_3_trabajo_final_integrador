@@ -40,6 +40,12 @@ const estadistica = require('./rutas/estadisticas');
 const {esEntrenador} = require("./middlewares/esEntrenador");
 const {esPresidente} = require("./middlewares/esPresidente");
 
+// endpoint de testeo del API
+app.get('/', (req, res)=>{
+    const saludo = {estado:true, mensaje:'bienvenido!'}
+    res.status(200).json(saludo);
+});
+
 // middleware
 // middleware que contiene las condiciones para dar acceso al recurso
 // recibir un token valido y que sea un perfil "entrenador"
@@ -47,19 +53,14 @@ app.use('/api/contacto', contacto);
 app.use('/api/usuario', usuario);
 app.use('/api/futbolistas', [passport.authenticate('jwt', {session: false}), esEntrenador], futbolistas);
 app.use('/api/archivo', archivo);
-app.use('/api/convocatorias', convocatorias);
+app.use('/api/convocatorias', [passport.authenticate('jwt', {session: false}), esEntrenador], convocatorias);
 app.use('/api/convocar', convocar);
 app.use('/api/convocados', convocados);
 app.use('/api/rivales', rivales);
 app.use('/api/equipo_titular', [passport.authenticate('jwt', {session: false}), esEntrenador], equipo_titular);
-app.use('/api/estadistica', [passport.authenticate('jwt', {session: false}), esPresidente], estadistica);
-// En algunas rutas no funciona en el front
-
-// endpoint de testeo del API
-app.get('/', (req, res)=>{
-    const saludo = {estado:true, mensaje:'bienvenido!'}
-    res.status(200).json(saludo);
-});
+// En algunas rutas sale error 401 no autorizado en el front(como en el de convocatorias), en el back funciona
+//Request failed with status code 401
+//AxiosError: Request failed with status code 401
 
 // ejecuta el servidor
 app.listen(process.env.PUERTO, ()=>{
